@@ -1,0 +1,584 @@
+:root {
+    --bg-black: #020205;
+    --midnight: #080812;
+    --cyan: #00f2ff;
+    --violet: #bc13fe;
+    --text-main: #f8f8f8;
+    --text-dim: rgba(248, 248, 248, 0.4);
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    /* Custom cursor implementation */
+}
+
+body,
+html {
+    width: 100%;
+    min-height: 100%;
+    background-color: var(--bg-black);
+    color: var(--text-main);
+    font-family: var(--font-primary);
+    overflow-x: hidden;
+    letter-spacing: -0.02em;
+}
+
+/* --- Background Matrix & Aurora --- */
+.canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background: radial-gradient(circle at 50% 50%, var(--midnight) 0%, var(--bg-black) 100%);
+}
+
+.aurora-blur {
+    position: absolute;
+    width: 60vw;
+    height: 60vh;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 1;
+    animation: drift 20s infinite alternate-reverse ease-in-out;
+}
+
+.aurora-1 {
+    background: var(--cyan);
+    top: -10%;
+    left: -10%;
+}
+
+.aurora-2 {
+    background: var(--violet);
+    bottom: -10%;
+    right: -10%;
+    animation-delay: -5s;
+}
+
+@keyframes drift {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(10%, 15%) scale(1.2);
+    }
+}
+
+/* --- Custom Cursor --- */
+#cursor-orb {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: difference;
+    /* transition: transform 0.1s ease-out; Removed to prevent lag */
+}
+
+#cursor-aura {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, rgba(188, 19, 254, 0.03) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    /* transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1); */
+}
+
+/* --- Page Transition Overlay --- */
+.page-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-black);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-transition-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* --- Navigation --- */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(2, 2, 5, 0.8), transparent);
+    backdrop-filter: blur(2px);
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: none;
+    /* Changed from lowercase to respect Sarathi Labs */
+    opacity: 0.9;
+    color: var(--text-main);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Space between logo and text */
+}
+
+.logo img {
+    height: 40px;
+    /* Elegant sizing */
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.2));
+    /* Sexy glow */
+}
+
+.nav-links {
+    display: flex;
+    gap: 40px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    transition: opacity 0.4s ease, letter-spacing 0.4s ease, color 0.4s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    opacity: 1;
+    letter-spacing: 0.3em;
+    color: var(--cyan);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+}
+
+/* --- Layout Utilities --- */
+.container {
+    padding: 140px 10% 60px;
+    /* Top padding for fixed nav */
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* --- Headlines --- */
+.page-header {
+    margin-bottom: 60px;
+    animation: fadeIn 1.5s ease-out forwards;
+    text-align: center;
+    /* Centering headers as strictly requested */
+}
+
+.page-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    margin-left: auto;
+    /* Center the block if it has a max-width (like h1) */
+    margin-right: auto;
+}
+
+.fluid-text {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.3));
+    padding-bottom: 0.1em;
+    /* Fixes 'g' cut-off */
+    margin-bottom: -0.1em;
+    vertical-align: baseline;
+    /* Ensure baseline alignment */
+}
+
+/* --- Glass Cards (Services) --- */
+.grid-system {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    perspective: 1000px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.card:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(0, 242, 255, 0.3);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px -10px rgba(0, 242, 255, 0.15);
+}
+
+.card h3 {
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.card-number {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(0, 242, 255, 0.05);
+    /* Increased visibility (was white 0.02) */
+    /* z-index: -1; */
+    pointer-events: none;
+    transition: color 0.4s ease;
+}
+
+.card:hover .card-number {
+    color: rgba(188, 19, 254, 0.1);
+}
+
+/* --- Contact & Forms --- */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.form-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 0;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--cyan);
+}
+
+.form-input:focus+label,
+.form-input:not(:placeholder-shown)+label {
+    transform: translateY(-25px);
+    font-size: 0.7rem;
+    color: var(--cyan);
+}
+
+.form-label {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    color: var(--text-dim);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8rem;
+}
+
+.btn-neon {
+    background: transparent;
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 15px 40px;
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-neon:hover {
+    background: rgba(0, 242, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+    text-shadow: 0 0 8px var(--cyan);
+}
+
+/* --- Hero Specifics --- */
+.hero-main {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10%;
+    z-index: 10;
+}
+
+.hero-main .subtext {
+    margin: 0;
+    text-align: left;
+    /* Strict left alignment for Hero */
+    max-width: 500px;
+    /* Ensure generic max-width doesn't break layout if needed, though global has it */
+}
+
+.tagline {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--cyan);
+    margin-bottom: 24px;
+    opacity: 0.8;
+    text-transform: uppercase;
+    animation: fadeIn 2s ease-out forwards;
+}
+
+h1 {
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    max-width: 900px;
+    margin-bottom: 40px;
+}
+
+.subtext {
+    font-size: 1.1rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text-dim);
+    max-width: 500px;
+    animation: fadeIn 3s ease-out forwards;
+    margin: 0 auto;
+    /* Center alignment globally */
+    text-align: center;
+    /* Center text content */
+}
+
+/* --- Ambient Floating Elements --- */
+.ambient-label {
+    position: absolute;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    color: rgba(255, 255, 255, 0.05);
+    pointer-events: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.label-1 {
+    top: 20%;
+    right: 10%;
+    transform: rotate(90deg);
+}
+
+.label-2 {
+    bottom: 15%;
+    left: 5%;
+}
+
+.label-3 {
+    top: 60%;
+    right: 15%;
+}
+
+/* --- Utilities --- */
+.u-spacing-xl {
+    margin-top: 150px;
+}
+
+.u-spacing-lg {
+    margin-top: 100px;
+}
+
+.u-spacing-md {
+    margin-top: 40px;
+}
+
+.u-text-center {
+    text-align: center;
+}
+
+.u-text-right {
+    text-align: right;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    nav {
+        padding: 30px;
+    }
+
+    .nav-links {
+        display: none;
+        /* Mobile menu could be implemented, but keeping strict to FINAL.html for now unless modified */
+    }
+
+    /* Basic Mobile Menu override for multi-page utility */
+    .nav-links.mobile-active {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: var(--bg-black);
+        justify-content: center;
+        align-items: center;
+        z-index: 99;
+    }
+
+    .hero-main {
+        padding: 0 30px;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .subtext {
+        font-size: 0.9rem;
+    }
+
+    .ambient-label {
+        display: none;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding-top: 120px;
+    }
+
+    /* Spacing Overrides for Mobile */
+    .u-spacing-xl {
+        margin-top: 80px;
+    }
+
+    .u-spacing-lg {
+        margin-top: 60px;
+    }
+}
+
+/* --- Infinite Domain Marquee --- */
+.domain-marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    padding: 60px 0;
+    /* Fade out edges for smoothness */
+    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+}
+
+.domain-track {
+    display: inline-flex;
+    align-items: center;
+    /* Fixes vertical alignment */
+    animation: scroll-left 30s linear infinite;
+}
+
+.domain-item {
+    font-size: 3rem;
+    font-weight: 200;
+    color: rgba(255, 255, 255, 0.2);
+    margin: 0 60px;
+    /* Equal spacing */
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    cursor: default;
+    line-height: 1;
+    /* Reset line height for better centering */
+}
+
+.domain-item:hover {
+    color: var(--cyan);
+    text-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.separator {
+    color: var(--cyan);
+    font-weight: 300;
+    opacity: 0.8;
+    font-size: 1.5rem;
+    /* Slightly smaller for elegance */
+    padding-top: 5px;
+    /* Optical correction for vertical center */
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+    /* vertical-align removed as flex handles it */
+}
+
+@keyframes scroll-left {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}

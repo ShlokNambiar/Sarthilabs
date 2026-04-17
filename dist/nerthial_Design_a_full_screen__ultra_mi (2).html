@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sarthi.labs | Architecting Fluid Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #020205;
+            --accent-cyan: #00f2ff;
+            --accent-violet: #bc00ff;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.4);
+            --glow: rgba(188, 0, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Background & Fluidity --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 50%, #0a0a1a 0%, #020205 100%);
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(100px);
+            pointer-events: none;
+            z-index: 1;
+            transition: transform 0.2s ease-out;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            letter-spacing: -1px;
+            font-size: 1.2rem;
+            text-transform: lowercase;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links span {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            font-weight: 300;
+            color: var(--text-dim);
+            transition: color 0.4s ease, letter-spacing 0.4s ease;
+        }
+
+        .nav-links span:hover {
+            color: var(--text-main);
+            letter-spacing: 0.4em;
+        }
+
+        /* --- Hero Section --- */
+        main {
+            position: relative;
+            z-index: 10;
+            padding: 0 10%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            pointer-events: none;
+        }
+
+        .tagline {
+            font-size: 0.75rem;
+            letter-spacing: 0.5em;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+            animation: fadeIn 2s ease-out;
+        }
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 100;
+            line-height: 1.1;
+            max-width: 900px;
+            margin-bottom: 40px;
+            animation: slideUp 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        h1 span.gradient {
+            display: block;
+            font-weight: 300;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px rgba(188, 0, 255, 0.3));
+        }
+
+        .subtext {
+            max-width: 500px;
+            font-weight: 200;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dim);
+            animation: fadeIn 3s ease-out;
+        }
+
+        /* --- Background Floating Text --- */
+        .ambient-label {
+            position: absolute;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 1em;
+            color: rgba(255, 255, 255, 0.03);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* --- Custom Cursor --- */
+        #cursor-orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: screen;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px white;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+            100% { transform: translate(0, 0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav { padding: 30px; }
+            .nav-links { display: none; }
+            main { padding: 0 30px; }
+            h1 { font-size: 3.5rem; }
+            .subtext { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <div id="cursor-orb"></div>
+        <div class="ambient-glow" id="glow-1"></div>
+        <div class="ambient-label" style="top: 20%; left: 70%; animation: drift 15s infinite ease-in-out;">NEURAL ORCHESTRATION</div>
+        <div class="ambient-label" style="top: 80%; left: 10%; animation: drift 20s infinite ease-in-out reverse;">AUTONOMOUS AGENTS</div>
+        <div class="ambient-label" style="top: 40%; left: -5%; animation: drift 25s infinite ease-in-out;">COGNITIVE SYNAPSE</div>
+    </div>
+
+    <div id="cursor-dot"></div>
+
+    <nav>
+        <div class="logo">sarthi.labs</div>
+        <div class="nav-links">
+            <span>INTELLIGENCE</span>
+            <span>PHILOSOPHY</span>
+            <span>CONTACT</span>
+        </div>
+    </nav>
+
+    <main>
+        <div class="tagline">AUTONOMOUS AGENTS</div>
+        <h1>
+            Architecting
+            <span class="gradient">Fluid Intelligence</span>
+        </h1>
+        <p class="subtext">
+            Sarathi Labs empowers visionaries with weightless AI integration, moving beyond generic computation into iridescent cognitive experiences.
+        </p>
+    </main>
+
+    <script>
+        const orb = document.getElementById('cursor-orb');
+        const dot = document.getElementById('cursor-dot');
+        const glow = document.getElementById('glow-1');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let orbX = 0;
+        let orbY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Immediate dot follow
+            dot.style.left = mouseX + 'px';
+            dot.style.top = mouseY + 'px';
+        });
+
+        // Smooth physics for the spectral orb
+        function animate() {
+            let dx = mouseX - orbX;
+            let dy = mouseY - orbY;
+            
+            orbX += dx * 0.05;
+            orbY += dy * 0.05;
+            
+            orb.style.left = orbX + 'px';
+            orb.style.top = orbY + 'px';
+            
+            // Subtle parallax for the main background glow
+            glow.style.transform = `translate(${orbX * 0.1}px, ${orbY * 0.1}px)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Background Liquid Pulse
+        const labels = document.querySelectorAll('.ambient-label');
+        labels.forEach(label => {
+            label.style.opacity = Math.random() * 0.05 + 0.02;
+        });
+
+        // Interaction logic for subtle text shifts
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelector('h1').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.querySelector('.subtext').style.transform = `translate(${moveX * 0.5}px, ${moveY * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>

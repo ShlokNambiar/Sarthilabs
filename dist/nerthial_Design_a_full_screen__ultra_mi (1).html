@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarathi Labs | Architecting Fluid Intelligence</title>
+    <style>
+        :root {
+            --bg: #000000;
+            --deep-midnight: #020617;
+            --cyan: #a5f3fc;
+            --violet: #c084fc;
+            --text-main: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.5);
+            --text-ghost: rgba(255, 255, 255, 0.04);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Canvas & Background --- */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, transparent 0%, var(--bg) 80%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 300;
+            font-size: 1.1rem;
+            letter-spacing: 0.2em;
+            text-transform: lowercase;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            transition: opacity 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* --- Hero Content --- */
+        main {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            max-width: 1400px;
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            letter-spacing: 0.6em;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            opacity: 0.8;
+            animation: fadeInOut 6s infinite ease-in-out;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 200;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            max-width: 900px;
+        }
+
+        .architecting {
+            display: block;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .fluid-intelligence {
+            display: block;
+            background: linear-gradient(90deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(165, 243, 252, 0.3));
+            animation: drift 10s infinite alternate ease-in-out;
+        }
+
+        .subtext {
+            margin-top: 40px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 500px;
+            font-weight: 300;
+            color: var(--text-dim);
+            letter-spacing: 0.02em;
+        }
+
+        /* --- Ambient Elements --- */
+        .ambient-label {
+            position: absolute;
+            font-size: 0.65rem;
+            letter-spacing: 0.8em;
+            color: var(--text-ghost);
+            text-transform: uppercase;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 2;
+        }
+
+        .label-1 { top: 20%; right: 10%; transform: rotate(90deg); }
+        .label-2 { bottom: 15%; left: 5%; transform: rotate(-90deg); }
+        .label-3 { bottom: 10%; right: 15%; }
+
+        /* --- Cursor --- */
+        #cursor-orb {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease-out;
+        }
+
+        #cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(165, 243, 252, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            transform: translate(-50%, -50%);
+            transition: transform 0.4s cubic-bezier(0.1, 0.5, 0.1, 1);
+        }
+
+        /* --- Animations --- */
+        @keyframes drift {
+            from { filter: drop-shadow(0 0 20px rgba(165, 243, 252, 0.2)); }
+            to { filter: drop-shadow(0 0 40px rgba(192, 132, 252, 0.4)); }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav { padding: 30px; }
+            .nav-links { display: none; }
+            h1 { font-size: 3.5rem; }
+            main { padding: 0 30px; }
+            .ambient-label { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-orb"></div>
+    <div id="cursor-glow"></div>
+
+    <div id="canvas-container">
+        <canvas id="fluidCanvas"></canvas>
+    </div>
+    <div class="gradient-overlay"></div>
+
+    <nav>
+        <div class="logo">sarthi.labs</div>
+        <div class="nav-links">
+            <a href="#">Intelligence</a>
+            <a href="#">Philosophy</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <div class="ambient-label label-1">Neural Orchestration</div>
+    <div class="ambient-label label-2">Autonomous Agents</div>
+    <div class="ambient-label label-3">v.0.1_Crystalline</div>
+
+    <main>
+        <div class="tagline">AUTONOMOUS AGENTS</div>
+        <h1>
+            <span class="architecting">Architecting</span>
+            <span class="fluid-intelligence">Fluid Intelligence</span>
+        </h1>
+        <p class="subtext">
+            Sarathi Labs empowers visionaries with weightless AI integration, moving beyond generic computation into iridescent cognitive experiences.
+        </p>
+    </main>
+
+    <script>
+        // --- Cursor Animation ---
+        const orb = document.getElementById('cursor-orb');
+        const glow = document.getElementById('cursor-glow');
+        let mouseX = 0, mouseY = 0;
+        let ballX = 0, ballY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateCursor() {
+            // Smooth follower for the orb
+            let distX = mouseX - ballX;
+            let distY = mouseY - ballY;
+            ballX += distX * 0.15;
+            ballY += distY * 0.15;
+            orb.style.left = ballX + 'px';
+            orb.style.top = ballY + 'px';
+            orb.style.transform = `translate(-50%, -50%) scale(${1 + Math.hypot(distX, distY) * 0.01})`;
+
+            // Slower smooth follower for the glow
+            glowX += (mouseX - glowX) * 0.05;
+            glowY += (mouseY - glowY) * 0.05;
+            glow.style.left = glowX + 'px';
+            glow.style.top = glowY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // --- Background Fluid-like Waves ---
+        const canvas = document.getElementById('fluidCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 1.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+
+                // Mouse influence
+                let dx = mouseX - this.x;
+                let dy = mouseY - this.y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 200) {
+                    this.x -= dx * 0.01;
+                    this.y -= dy * 0.01;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(165, 243, 252, 0.2)';
+                ctx.fill();
+            }
+        }
+
+        const particles = Array.from({ length: 50 }, () => new Particle());
+
+        function drawWaves(t) {
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw soft background gradient movement
+            const gradient = ctx.createRadialGradient(
+                width / 2 + Math.sin(t / 2000) * 100, 
+                height / 2 + Math.cos(t / 3000) * 100, 
+                0, 
+                width / 2, 
+                height / 2, 
+                width * 0.8
+            );
+            gradient.addColorStop(0, '#020617');
+            gradient.addColorStop(1, '#000000');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Animated light waves
+            ctx.strokeStyle = 'rgba(192, 132, 252, 0.05)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, height * 0.7 + i * 20);
+                for (let x = 0; x < width; x += 10) {
+                    let y = height * 0.7 + Math.sin(x * 0.002 + (t / 1000) + i) * 50;
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(drawWaves);
+        }
+
+        drawWaves(0);
+
+        // --- Parallax for Text ---
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - width / 2) * 0.01;
+            const moveY = (e.clientY - height / 2) * 0.01;
+            
+            document.querySelector('h1').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.querySelector('.subtext').style.transform = `translate(${moveX * 0.5}px, ${moveY * 0.5}px)`;
+            
+            const labels = document.querySelectorAll('.ambient-label');
+            labels.forEach((label, i) => {
+                const speed = (i + 1) * 0.2;
+                label.style.transform += ` translate(${moveX * speed}px, ${moveY * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarathi Labs | Fluid Intelligence</title>
+    <style>
+        :root {
+            --bg-black: #020205;
+            --midnight: #080812;
+            --cyan: #00f2ff;
+            --violet: #bc13fe;
+            --text-main: #f8f8f8;
+            --text-dim: rgba(248, 248, 248, 0.4);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Custom cursor implementation */
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: var(--font-primary);
+            overflow: hidden;
+            letter-spacing: -0.02em;
+        }
+
+        /* --- Background Matrix & Aurora --- */
+        .canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 50% 50%, var(--midnight) 0%, var(--bg-black) 100%);
+        }
+
+        .aurora-blur {
+            position: absolute;
+            width: 60vw;
+            height: 60vh;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            animation: drift 20s infinite alternate-reverse ease-in-out;
+        }
+
+        .aurora-1 { background: var(--cyan); top: -10%; left: -10%; }
+        .aurora-2 { background: var(--violet); bottom: -10%; right: -10%; animation-delay: -5s; }
+
+        @keyframes drift {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(10%, 15%) scale(1.2); }
+        }
+
+        /* --- Custom Cursor --- */
+        #cursor-orb {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease-out;
+        }
+
+        #cursor-aura {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.08) 0%, rgba(188, 19, 254, 0.03) 40%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: lowercase;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            transition: opacity 0.4s ease, letter-spacing 0.4s ease;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            letter-spacing: 0.3em;
+        }
+
+        /* --- Hero Content --- */
+        main {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            z-index: 10;
+        }
+
+        .tagline {
+            font-size: 0.7rem;
+            letter-spacing: 0.4em;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 300;
+            line-height: 1.1;
+            max-width: 900px;
+            margin-bottom: 40px;
+        }
+
+        .fluid-text {
+            display: block;
+            background: linear-gradient(90deg, var(--cyan), var(--violet));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.3));
+        }
+
+        .subtext {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--text-dim);
+            max-width: 500px;
+            animation: fadeIn 3s ease-out forwards;
+        }
+
+        /* --- Ambient Floating Elements --- */
+        .ambient-label {
+            position: absolute;
+            font-size: 0.65rem;
+            letter-spacing: 0.5em;
+            color: rgba(255, 255, 255, 0.05);
+            pointer-events: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .label-1 { top: 20%; right: 10%; transform: rotate(90deg); }
+        .label-2 { bottom: 15%; left: 5%; }
+        .label-3 { top: 60%; right: 15%; }
+
+        /* --- Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            nav { padding: 30px; }
+            .nav-links { display: none; }
+            main { padding: 0 30px; }
+            h1 { font-size: 3.5rem; }
+            .subtext { font-size: 0.9rem; }
+            .ambient-label { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor-orb"></div>
+    <div id="cursor-aura"></div>
+
+    <div class="canvas-container">
+        <canvas id="fluid-canvas"></canvas>
+        <div class="aurora-blur aurora-1"></div>
+        <div class="aurora-blur aurora-2"></div>
+    </div>
+
+    <nav>
+        <div class="logo">sarthi.labs</div>
+        <div class="nav-links">
+            <a href="#">Intelligence</a>
+            <a href="#">Philosophy</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+
+    <div class="ambient-label label-1">Neural Orchestration</div>
+    <div class="ambient-label label-2">Autonomous Agents</div>
+    <div class="ambient-label label-3">Cognitive Synesthesia</div>
+
+    <main>
+        <div class="tagline">Autonomous Agents</div>
+        <h1>
+            Architecting <br>
+            <span class="fluid-text">Fluid Intelligence</span>
+        </h1>
+        <p class="subtext">
+            Sarathi Labs empowers visionaries with weightless AI integration, 
+            moving beyond generic computation into iridescent cognitive experiences.
+        </p>
+    </main>
+
+    <script>
+        // Cursor Movement
+        const orb = document.getElementById('cursor-orb');
+        const aura = document.getElementById('cursor-aura');
+
+        document.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            
+            // Smoothed cursor movement
+            orb.style.transform = `translate(${clientX - 10}px, ${clientY - 10}px)`;
+            aura.style.left = `${clientX}px`;
+            aura.style.top = `${clientY}px`;
+        });
+
+        // Fluid Canvas Interaction
+        const canvas = document.getElementById('fluid-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.opacity = 1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.opacity > 0) this.opacity -= 0.005;
+            }
+
+            draw() {
+                ctx.fillStyle = `rgba(0, 242, 255, ${this.opacity * 0.2})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function createParticles(e) {
+            for (let i = 0; i < 2; i++) {
+                particles.push(new Particle(e.clientX, e.clientY));
+            }
+        }
+
+        window.addEventListener('mousemove', createParticles);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw connecting lines between particles
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                if (particles[i].opacity <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Parallax Effect on Typography
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            document.querySelector('h1').style.transform = `translate(${moveX}px, ${moveY}px)`;
+            document.querySelectorAll('.ambient-label').forEach((label, index) => {
+                const depth = (index + 1) * 2;
+                label.style.transform = `translate(${moveX * depth}px, ${moveY * depth}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

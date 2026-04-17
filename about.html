@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philosophy | Sarathi Labs</title>
+    <meta name="description"
+        content="The Source Code of Sarathi Labs. Our mission is to dissolve the friction between intent and action through Fluid Intelligence.">
+    <meta property="og:title" content="Philosophy | Sarathi Labs">
+    <meta property="og:description"
+        content="The Source Code of Sarathi Labs. Our mission is to dissolve the friction between intent and action.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .prose {
+            max-width: 800px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dim);
+            margin: 0 auto;
+            /* Center the text block */
+            text-align: center;
+            /* Optional: Center text for 'manifesto' vibe? let's stick to block centering first. User said 'align content'. actually, let's justify or left align. text-align: center for prose is often hard to read. */
+        }
+
+        .prose p {
+            margin-bottom: 2em;
+        }
+
+        .highlight {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page-transition-overlay active"></div>
+    <div id="cursor-orb"></div>
+    <div id="cursor-aura"></div>
+
+    <div class="canvas-container">
+        <canvas id="fluid-canvas"></canvas>
+        <div class="aurora-blur aurora-1"></div>
+        <div class="aurora-blur aurora-2"></div>
+    </div>
+
+    <nav>
+        <a href="/" class="logo">
+            <img src="SL.png" alt="Sarathi Labs">
+            Sarathi Labs
+        </a>
+        <div class="nav-links">
+            <a href="services">Intelligence</a>
+            <a href="about" class="active">Philosophy</a>
+            <a href="blog">Blog</a>
+            <a href="contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">The <span class="fluid-text">Source Code</span></h1>
+        </header>
+
+        <div class="prose">
+            <p>
+                <span class="highlight">Founded</span> with a vision to bridge the gap between innovative AI technology
+                and practical business
+                solutions, Sarathi Labs has emerged as a <span class="highlight">trusted AI partner</span> for
+                organizations seeking digital
+                transformation.
+            </p>
+            <p>
+                We believe that technology should be fluid—weightless, invisible, and omnipresent. Our mission is to
+                dissolve the friction between intent and action, creating systems that don't just compute, but <span
+                    class="highlight">understand</span>.
+            </p>
+            <p>
+                From Healthcare to Legal Advisory, we deploy specialized autonomous agents that redefine what is
+                possible in business operations. We are built on the core tenet of "Innovation & Excellence," ensuring
+                that every line of code we write propels humanity forward.
+            </p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
