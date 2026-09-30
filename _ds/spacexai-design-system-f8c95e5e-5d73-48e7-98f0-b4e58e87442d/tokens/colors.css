@@ -1,0 +1,80 @@
+:root{
+/* ---- base neutrals (sampled from x.ai) ---- */
+--black:#000000;
+--ink-0:#0a0a0a;   /* page background */
+--ink-1:#0f0f0f;
+--ink-2:#151514;   /* recessed panel / app sidebar */
+--ink-3:#1a1a1a;   /* card surface */
+--ink-4:#202020;   /* hover surface / ghost pill */
+--ink-5:#232323;   /* raised surface, assistant bubble */
+--ink-6:#272727;   /* hairline border */
+--ink-7:#303030;   /* strong border, bot bubble */
+--ink-8:#3a3a3a;
+--grey-1:#606060;  /* disabled / tertiary ink */
+--grey-2:#7f7f7f;
+--grey-3:#9d9d9d;  /* label ink */
+--grey-4:#c9c9c9;  /* secondary ink */
+--paper-1:#ecece8; /* off-white bubble / inverted surface */
+--white:#ffffff;
+
+/* ---- brand spectrum ---- */
+/* The hero underline gradient, left to right. This ramp is THE brand signature. */
+--spectrum-0:#474747;
+--spectrum-1:#5d5faa;
+--spectrum-2:#6d63f2;
+--spectrum-3:#a456f6;
+--spectrum-4:#c94fc9;
+--spectrum-5:#ec4996;
+--spectrum-6:#f36050;
+--spectrum-7:#f87915;
+--gradient-spectrum:linear-gradient(90deg,var(--spectrum-0) 0%,var(--spectrum-1) 14%,var(--spectrum-2) 28%,var(--spectrum-3) 44%,var(--spectrum-4) 58%,var(--spectrum-5) 72%,var(--spectrum-6) 86%,var(--spectrum-7) 100%); /* @kind color */
+
+/* ---- accents ---- */
+--orange:#e45a09;
+--orange-bright:#f87915;
+--orange-tint:#2c1c13;
+--violet:#a456f6;
+--violet-deep:#4c3485;
+--violet-tint:#2e1c52;
+--indigo:#6d63f2;
+--blue:#3c82f6;
+--teal:#54b9a6;
+--teal-deep:#084e5a;
+--brown:#795428;
+
+/* ---- editorial gradient pairs (news thumbnails) ---- */
+--gradient-ember:linear-gradient(130deg,#e45b11 0%,#7a2f53 55%,#4c3485 100%); /* @kind color */
+--gradient-abyss:linear-gradient(150deg,#084e5a 0%,#123038 60%,#0e191c 100%); /* @kind color */
+--gradient-halo:linear-gradient(120deg,#aa7eff 0%,#6b4bb0 55%,#2e1c52 100%); /* @kind color */
+
+/* ---- semantic aliases ---- */
+--bg-page:var(--ink-0);
+--bg-surface:var(--ink-3);
+--bg-surface-raised:var(--ink-5);
+--bg-surface-recessed:var(--ink-2);
+--bg-surface-hover:var(--ink-4);
+--bg-inverse:var(--white);
+--bg-scrim:rgba(10,10,10,.72);
+
+--text-primary:var(--white);
+--text-secondary:var(--grey-4);
+--text-tertiary:var(--grey-3);
+--text-disabled:var(--grey-1);
+--text-inverse:var(--ink-0);
+--text-accent:var(--orange-bright);
+--text-link:var(--white);
+--text-link-hover:var(--grey-4);
+
+--border-hairline:var(--ink-6);
+--border-strong:var(--ink-7);
+--border-subtle:rgba(255,255,255,.07);
+--border-focus:rgba(255,255,255,.55);
+
+--surface-card:var(--ink-3);
+--surface-card-border:transparent;
+--surface-code:var(--ink-1);
+
+--status-live:#2fbf6a;
+--status-warn:var(--orange-bright);
+--status-idle:var(--grey-2);
+}

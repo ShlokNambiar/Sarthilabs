@@ -1,0 +1,27 @@
+:root{
+--space-0:0px;
+--space-1:2px;
+--space-2:4px;
+--space-3:8px;
+--space-4:12px;
+--space-5:16px;
+--space-6:20px;
+--space-7:24px;
+--space-8:32px;
+--space-9:40px;
+--space-10:48px;
+--space-11:64px;
+--space-12:80px;
+--space-13:96px;
+--space-14:128px;
+--space-15:160px;
+
+/* layout */
+--gutter-page:24px; /* @kind spacing */
+--content-max:1264px; /* @kind spacing */      /* marketing content column */
+--content-narrow:720px; /* @kind spacing */    /* prose / centred copy */
+--nav-height:64px; /* @kind spacing */
+--section-gap:128px; /* @kind spacing */       /* vertical rhythm between marketing sections */
+--card-pad:28px; /* @kind spacing */
+--card-gap:16px; /* @kind spacing */
+}

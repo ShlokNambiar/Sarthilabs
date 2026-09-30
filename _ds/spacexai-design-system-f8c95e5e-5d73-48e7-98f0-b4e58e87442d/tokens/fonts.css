@@ -1,0 +1,7 @@
+/* SpaceXAI type — SUBSTITUTION.
+   The live x.ai site self-hosts a proprietary neo-grotesque. No binaries are
+   redistributable, so this system ships Geist / Geist Mono (Google Fonts) as the
+   closest public match: same neutral grotesque skeleton, straight-tailed y,
+   single-storey g, tight default tracking. Swap the @font-face closure here if
+   the real files become available. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap");

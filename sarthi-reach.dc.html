@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/radius.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/motion.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/base.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<script src="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/_ds_bundle.js"></script>
+<style>
+  :root{
+    --ink-0:#0a0c1c; --ink-1:#0d1022; --ink-2:#11152e; --ink-3:#161a34;
+    --ink-4:#1c2140; --ink-5:#212749; --ink-6:#272d52; --ink-7:#343c68; --ink-8:#3f4878;
+    --grey-1:#5c6384; --grey-2:#767da0; --grey-3:#9aa1bf; --grey-4:#c6cbdf;
+    --blue:#2947e6; --indigo:#3b5bfd; --violet:#9fb0f5;
+    --orange:#2947e6; --orange-bright:#3b5bfd; --orange-tint:#141a3c;
+    --violet-tint:#1a1f45; --violet-deep:#3a3f8a;
+    --spectrum-0:#262c52; --spectrum-1:#2947e6; --spectrum-2:#3b5bfd; --spectrum-3:#6d7ff5;
+    --spectrum-4:#8fa2f0; --spectrum-5:#a86ae8; --spectrum-6:#c94fb0; --spectrum-7:#e0457f;
+    --border-subtle:rgba(159,176,245,.12); --border-focus:rgba(159,176,245,.6);
+    --ok:#5fd894; --warn:#e6bf6a; --stop:#f0769c;
+    --font-ui:"Geist","Noto Sans Devanagari","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --font-num:"Geist Mono","Noto Sans Devanagari",ui-monospace,monospace;
+  }
+  html, body { margin:0; padding:0; background: var(--ink-0); }
+  body { font-family: var(--font-ui); color: var(--grey-4); -webkit-font-smoothing: antialiased; }
+  a { color:#fff; text-decoration:none; }
+  a:hover { color: var(--grey-4); }
+  button { font-family: var(--font-ui); }
+</style>
+</helmet>
+<div style="background: var(--ink-0); min-height:100vh; font-family: var(--font-ui); overflow-x:hidden;">
+
+  <header style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+    <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-ui); letter-spacing: -0.04em; color: #fff; flex: 0 0 auto;">
+      <span style="width: 9px; height: 9px; border-radius: 999px; background: var(--gradient-spectrum);"></span>Sarthi Labs
+    </a>
+
+    <nav style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
+      <a href="index.html" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">Home</a>
+      <span style="position: relative; display: inline-flex;">
+        <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 500 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ flyoutFg }};">
+          Products
+          <span style="display: inline-flex; transform: {{ flyoutCaret }}; transition: transform 140ms cubic-bezier(.2,0,0,1);">
+            <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="chevron-down" size="14" hint-size="14px,14px"></x-import>
+          </span>
+        </button>
+        <sc-if value="{{ flyoutOpen }}" hint-placeholder-val="{{ false }}">
+          <span style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
+            <sc-for list="{{ productList }}" as="p" hint-placeholder-count="2">
+              <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; background: {{ p.bg }};" style-hover="background: var(--ink-4);">
+                <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: {{ p.dot }}; flex: 0 0 auto;"></span>
+                <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="font: 500 15px/1.3 var(--font-ui); color: #fff;">{{ p.name }}</span>
+                    <span style="font: 400 12px/1.4 var(--font-ui); color: {{ p.tagColor }};">{{ p.tag }}</span>
+                  </span>
+                  <span style="font: 400 13px/1.45 var(--font-ui); color: var(--grey-3);">{{ p.line }}</span>
+                </span>
+              </a>
+            </sc-for>
+          </span>
+        </sc-if>
+      </span>
+      <a href="index.html#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">Learn</a>
+      <a href="index.html#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">Contact us</a>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
+      <a href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
+      <span style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
+      <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="#talk" dc-props="{{ ctaProps }}" hint-size="auto,40px">Book a call</x-import>
+      </span>
+    </div>
+  </header>
+
+  <section style="padding:104px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto; display:flex; flex-direction:column; align-items:center; text-align:center; gap:26px;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,24px">Sarthi Reach</x-import>
+      <h1 style="margin:0; max-width:900px; font:500 clamp(36px,6vw,68px)/1.05 var(--font-ui); letter-spacing:-0.032em; color:#fff; text-wrap:balance;">Find the lead, work the lead, <span style="color:var(--violet);">hand over the lead.</span></h1>
+      <p style="margin:0; max-width:680px; font:400 18px/1.6 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">Sarthi Reach finds prospects from market data, then works them over AI voice and WhatsApp until they are qualified enough to hand to a human. Vertical-agnostic, built for Indian calling rules.</p>
+      <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
+        <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" href="#talk" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a walkthrough</x-import>
+        </span>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="#compliance" icon="chevron-right" iconPosition="right" hint-size="auto,48px">How it stays compliant</x-import>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="What it does" title="Three jobs, one campaign." body="No cross-campaign console, no seat licences. One audience, one sequence, one page your team actually watches." size="lg" hint-size="100%,200px"></x-import>
+      <div style="margin-top:48px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:16px;">
+        <sc-for list="{{ jobRows }}" as="j" hint-placeholder-count="3">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="32px" hint-size="100%,300px">
+            <div style="display:flex; flex-direction:column; gap:14px; height:100%;">
+              <span style="font:400 13px/1.3 var(--font-num); color:var(--violet);">{{ j.num }}</span>
+              <h3 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ j.title }}</h3>
+              <p style="margin:0; font:400 16px/1.6 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ j.body }}</p>
+              <div style="margin-top:auto; padding-top:20px; border-top:1px solid var(--border-hairline); font:400 14px/1.5 var(--font-ui); color:var(--grey-3);">{{ j.foot }}</div>
+            </div>
+          </x-import>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="The sequence" title="What happens to a lead, and when." body="Every step is conditional. A lead that answers on day zero never receives the day-four nudge." size="lg" hint-size="100%,200px"></x-import>
+      <div style="margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,190px),1fr)); gap:12px;">
+        <sc-for list="{{ sequenceRows }}" as="q" hint-placeholder-count="5">
+          <div style="display:flex; flex-direction:column; gap:10px; padding:22px; background:var(--ink-3); border-radius:16px;">
+            <span style="font:500 13px/1.3 var(--font-num); color:var(--violet);">{{ q.day }}</span>
+            <span style="font:400 16px/1.45 var(--font-ui); color:#fff;">{{ q.action }}</span>
+            <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ q.condition }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:28px; display:flex; flex-wrap:wrap; gap:10px;">
+        <sc-for list="{{ channels }}" as="c" hint-placeholder-count="4">
+          <span style="padding:10px 18px; border-radius:999px; background:var(--ink-3); font:400 14px/1.4 var(--font-ui); color:var(--grey-4);">{{ c }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="Inside a conversation" title="The AI says what it is, and shows what it decided." body="Every call opens by identifying itself as an automated assistant. Every decision the model makes is written into the transcript beside the words that produced it." size="lg" hint-size="100%,220px"></x-import>
+      <div style="margin-top:44px; display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start;">
+        <div style="flex:1 1 400px; min-width:0;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="24px" hint-size="100%,420px">
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; padding-bottom:14px; border-bottom:1px solid var(--border-hairline);">
+                <span style="font:400 13px/1.4 var(--font-num); color:var(--grey-3);">Nashik 2W renewals · lead 0411</span>
+                <span style="padding:5px 12px; border-radius:999px; background:var(--violet-tint); color:var(--violet); font:500 12px/1.4 var(--font-ui);">Marathi</span>
+              </div>
+              <sc-for list="{{ transcript }}" as="m" hint-placeholder-count="6">
+                <div style="display:flex; flex-direction:column; gap:6px; padding-left:{{ m.indent }};">
+                  <span style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                    <span style="font:500 12px/1.4 var(--font-ui); color:{{ m.whoColor }};">{{ m.who }}</span>
+                    <span style="font:400 12px/1.4 var(--font-num); color:var(--grey-3);">{{ m.meta }}</span>
+                  </span>
+                  <span style="padding:12px 15px; background:{{ m.bg }}; border:1px solid {{ m.border }}; border-radius:12px; font:400 15px/1.7 var(--font-ui); color:{{ m.color }};">{{ m.text }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </x-import>
+        </div>
+        <div style="flex:1 1 300px; min-width:0; display:flex; flex-direction:column; gap:16px;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="28px" hint-size="100%,auto">
+            <div style="display:flex; flex-direction:column; gap:14px;">
+              <h3 style="margin:0; font:500 18px/1.35 var(--font-ui); letter-spacing:-0.02em; color:#fff;">Qualified means three things at once</h3>
+              <sc-for list="{{ qualifyRows }}" as="q" hint-placeholder-count="3">
+                <div style="display:flex; align-items:flex-start; gap:12px;">
+                  <span style="margin-top:3px; color:var(--ok); display:inline-flex; flex:0 0 auto;">
+                    <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import>
+                  </span>
+                  <span style="font:400 15px/1.6 var(--font-ui); color:var(--grey-4);">{{ q }}</span>
+                </div>
+              </sc-for>
+              <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">Miss one and the lead is not qualified. It goes to callback, dormant, or a human who can judge it.</span>
+            </div>
+          </x-import>
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="28px" hint-size="100%,auto">
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <h3 style="margin:0; font:500 18px/1.35 var(--font-ui); letter-spacing:-0.02em; color:#fff;">Then a person takes it</h3>
+              <p style="margin:0; font:400 15px/1.65 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">On handover the AI stops contacting the lead entirely. Your rep opens the full transcript, the decisions, and the agreed callback time — not a summary.</p>
+            </div>
+          </x-import>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="From a live campaign" title="Nashik 2W renewals — September." body="Two-wheeler policies expiring within 30 days across Nashik district. Prospects come from public and derived market data, never another client's records." size="lg" hint-size="100%,220px"></x-import>
+      <div style="margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,150px),1fr)); gap:1px; background:var(--border-hairline); border:1px solid var(--border-hairline); border-radius:16px; overflow:hidden;">
+        <sc-for list="{{ metricRows }}" as="m" hint-placeholder-count="8">
+          <div style="display:flex; flex-direction:column; gap:8px; padding:24px; background:var(--ink-3);">
+            <span style="font:500 clamp(24px,3vw,32px)/1.1 var(--font-num); letter-spacing:-0.02em; color:#fff;">{{ m.value }}</span>
+            <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ m.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:20px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,260px),1fr)); gap:16px;">
+        <sc-for list="{{ funnelRows }}" as="f" hint-placeholder-count="3">
+          <div style="display:flex; flex-direction:column; gap:10px; padding:22px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:16px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+              <span style="font:400 14px/1.4 var(--font-ui); color:{{ f.color }};">{{ f.label }}</span>
+              <span style="font:500 18px/1.2 var(--font-num); color:#fff;">{{ f.value }}</span>
+            </div>
+            <div style="height:6px; border-radius:999px; background:var(--ink-5); overflow:hidden;">
+              <div style="height:100%; border-radius:999px; background:{{ f.bar }}; width:{{ f.pct }};"></div>
+            </div>
+            <span style="font:400 13px/1.6 var(--font-ui); color:var(--grey-3);">{{ f.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="compliance" style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="Compliance" title="Built for Indian calling rules, not retrofitted." body="Outbound AI in India fails on compliance before it fails on quality. These are constraints in the product, not policies in a document." size="lg" hint-size="100%,220px"></x-import>
+      <div style="margin-top:44px; display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,280px),1fr)); gap:16px;">
+        <sc-for list="{{ complianceRows }}" as="c" hint-placeholder-count="6">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="28px" hint-size="100%,220px">
+            <div style="display:flex; flex-direction:column; gap:12px; height:100%;">
+              <span style="display:flex; align-items:center; gap:9px;">
+                <span style="width:7px; height:7px; border-radius:999px; background:{{ c.dot }}; flex:0 0 auto;"></span>
+                <span style="font:500 17px/1.35 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ c.title }}</span>
+              </span>
+              <p style="margin:0; font:400 15px/1.65 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ c.body }}</p>
+              <span style="margin-top:auto; padding-top:16px; border-top:1px solid var(--border-hairline); font:400 13px/1.5 var(--font-num); color:var(--grey-3);">{{ c.stat }}</span>
+            </div>
+          </x-import>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="talk" style="padding:96px 24px 0;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="40px" hint-size="100%,260px">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,300px),1fr)); gap:32px; align-items:center;">
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <h2 style="margin:0; font:500 clamp(26px,3.4vw,36px)/1.15 var(--font-ui); letter-spacing:-0.03em; color:#fff; text-wrap:balance;">See it run on your own list.</h2>
+            <p style="margin:0; font:400 16px/1.65 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">Bring one audience and one vertical. We show the sequence, the transcripts and the compliance trail on real numbers before anything is signed.</p>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:14px;">
+            <div style="display:flex; flex-wrap:wrap; gap:10px;">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" href="index.html#contact" icon="arrow-right" iconPosition="right" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a walkthrough</x-import>
+              </span>
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="urban-sanction-desk.dc.html" hint-size="auto,48px">See Urban Sanction Desk</x-import>
+            </div>
+            <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">First deployments are motor-insurance renewals and building-permission leads. The product assumes neither.</span>
+          </div>
+        </div>
+      </x-import>
+    </div>
+  </section>
+
+  <footer style="margin-top:96px; padding:40px 24px; border-top:1px solid var(--border-hairline);">
+    <div style="max-width:1264px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font:600 18px/1 var(--font-ui); letter-spacing:-0.04em; color:#fff;">Sarthi Labs</span>
+      <div style="display:flex; gap:20px; flex-wrap:wrap;">
+        <a href="urban-sanction-desk.dc.html" style="font:400 14px/1.3 var(--font-ui); color:var(--grey-3);">Urban Sanction Desk</a>
+        <a href="sarthi-reach.dc.html" style="font:400 14px/1.3 var(--font-ui); color:var(--grey-3);">Sarthi Reach</a>
+        <a href="index.html#contact" style="font:400 14px/1.3 var(--font-ui); color:var(--grey-3);">Contact</a>
+      </div>
+      <span style="font:400 13px/1.4 var(--font-ui); color:var(--grey-3);">© 2026 Sarthi Labs</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;reveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+const TRANSCRIPT = [
+  { who:'Sarthi voice agent', meta:'AI voice call · 10:42', side:'ai',
+    text:'नमस्कार, मी Sarthi चा स्वयंचलित सहाय्यक आहे — हा एक automated call आहे. तुमची two-wheeler policy 11 दिवसांत संपते आहे. एक मिनिट बोलू शकता का?' },
+  { who:'Customer', meta:'AI voice call · 10:42', side:'customer',
+    text:'हो, पण मी आत्ता कामावर आहे. थोडक्यात सांगा.' },
+  { who:'Sarthi voice agent', meta:'AI voice call · 10:43', side:'ai',
+    text:'ठीक आहे. सध्याची policy third-party आहे. renewal ला own-damage जोडल्यास premium किती होईल ते WhatsApp वर पाठवू का?' },
+  { who:'Customer', meta:'AI voice call · 10:44', side:'customer',
+    text:'पाठवा. आणि गुरुवारी संध्याकाळी सहा नंतर कॉल करा.' },
+  { who:'Model decision', meta:'written to the transcript · 10:44', side:'note',
+    text:'Intent confirmed. Contactable time agreed — Thursday after 6pm. Vertical facts captured: vehicle class, expiry date, current cover. Talk time 1m 47s. Outcome: callback requested.' },
+  { who:'Sarthi', meta:'WhatsApp · approved template · 10:46', side:'ai',
+    text:'नमस्कार. Sarthi कडून — तुमच्या two-wheeler policy साठी own-damage सह अंदाजित premium: ₹2,340 प्रति वर्ष. गुरुवारी सहा नंतर कॉल करत आहोत.' }
+];
+
+class Component extends DCLogic {
+  state = { flyoutOpen:false };
+
+  componentDidMount(){ this.wireReveal(); }
+  componentDidUpdate(){ this.wireReveal(); }
+  componentWillUnmount(){ this._stopped = true; }
+
+  wireReveal(){
+    this._stopped = false;
+    if (this.props.reveal === false) return;
+    const show = el => { el.dataset.revealWired='done'; el.style.opacity='1'; el.style.transform='none'; };
+    const check = () => {
+      const h = window.innerHeight || 800;
+      document.querySelectorAll('[data-reveal-wired="1"]').forEach(el=>{
+        if (el.getBoundingClientRect().top < h - 40) show(el);
+      });
+    };
+    document.querySelectorAll('[data-reveal]').forEach(el=>{
+      if (el.dataset.revealWired) return;
+      el.dataset.revealWired='1';
+      el.style.opacity='0';
+      el.style.transform='translateY(10px)';
+      el.style.transition='opacity 420ms cubic-bezier(.2,0,0,1), transform 420ms cubic-bezier(.2,0,0,1)';
+    });
+    check();
+    if (this._looping) return;
+    this._looping = true;
+    const tick = () => { if (this._stopped) { this._looping=false; return; } check(); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+
+  renderVals(){
+    const open = this.state.flyoutOpen;
+    return {
+      flyoutOpen: open,
+      toggleFlyout: ()=>this.setState({ flyoutOpen: !open }),
+      flyoutBg: open ? 'var(--ink-4)' : 'transparent',
+      flyoutFg: open ? '#ffffff' : 'var(--grey-3)',
+      flyoutCaret: open ? 'rotate(180deg)' : 'rotate(0deg)',
+      productList:[
+        { name:'Urban Sanction Desk', href:'urban-sanction-desk.dc.html', tag:'', tagColor:'var(--grey-3)', bg:'transparent', dot:'var(--ink-7)',
+          line:'Know your next step in a building permission case.' },
+        { name:'Sarthi Reach', href:'sarthi-reach.dc.html', tag:'you are here', tagColor:'var(--ok)', bg:'var(--ink-4)', dot:'var(--ok)',
+          line:'Find the lead, work the lead, hand over the lead.' }
+      ],
+
+      jobRows:[
+        { num:'01', title:'Find the lead', body:'A defined audience — geography, segment and the signal that makes someone worth calling this month. Matching runs on public and derived market data only.',
+          foot:'Never another client\u2019s records' },
+        { num:'02', title:'Work the lead', body:'AI voice and WhatsApp on a conditional sequence, in the language the person actually speaks. Every attempt, reply and read receipt lands on one timeline.',
+          foot:'Marathi, Hindi or English per conversation' },
+        { num:'03', title:'Hand over the lead', body:'When intent, a contactable time and the vertical\u2019s required facts are all captured, the lead goes to a human with the full transcript. The AI stops contacting them.',
+          foot:'Handover, not a lead list dump' }
+      ],
+
+      sequenceRows:[
+        { day:'Day 0', action:'AI voice call', condition:'first attempt, inside the calling window' },
+        { day:'Day 0', action:'WhatsApp template', condition:'only if the call went unanswered' },
+        { day:'Day 2', action:'Second AI call', condition:'if still not connected' },
+        { day:'Day 4', action:'WhatsApp nudge', condition:'approved template, 24-hour window closed' },
+        { day:'Day 7', action:'Human handover or dormant', condition:'qualified goes to a rep, the rest go quiet' }
+      ],
+      channels:['AI voice call','WhatsApp','SMS','Email'],
+
+      transcript: TRANSCRIPT.map(m=>({
+        who:m.who, meta:m.meta, text:m.text,
+        indent: m.side==='customer' ? '20px' : '0px',
+        whoColor: m.side==='note' ? 'var(--violet)' : m.side==='customer' ? 'var(--grey-4)' : '#ffffff',
+        bg: m.side==='note' ? 'var(--ink-1)' : m.side==='customer' ? 'var(--ink-2)' : 'var(--ink-4)',
+        border: m.side==='note' ? 'var(--border-hairline)' : 'transparent',
+        color: m.side==='customer' ? 'var(--grey-4)' : '#ffffff'
+      })),
+
+      qualifyRows:[
+        'Intent confirmed in the person\u2019s own words',
+        'A contactable time agreed, not assumed',
+        'The vertical\u2019s required facts captured on the call'
+      ],
+
+      metricRows:[
+        { value:'12,400', label:'prospects matched' },
+        { value:'3,140', label:'dials attempted' },
+        { value:'41%', label:'connect rate' },
+        { value:'1m 12s', label:'median talk time' },
+        { value:'62%', label:'WhatsApp read' },
+        { value:'287', label:'qualified' },
+        { value:'₹94', label:'cost per qualified lead' },
+        { value:'34%', label:'handover-to-close rate' }
+      ],
+
+      funnelRows:[
+        { label:'Prospects matched', value:'12,400', pct:'100%', bar:'var(--indigo)', color:'#ffffff',
+          note:'Two-wheeler policies expiring in 30 days, Nashik district.' },
+        { label:'Excluded — TRAI DND', value:'1,860', pct:'15%', bar:'var(--stop)', color:'var(--stop)',
+          note:'Removed before a single dial. 15% of the matched set.' },
+        { label:'Reachable number', value:'9,720', pct:'78%', bar:'var(--ok)', color:'var(--ok)',
+          note:'Valid mobile after DND exclusion and number validation.' }
+      ],
+
+      complianceRows:[
+        { title:'TRAI DND registry', dot:'var(--stop)',
+          body:'Matched numbers are checked against the national DND registry and removed before the campaign can dial. The count and the reason are shown, not hidden in a log.',
+          stat:'1,860 excluded on this campaign' },
+        { title:'Calling window', dot:'var(--warn)',
+          body:'Dialling runs 09:00–21:00 IST only. Attempts that fall outside hold in the queue until the window opens; nothing is dialled early.',
+          stat:'09:00–21:00 IST · 412 held overnight' },
+        { title:'WhatsApp Business API', dot:'var(--warn)',
+          body:'Business-initiated messages use an approved template. Free-form replies are only allowed inside the 24-hour window after the customer\u2019s last message, and the state is visible per lead.',
+          stat:'template renewal_reminder_mr_v3 · approved' },
+        { title:'Opt-out', dot:'var(--stop)',
+          body:'One step, honoured across voice, WhatsApp, SMS and email at once, and irreversible. The number is suppressed from every future campaign.',
+          stat:'Irreversible by design' },
+        { title:'AI disclosure', dot:'var(--ok)',
+          body:'Every call opens by identifying the caller as an automated assistant, before anything is asked. There is no configuration to turn this off.',
+          stat:'3,140 of 3,140 calls disclosed' },
+        { title:'Language per conversation', dot:'var(--ok)',
+          body:'Marathi, Hindi or English is set per lead and shown on every transcript. A language mismatch ends the call rather than pushing through in the wrong one.',
+          stat:'Marathi 61% · Hindi 27% · English 12%' }
+      ],
+
+      ctaProps:{ style:{ background:'var(--cta)', borderColor:'var(--cta)', color:'#ffffff' } }
+    };
+  }
+}
+</script>
+</body>
+</html>

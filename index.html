@@ -1,128 +1,343 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarathi Labs | Fluid Intelligence</title>
-    <meta name="description"
-        content="Sarathi Labs transforms businesses with Fluid Intelligence. We specialize in AI-Driven Outreach, Predictive Analytics, and Autonomous Agents.">
-    <meta property="og:title" content="Sarathi Labs | Fluid Intelligence">
-    <meta property="og:description"
-        content="Architecting Fluid Intelligence. Comprehensive AI services that transform how your business operates.">
-    <meta property="og:image" content="https://sarathilabs.com/og-image.jpg">
-    <meta property="og:url" content="https://sarathilabs.com">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
 </head>
-
 <body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/radius.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/motion.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/base.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/styles.css">
+<script src="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/_ds_bundle.js"></script>
+<style>
+  :root{
+    --ink-0:#0a0c1c; --ink-1:#0d1022; --ink-2:#11152e; --ink-3:#161a34;
+    --ink-4:#1c2140; --ink-5:#212749; --ink-6:#272d52; --ink-7:#343c68; --ink-8:#3f4878;
+    --grey-1:#5c6384; --grey-2:#767da0; --grey-3:#8e95b4; --grey-4:#b9bfd6;
+    --blue:#2947e6; --indigo:#3b5bfd; --violet:#8fa2f0;
+    --orange:#2947e6; --orange-bright:#3b5bfd; --orange-tint:#141a3c;
+    --violet-tint:#1a1f45; --violet-deep:#3a3f8a;
+    --spectrum-0:#262c52; --spectrum-1:#2947e6; --spectrum-2:#3b5bfd; --spectrum-3:#6d7ff5;
+    --spectrum-4:#8fa2f0; --spectrum-5:#a86ae8; --spectrum-6:#c94fb0; --spectrum-7:#e0457f;
+    --border-subtle:rgba(143,162,240,.10); --border-focus:rgba(143,162,240,.55);
+    --cta:#2947e6;
+  }
+  html, body { margin: 0; padding: 0; background: var(--ink-0); }
+  body { font-family: var(--font-sans); color: var(--text-secondary); -webkit-font-smoothing: antialiased; }
+  a { color: var(--white); text-decoration: none; }
+  a:hover { color: var(--grey-4); }
+</style>
+</helmet>
+<div style="position: relative; background: var(--ink-0); min-height: 100vh; font-family: var(--font-sans); overflow-x: hidden;">
 
-    <div class="page-transition-overlay active"></div>
-    <div id="cursor-orb"></div>
-    <div id="cursor-aura"></div>
+  <header style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+    <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-sans); letter-spacing: -0.04em; color: var(--white); flex: 0 0 auto;">
+      <span style="width: 9px; height: 9px; border-radius: 999px; background: var(--gradient-spectrum);"></span>Sarthi Labs
+    </a>
 
-    <div class="canvas-container">
-        <canvas id="fluid-canvas"></canvas>
-        <div class="aurora-blur aurora-1"></div>
-        <div class="aurora-blur aurora-2"></div>
-    </div>
-
-    <nav>
-        <a href="index.html" class="logo">
-            <img src="SL.png" alt="Sarathi Labs">
-            Sarathi Labs
-        </a>
-        <div class="nav-links">
-            <a href="services">Intelligence</a>
-            <a href="about">Philosophy</a>
-            <a href="blog">Blog</a>
-            <a href="contact">Contact</a>
-        </div>
+    <nav style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
+      <a href="#top" style="padding: 8px 14px; border-radius: 999px; background: var(--ink-4); font: 500 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--white);" style-hover="background: var(--ink-5);">Home</a>
+      <span style="position: relative; display: inline-flex;">
+        <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: {{ flyoutFg }};">
+          Products
+          <span style="display: inline-flex; transform: {{ flyoutCaret }}; transition: transform 140ms cubic-bezier(.2,0,0,1);">
+            <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="chevron-down" size="14" hint-size="14px,14px"></x-import>
+          </span>
+        </button>
+        <sc-if value="{{ flyoutOpen }}" hint-placeholder-val="{{ false }}">
+          <span style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
+            <sc-for list="{{ productList }}" as="p" hint-placeholder-count="2">
+              <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px;" style-hover="background: var(--ink-4);">
+                <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: var(--ink-7); flex: 0 0 auto;"></span>
+                <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                  <span style="font: 500 15px/1.3 var(--font-sans); color: var(--white);">{{ p.name }}</span>
+                  <span style="font: 400 13px/1.45 var(--font-sans); color: var(--text-tertiary);">{{ p.line }}</span>
+                </span>
+              </a>
+            </sc-for>
+          </span>
+        </sc-if>
+      </span>
+      <a href="#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color: var(--white);">Learn</a>
+      <a href="#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color: var(--white);">Contact us</a>
     </nav>
 
-    <div class="ambient-label label-1">Neural Orchestration</div>
-    <div class="ambient-label label-2">Autonomous Agents</div>
-    <div class="ambient-label label-3">Cognitive Synesthesia</div>
+    <div style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
+      <a href="#contact" style="font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="color: var(--white);">Login</a>
+      <span style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
+      <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="#contact" dc-props="{{ ctaProps }}" hint-size="auto,40px">Book a call</x-import>
+      </span>
+    </div>
+  </header>
 
-    <main class="hero-main">
-        <h1 class="parallax-target">
-            Architecting <br>
-            <span class="fluid-text">Fluid Intelligence</span>
-        </h1>
-        <p class="subtext">
-            From intelligent automation to predictive analytics, we deliver comprehensive AI services
-            that transform how your business operates and grows.
-        </p>
-    </main>
+  <div aria-hidden="true" style="position: absolute; top: 0; left: 0; right: 0; height: 1020px; z-index: 0; pointer-events: none; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 100%);">
+    <x-import component="GhostFibers" from="./GhostFibers.jsx" dc-props="{{ fibersProps }}" hint-size="100%,100%"></x-import>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(10,12,28,.72) 0%, rgba(10,12,28,.42) 55%, rgba(10,12,28,0) 100%);"></div>
+  </div>
 
-    <!-- Selected Intelligence Preview -->
-    <section class="container u-spacing-lg">
-        <header class="page-header u-spacing-md">
-            <h2 class="page-title" style="font-size: 2.5rem;">Selected <span class="fluid-text">Intelligence</span></h2>
-        </header>
+  <section id="top" style="position: relative; z-index: 1; padding: 104px 24px 0;">
+    <div style="max-width: 1264px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.AnnouncementPill" badge="Now booking" title="Q4 architecture reviews" detail="Two slots" href="#engage" icon="arrow-right" hint-size="auto,40px"></x-import>
+      <h1 style="margin: 0; max-width: 940px; font-weight: 500; font-size: clamp(38px, 6.4vw, 72px); line-height: 1.04; letter-spacing: -0.032em; color: var(--white); text-wrap: balance;">Ship AI into<br><span style="color: var(--violet);">real infrastructure.</span></h1>
+      <p style="margin: 0; max-width: 680px; font: 400 18px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Sarthi Labs works in your repo alongside your engineers — model architecture, evals, and inference infrastructure — until the feature is in production and your team owns it.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+        <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" href="#contact" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a call</x-import>
+        </span>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="#engage" icon="chevron-right" iconPosition="right" hint-size="auto,48px">See engagement models</x-import>
+      </div>
+    </div>
+  </section>
 
-        <div class="grid-system">
-            <a href="services" class="card" style="text-decoration: none;">
-                <div class="card-number">01</div>
-                <div>
-                    <h3>AI-Driven Outreach & Cold Calling</h3>
-                    <p>Automated outreach campaigns with AI-powered personalization that converts prospects into
-                        customers.</p>
-                </div>
-            </a>
-            <a href="services" class="card" style="text-decoration: none;">
-                <div class="card-number">02</div>
-                <div>
-                    <h3>AI-Powered Data Analytics</h3>
-                    <p>Transform your business data into actionable insights with advanced machine learning algorithms.
-                    </p>
-                </div>
-            </a>
-            <a href="services" class="card" style="text-decoration: none;">
-                <div class="card-number">03</div>
-                <div>
-                    <h3>Automated Business Workflows</h3>
-                    <p>Streamline operations with intelligent automation that reduces manual tasks and increases
-                        efficiency.</p>
-                </div>
-            </a>
+  <section id="proof" style="position: relative; z-index: 1; padding: 72px 24px 0;">
+    <div style="max-width: 1040px; margin: 0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="0" hint-size="100%,140px">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));">
+          <div style="padding: 28px 24px; text-align: center;">
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">4 weeks</div>
+            <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">review to shipped prototype</div>
+          </div>
+          <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">&lt;200ms</div>
+            <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">p95 latency budgets</div>
+          </div>
+          <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">100%</div>
+            <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">code in your repo</div>
+          </div>
+          <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">8 weeks</div>
+            <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">paired support after launch</div>
+          </div>
         </div>
-        <div class="u-text-right u-spacing-md">
-            <a href="services" class="btn-neon" style="text-decoration: none; display: inline-block;">View All
-                Intelligence</a>
-        </div>
-    </section>
+      </x-import>
+    </div>
+  </section>
 
-    <!-- Mission Logic Snippet -->
-    <section class="container u-spacing-xl"
-        style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
-        <div>
-            <h2 class="page-title" style="font-size: 2.5rem;">Mission <span class="fluid-text">Logic</span></h2>
-        </div>
-        <div style="text-align: center;">
-            <p class="subtext" style="max-width: 100%; margin-bottom: 30px;">
-                We believe that technology should be fluid—weightless, invisible, and omnipresent. Our mission is to
-                dissolve the friction between intent and action.
-            </p>
-            <a href="about" class="btn-neon" style="text-decoration: none; display: inline-block;">Read Source
-                Code</a>
-        </div>
-    </section>
+  <section id="capabilities" style="padding: 128px 24px 0;">
+    <div style="max-width: 1264px; margin: 0 auto;">
+      <div data-reveal>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="Capabilities" title="Three places we plug in." body="You already know what you want to build. The work is usually deciding what to cut, and making the part that survives production reliable." size="lg" hint-size="100%,200px"></x-import>
+      </div>
+      <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px;" data-reveal>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
+          <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
+            <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">01</div>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Architecture review</h3>
+            <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Model choice, retrieval design, and a latency and cost budget you can defend in a planning meeting. Two weeks, one written recommendation, no slideware.</p>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: a decision record and a build plan</div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
+          <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
+            <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">02</div>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Build alongside your team</h3>
+            <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Two engineers in your repo, your standup, and your on-call rotation. We pair on the first production feature instead of delivering a demo you have to rewrite.</p>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: merged pull requests</div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
+          <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
+            <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">03</div>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Evals and inference infra</h3>
+            <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Offline evals, online guardrails, tracing, and cost controls — so the thing you shipped still works after the next model swap and the next traffic spike.</p>
+            <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: an eval suite in CI</div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Footer -->
-    <footer class="container u-spacing-xl u-text-center" style="margin-bottom: 100px;">
-        <h2 class="page-title u-spacing-md">Ready to <span class="fluid-text">Ascend?</span></h2>
-        <a href="contact" class="btn-neon"
-            style="padding: 20px 60px; font-size: 1rem; text-decoration: none; display: inline-block;">Signal Us</a>
+  <section id="engage" style="padding: 128px 24px 0;">
+    <div style="max-width: 1264px; margin: 0 auto;">
+      <div data-reveal>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="Engagement models" title="Start small. Scale if it works." body="Every engagement is fixed scope with a date and a deliverable you can refuse. Fees are quoted after the first call — no retainer before there is a plan." align="center" size="lg" hint-size="100%,220px"></x-import>
+      </div>
+      <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: stretch;" data-reveal>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,420px">
+          <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Architecture review</h3>
+            <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">2 weeks · fixed fee</div>
+            <div style="height: 1px; background: var(--border-hairline);"></div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Codebase and data-flow read-through</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Model and retrieval recommendation</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Latency and cost budget per request</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Build-or-stop call, in writing</span></div>
+            </div>
+            <div style="margin-top: auto; padding-top: 20px;">
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="md" fullWidth="{{ true }}" href="#contact" hint-size="100%,40px">Start here</x-import>
+            </div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="raised" padding="32px" hint-size="100%,420px">
+          <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Build sprint</h3>
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,22px">Most teams</x-import>
+            </div>
+            <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">6 weeks · two engineers embedded</div>
+            <div style="height: 1px; background: var(--border-hairline);"></div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">One production feature, shipped</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Eval suite wired into your CI</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Tracing, guardrails, and runbook</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Eight weeks of paired support</span></div>
+            </div>
+            <div style="margin-top: auto; padding-top: 20px;">
+              <span style="display: block; --cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" fullWidth="{{ true }}" href="#contact" dc-props="{{ ctaProps }}" hint-size="100%,40px">Book a call</x-import>
+              </span>
+            </div>
+          </div>
+        </x-import>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,420px">
+          <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Retained partner</h3>
+            <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">monthly · capped hours</div>
+            <div style="height: 1px; background: var(--border-hairline);"></div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Design review on new AI surfaces</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Model migration and regression checks</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Cost and latency watch on your traffic</span></div>
+              <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Cancel with 30 days notice</span></div>
+            </div>
+            <div style="margin-top: auto; padding-top: 20px;">
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="md" fullWidth="{{ true }}" href="#contact" hint-size="100%,40px">Ask about it</x-import>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </section>
 
-        <div
-            style="margin-top: 80px; opacity: 0.3; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;">
-            &copy; 2026 Sarathi Labs. Mumbai, India.
-        </div>
-    </footer>
+  <section id="contact" style="padding: 128px 24px 0;">
+    <div style="max-width: 760px; margin: 0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="Contact" title="Tell us what you are building." body="Thirty minutes with the engineers who would do the work. If the answer is that you do not need us yet, we will say so." align="center" size="lg" hint-size="100%,220px"></x-import>
+      <div style="margin-top: 40px;">
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,340px">
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px;">
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font: 400 13px/1.3 var(--font-sans); color: var(--text-tertiary);">Name</label>
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" placeholder="Priya Raman" size="md" hint-size="100%,40px"></x-import>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label style="font: 400 13px/1.3 var(--font-sans); color: var(--text-tertiary);">Work email</label>
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" placeholder="you@company.com" type="email" size="md" hint-size="100%,40px"></x-import>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <label style="font: 400 13px/1.3 var(--font-sans); color: var(--text-tertiary);">What are you building, and what is stuck?</label>
+              <textarea rows="4" placeholder="Retrieval over 2M internal docs. Accuracy is fine in the notebook, not in the product." style="width: 100%; box-sizing: border-box; resize: vertical; padding: 12px 14px; background: var(--ink-2); color: var(--white); border: 1px solid var(--border-hairline); border-radius: 8px; font: 400 15px/1.5 var(--font-sans); letter-spacing: -0.011em; outline: none;"></textarea>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+              <span style="font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">Replies within one working day.</span>
+              <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" icon="arrow-right" iconPosition="right" dc-props="{{ ctaProps }}" hint-size="auto,40px">Request a call</x-import>
+              </span>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </section>
 
-    <script src="js/main.js"></script>
+  <footer style="margin-top: 128px; padding: 40px 24px; border-top: 1px solid var(--border-hairline);">
+    <div style="max-width: 1264px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <span style="font: 600 18px/1 var(--font-sans); letter-spacing: -0.04em; color: var(--white);">Sarthi Labs</span>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <a href="urban-sanction-desk.dc.html" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Urban Sanction Desk</a>
+        <a href="sarthi-reach.dc.html" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Sarthi Reach</a>
+        <a href="#engage" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Learn</a>
+        <a href="#contact" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Contact us</a>
+        <a href="#contact" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Login</a>
+      </div>
+      <span style="font: 400 13px/1.4 var(--font-sans); color: var(--text-disabled);">© 2026 Sarthi Labs</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;reveal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  componentDidMount() { this.wireReveal(); }
+  componentDidUpdate() { this.wireReveal(); }
+  componentWillUnmount() { this._stopped = true; }
+
+  wireReveal() {
+    this._stopped = false;
+    if (this.props.reveal === false) return;
+
+    const show = el => {
+      el.dataset.revealWired = 'done';
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    };
+    const check = () => {
+      const h = window.innerHeight || 800;
+      document.querySelectorAll('[data-reveal-wired="1"]').forEach(el => {
+        if (el.getBoundingClientRect().top < h - 40) show(el);
+      });
+    };
+
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+      if (el.dataset.revealWired) return;
+      el.dataset.revealWired = '1';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(10px)';
+      el.style.transition = 'opacity 420ms cubic-bezier(.2,0,0,1), transform 420ms cubic-bezier(.2,0,0,1)';
+    });
+
+    check();
+    if (this._looping) return;
+    this._looping = true;
+    this._ticks = 0;
+    const tick = () => {
+      if (this._stopped) { this._looping = false; return; }
+      this._ticks++;
+      check();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    setTimeout(() => {
+      if (this._ticks > 20) return;
+      document.querySelectorAll('[data-reveal-wired="1"]').forEach(show);
+    }, 5000);
+  }
+
+  renderVals() {
+    const open = !!this.state.flyoutOpen;
+    return {
+      flyoutOpen: open,
+      toggleFlyout: () => this.setState({ flyoutOpen: !open }),
+      flyoutBg: open ? 'var(--ink-4)' : 'transparent',
+      flyoutFg: open ? 'var(--white)' : 'var(--text-secondary)',
+      flyoutCaret: open ? 'rotate(180deg)' : 'rotate(0deg)',
+      productList: [
+        { name: 'Urban Sanction Desk', href: 'urban-sanction-desk.dc.html', line: 'Know your next step in a building permission case.' },
+        { name: 'Sarthi Reach', href: 'sarthi-reach.dc.html', line: 'Find the lead, work the lead, hand over the lead.' }
+      ],
+      ctaProps: { style: { background: 'var(--cta)', borderColor: 'var(--cta)', color: '#ffffff' } },
+      fibersProps: {
+        lineColor: '#140E35', glowColor: '#3437A0', speed: 0.2, scale: 2, rotation: 0,
+        rotationSpeed: 0.25, layers: 4, waveAmplitude: 0.015, waveFrequency: 3, waveSpeed: 0.15,
+        layerSpeed: 0.08, twist: 0.1, twistFrequency: 5, twistSpeed: 1.2, lineFrequency: 5,
+        lineSpacing: 2, lineSharpness: 16, glowFalloff: 10, glowIntensity: 1.05, brightness: 1.25,
+        blueBoost: 1.1, vignette: 0.92, grain: 0.05, dpr: 1
+      }
+    };
+  }
+}
+</script>
 </body>
-
 </html>

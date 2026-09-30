@@ -1,0 +1,8 @@
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{margin:0;background:var(--bg-page);color:var(--text-primary);font:var(--text-copy);letter-spacing:var(--tracking-body)}
+*{box-sizing:border-box}
+a{color:var(--text-link);text-decoration:none;transition:var(--transition-control)}
+a:hover{color:var(--text-link-hover)}
+::selection{background:var(--spectrum-3);color:var(--white)}
+:focus-visible{outline:2px solid var(--border-focus);outline-offset:2px}
+h1,h2,h3,h4,p{margin:0}

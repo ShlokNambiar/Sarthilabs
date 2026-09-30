@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/colors.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/typography.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/radius.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/motion.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/base.css">
+<link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<script src="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/_ds_bundle.js"></script>
+<style>
+  :root{
+    --ink-0:#0a0c1c; --ink-1:#0d1022; --ink-2:#11152e; --ink-3:#161a34;
+    --ink-4:#1c2140; --ink-5:#212749; --ink-6:#272d52; --ink-7:#343c68; --ink-8:#3f4878;
+    --grey-1:#5c6384; --grey-2:#767da0; --grey-3:#9aa1bf; --grey-4:#c6cbdf;
+    --blue:#2947e6; --indigo:#3b5bfd; --violet:#9fb0f5;
+    --orange:#2947e6; --orange-bright:#3b5bfd; --orange-tint:#141a3c;
+    --violet-tint:#1a1f45; --violet-deep:#3a3f8a;
+    --spectrum-0:#262c52; --spectrum-1:#2947e6; --spectrum-2:#3b5bfd; --spectrum-3:#6d7ff5;
+    --spectrum-4:#8fa2f0; --spectrum-5:#a86ae8; --spectrum-6:#c94fb0; --spectrum-7:#e0457f;
+    --border-subtle:rgba(159,176,245,.12); --border-focus:rgba(159,176,245,.6);
+    --ok:#5fd894;
+    --font-ui:"Geist","Noto Sans Devanagari","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --font-num:"Geist Mono","Noto Sans Devanagari",ui-monospace,monospace;
+  }
+  html, body { margin:0; padding:0; background: var(--ink-0); }
+  body { font-family: var(--font-ui); color: var(--grey-4); -webkit-font-smoothing: antialiased; }
+  a { color:#fff; text-decoration:none; }
+  a:hover { color: var(--grey-4); }
+  select, input, textarea, button { font-family: var(--font-ui); }
+  select option { background:#11152e; color:#fff; }
+  @media print {
+    body, div, section, header, main, blockquote { background:#fff !important; background-image:none !important; color:#111 !important; border-color:#999 !important; box-shadow:none !important; }
+    span, h1, h2, h3, h4, p, label, li, strong, blockquote { color:#111 !important; }
+    [data-noprint] { display:none !important; }
+    [data-sheet] { border:1px solid #999 !important; break-inside: avoid; }
+  }
+</style>
+</helmet>
+<div style="background: var(--ink-0); min-height:100vh; font-family: var(--font-ui);">
+
+  <header data-noprint="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+    <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-ui); letter-spacing: -0.04em; color: #fff; flex: 0 0 auto;">
+      <span style="width: 9px; height: 9px; border-radius: 999px; background: var(--gradient-spectrum);"></span>Sarthi Labs
+    </a>
+
+    <nav style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
+      <a href="index.html" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navHome }}</a>
+      <span style="position: relative; display: inline-flex;">
+        <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 500 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ flyoutFg }};">
+          {{ t.products }}
+          <span style="display: inline-flex; transform: {{ flyoutCaret }}; transition: transform 140ms cubic-bezier(.2,0,0,1);">
+            <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="chevron-down" size="14" hint-size="14px,14px"></x-import>
+          </span>
+        </button>
+        <sc-if value="{{ flyoutOpen }}" hint-placeholder-val="{{ false }}">
+          <span style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
+            <sc-for list="{{ productList }}" as="p" hint-placeholder-count="2">
+              <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; background: {{ p.bg }};" style-hover="background: var(--ink-4);">
+                <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: {{ p.dot }}; flex: 0 0 auto;"></span>
+                <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
+                  <span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <span style="font: 500 15px/1.3 var(--font-ui); color: #fff;">{{ p.name }}</span>
+                    <span style="font: 400 12px/1.4 var(--font-ui); color: {{ p.tagColor }};">{{ p.tag }}</span>
+                  </span>
+                  <span style="font: 400 13px/1.45 var(--font-ui); color: var(--grey-3);">{{ p.line }}</span>
+                </span>
+              </a>
+            </sc-for>
+          </span>
+        </sc-if>
+      </span>
+      <a href="index.html#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navLearn }}</a>
+      <a href="index.html#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navContact }}</a>
+    </nav>
+
+    <div style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
+      <a href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
+      <span style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
+      <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="index.html#contact" dc-props="{{ ctaProps }}" hint-size="auto,40px">{{ t.navBookCall }}</x-import>
+      </span>
+    </div>
+  </header>
+
+  <main style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
+
+    <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px; padding-bottom:6px;">
+      <span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span>
+      <h1 style="margin:0; font:500 clamp(30px,7vw,44px)/1.1 var(--font-ui); letter-spacing:-0.03em; color:#fff; text-wrap:balance;">{{ t.pageTitle }}</h1>
+      <div style="max-width:200px;">
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.GradientRule" hint-size="200px,3px"></x-import>
+      </div>
+      <p style="margin:0; font:400 17px/1.6 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ t.pageIntro }}</p>
+      <div style="display:flex; align-items:flex-start; gap:10px; padding:14px 16px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+        <span style="margin-top:2px; color:var(--violet); display:inline-flex; flex:0 0 auto;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="monitor" size="16" hint-size="16px,16px"></x-import>
+        </span>
+        <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-4);">{{ t.disclaimer }}</span>
+      </div>
+      <div data-noprint="1" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span style="font:400 13px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.returningLabel }}</span>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ keyInput }}" onChange="{{ onKeyInput }}" placeholder="{{ t.keyPlaceholder }}" style="width:170px;" hint-size="170px,48px"></x-import>
+        <button type="button" onClick="{{ openWithKey }}" style="min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 14px/1 var(--font-ui);">{{ t.openCase }}</button>
+        <sc-if value="{{ keyError }}" hint-placeholder-val="{{ false }}">
+          <span style="font:400 13px/1.4 var(--font-ui); color:#f39ab8;">{{ t.keyWrong }}</span>
+        </sc-if>
+        <span style="font:400 12px/1.4 var(--font-num); color:var(--grey-3);">{{ t.demoKey }}</span>
+      </div>
+      <div data-noprint="1" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding-top:4px;">
+        <span style="font:400 13px/1.45 var(--font-ui); color:var(--grey-3);">{{ t.expertHint }}</span>
+        <button type="button" onClick="{{ toggleShowAll }}" style="min-height:44px; padding:11px 18px; border:1px solid {{ showAllBorder }}; background:{{ showAllBg }}; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ showAllLabel }}</button>
+      </div>
+    </div>
+
+    <!-- STEP 1 -->
+    <sc-if value="{{ s1Open }}" hint-placeholder-val="{{ true }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">01</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.askTitle }}</h2>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.problemLabel }}</label>
+            <textarea rows="4" value="{{ problem }}" onChange="{{ onProblem }}" placeholder="{{ t.problemPlaceholder }}" style="width:100%; box-sizing:border-box; resize:vertical; padding:14px; background:var(--ink-2); color:#fff; border:1px solid var(--border-hairline); border-radius:8px; font:400 16px/1.65 var(--font-ui); outline:none;"></textarea>
+            <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ t.problemHelp }}</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.authorityLabel }}</label>
+            <select data-field="authority" value="{{ authority }}" onChange="{{ onAuthority }}" style="width:100%; box-sizing:border-box; min-height:48px; padding:13px 14px; background:var(--ink-2); color:#fff; border:1px solid var(--border-hairline); border-radius:8px; font:400 16px/1.3 var(--font-ui); outline:none;">
+              <option value="">{{ t.choose }}</option>
+              <sc-for list="{{ authorities }}" as="a" hint-placeholder-count="4">
+                <option value="{{ a.id }}">{{ a.label }}</option>
+              </sc-for>
+            </select>
+          </div>
+          <sc-if value="{{ s1Ready }}" hint-placeholder-val="{{ false }}">
+            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep2 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
+              </span>
+            </div>
+          </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+    <sc-if value="{{ s1Fold }}" hint-placeholder-val="{{ false }}">
+      <div data-sheet="1" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 18px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+        <span style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <span style="color:var(--ok); display:inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="15" hint-size="15px,15px"></x-import></span>
+          <span style="font:400 14px/1.5 var(--font-ui); color:var(--grey-4);">{{ s1Summary }}</span>
+        </span>
+        <button data-noprint="1" type="button" onClick="{{ editStep1 }}" style="min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ t.edit }}</button>
+      </div>
+    </sc-if>
+
+    <!-- STEP 2 -->
+    <sc-if value="{{ s2Open }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">02</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.topicTitle }}</h2>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.topicLabel }}</label>
+            <select data-field="topic" value="{{ topic }}" onChange="{{ onTopic }}" style="width:100%; box-sizing:border-box; min-height:48px; padding:13px 14px; background:var(--ink-2); color:#fff; border:1px solid var(--border-hairline); border-radius:8px; font:400 16px/1.3 var(--font-ui); outline:none;">
+              <option value="">{{ t.choose }}</option>
+              <sc-for list="{{ topics }}" as="tp" hint-placeholder-count="4">
+                <option value="{{ tp.id }}">{{ tp.label }}</option>
+              </sc-for>
+            </select>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.roleLabel }}</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <sc-for list="{{ roleRows }}" as="r" hint-placeholder-count="4">
+                <button type="button" onClick="{{ r.pick }}" style="min-height:44px; padding:11px 18px; border:1px solid {{ r.border }}; background:{{ r.bg }}; color:{{ r.fg }}; cursor:pointer; border-radius:999px; font:500 14px/1 var(--font-ui);">{{ r.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+          <sc-if value="{{ s2Ready }}" hint-placeholder-val="{{ false }}">
+            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep3 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
+              </span>
+            </div>
+          </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+    <sc-if value="{{ s2Fold }}" hint-placeholder-val="{{ false }}">
+      <div data-sheet="1" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 18px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+        <span style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <span style="color:var(--ok); display:inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="15" hint-size="15px,15px"></x-import></span>
+          <span style="font:400 14px/1.5 var(--font-ui); color:var(--grey-4);">{{ s2Summary }}</span>
+        </span>
+        <button data-noprint="1" type="button" onClick="{{ editStep2 }}" style="min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ t.edit }}</button>
+      </div>
+    </sc-if>
+
+    <!-- RULE PANEL — earned by step 2 -->
+    <sc-if value="{{ showRule }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font:400 12px/1.4 var(--font-ui); color:var(--violet);">{{ t.computedFrom }} · {{ t.ruleTitle }}</span>
+          <p style="margin:0; font:400 16px/1.7 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ ruleGuidance }}</p>
+          <div style="display:flex; flex-direction:column; gap:10px; padding:16px; background:var(--ink-1); border:1px solid var(--border-hairline); border-radius:12px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+              <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ citeTitle }}</span>
+              <span style="padding:5px 12px; border-radius:999px; background:{{ confBg }}; color:{{ confFg }}; font:500 12px/1.4 var(--font-ui);">{{ confLabel }}</span>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:4px 16px; font:400 12px/1.6 var(--font-num); color:var(--grey-3);">
+              <span>{{ citePublisher }}</span><span>{{ citePage }}</span><span>{{ citeSection }}</span>
+            </div>
+            <sc-if value="{{ hasExcerpt }}" hint-placeholder-val="{{ true }}">
+              <blockquote style="margin:2px 0 0; padding:14px 16px; background:var(--ink-2); border-radius:10px; font:400 15px/1.75 var(--font-ui); color:var(--grey-4);">{{ citeExcerpt }}</blockquote>
+            </sc-if>
+            <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ t.ruleFootnote }}</span>
+          </div>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- STEP 3 — facts -->
+    <sc-if value="{{ s3Open }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">03</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.factsTitle }}</h2>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:12px; padding:16px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+            <span style="font:400 14px/1.4 var(--font-ui); color:#fff;">{{ t.areaTitle }}</span>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.declaredLabel }}</label>
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ declaredArea }}" onChange="{{ onDeclared }}" placeholder="{{ t.areaPlaceholder }}" hint-size="100%,48px"></x-import>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <label style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.measuredLabel }}</label>
+              <sc-if value="{{ measuredOn }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ measuredArea }}" onChange="{{ onMeasured }}" placeholder="{{ t.areaPlaceholder }}" hint-size="100%,48px"></x-import>
+              </sc-if>
+              <sc-if value="{{ measuredOff }}" hint-placeholder-val="{{ true }}">
+                <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.measuredNone }}</span>
+              </sc-if>
+              <button data-noprint="1" type="button" onClick="{{ toggleMeasured }}" style="align-self:flex-start; min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ measuredToggleLabel }}</button>
+            </div>
+            <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ t.areaHelp }}</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.surveyLabel }}</label>
+            <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ survey }}" onChange="{{ onSurvey }}" placeholder="{{ t.surveyPlaceholder }}" hint-size="100%,48px"></x-import>
+            <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ t.surveyHelp }}</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.useLabel }}</label>
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+              <sc-for list="{{ useRows }}" as="u" hint-placeholder-count="7">
+                <button type="button" onClick="{{ u.pick }}" style="min-height:44px; padding:11px 16px; border:1px solid {{ u.border }}; background:{{ u.bg }}; color:{{ u.fg }}; cursor:pointer; border-radius:999px; font:500 14px/1 var(--font-ui);">{{ u.label }}</button>
+              </sc-for>
+            </div>
+            <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ t.useHelp }}</span>
+          </div>
+
+          <sc-if value="{{ notShowAll }}" hint-placeholder-val="{{ true }}">
+            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep4 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
+              </span>
+            </div>
+          </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+    <sc-if value="{{ s3Fold }}" hint-placeholder-val="{{ false }}">
+      <div data-sheet="1" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 18px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+        <span style="display:flex; align-items:center; gap:10px; min-width:0;">
+          <span style="color:var(--ok); display:inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="15" hint-size="15px,15px"></x-import></span>
+          <span style="font:400 14px/1.5 var(--font-ui); color:var(--grey-4);">{{ s3Summary }}</span>
+        </span>
+        <button data-noprint="1" type="button" onClick="{{ editStep3 }}" style="min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ t.edit }}</button>
+      </div>
+    </sc-if>
+
+    <!-- READINESS — earned by step 3 -->
+    <sc-if value="{{ showReadiness }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+            <span style="font:400 12px/1.4 var(--font-ui); color:var(--violet);">{{ t.computedFrom }} · {{ t.readinessTitle }}</span>
+            <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.notSavedYet }}</span>
+          </div>
+          <sc-for list="{{ meterRows }}" as="m" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; gap:8px; padding-top:14px; border-top:1px solid var(--border-hairline);">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+                <span style="font:400 15px/1.4 var(--font-ui); color:#fff;">{{ m.label }}</span>
+                <span style="font:500 15px/1.3 var(--font-num); color:#fff;">{{ m.value }}</span>
+              </div>
+              <div style="height:6px; border-radius:999px; background:var(--ink-5); overflow:hidden;">
+                <div style="height:100%; border-radius:999px; background:var(--indigo); transition:width 220ms cubic-bezier(.2,0,0,1); width:{{ m.pct }};"></div>
+              </div>
+              <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ m.detail }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- STEP 4 — documents -->
+    <sc-if value="{{ s4Open }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">04</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.docsTitle }}</h2>
+          </div>
+          <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.docsSub }}</span>
+          <sc-for list="{{ reqDocRows }}" as="row" hint-placeholder-count="4">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 0; border-top:1px solid var(--border-hairline);">
+              <span style="display:flex; flex-direction:column; gap:5px; min-width:0;">
+                <span style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                  <span style="font:400 15px/1.4 var(--font-ui); color:#fff;">{{ row.label }}</span>
+                  <span style="padding:3px 9px; border-radius:999px; background:var(--violet-tint); color:var(--violet); font:500 12px/1.4 var(--font-ui);">{{ t.requiredTag }}</span>
+                </span>
+                <span style="font:400 13px/1.4 var(--font-ui); color:{{ row.stateColor }};">{{ row.stateLabel }}</span>
+              </span>
+              <span data-noprint="1" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                <button type="button" onClick="{{ row.toggleHave }}" style="min-height:44px; padding:11px 16px; border:1px solid {{ row.haveBorder }}; background:{{ row.haveBg }}; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ t.iHaveIt }}</button>
+                <label style="cursor:pointer; display:inline-flex; align-items:center; min-height:44px; padding:11px 16px; border:1px solid var(--border-strong); background:transparent; color:#fff; border-radius:999px; font:500 13px/1 var(--font-ui);">
+                  {{ t.upload }}
+                  <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.dwg,.dxf" onChange="{{ row.onUpload }}" style="display:none;">
+                </label>
+              </span>
+            </div>
+          </sc-for>
+
+          <button data-noprint="1" type="button" onClick="{{ toggleOtherDocs }}" style="align-self:flex-start; margin-top:4px; min-height:44px; padding:11px 18px; border:1px solid var(--border-strong); background:transparent; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ otherDocsLabel }}</button>
+          <sc-if value="{{ otherDocsOpen }}" hint-placeholder-val="{{ false }}">
+            <sc-for list="{{ otherDocRows }}" as="row" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px 0; border-top:1px solid var(--border-hairline);">
+                <span style="display:flex; flex-direction:column; gap:5px; min-width:0;">
+                  <span style="font:400 15px/1.4 var(--font-ui); color:#fff;">{{ row.label }}</span>
+                  <span style="font:400 13px/1.4 var(--font-ui); color:{{ row.stateColor }};">{{ row.stateLabel }}</span>
+                </span>
+                <span data-noprint="1" style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                  <button type="button" onClick="{{ row.toggleHave }}" style="min-height:44px; padding:11px 16px; border:1px solid {{ row.haveBorder }}; background:{{ row.haveBg }}; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ t.iHaveIt }}</button>
+                  <label style="cursor:pointer; display:inline-flex; align-items:center; min-height:44px; padding:11px 16px; border:1px solid var(--border-strong); background:transparent; color:#fff; border-radius:999px; font:500 13px/1 var(--font-ui);">
+                    {{ t.upload }}
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png,.webp,.dwg,.dxf" onChange="{{ row.onUpload }}" style="display:none;">
+                  </label>
+                </span>
+              </div>
+            </sc-for>
+          </sc-if>
+          <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ t.docsFormats }}</span>
+          <sc-if value="{{ notShowAll }}" hint-placeholder-val="{{ true }}">
+            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep5 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
+              </span>
+            </div>
+          </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- ROUTING — earned by step 4 -->
+    <sc-if value="{{ showRouting }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
+          <span style="font:400 12px/1.4 var(--font-ui); color:var(--violet);">{{ t.computedFrom }} · {{ t.routingTitle }}</span>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font:400 13px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.quality }}</span>
+            <span style="font:500 24px/1.25 var(--font-ui); letter-spacing:-0.02em; color:#fff; text-wrap:balance;">{{ bandLabel }}</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; padding-top:14px; border-top:1px solid var(--border-hairline);">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px;">
+              <span style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.score }}</span>
+              <span style="font:500 22px/1.2 var(--font-num); color:#fff;">{{ scoreLabel }}</span>
+            </div>
+            <div style="height:6px; border-radius:999px; background:var(--ink-5); overflow:hidden;">
+              <div style="height:100%; border-radius:999px; background:var(--gradient-spectrum); transition:width 220ms cubic-bezier(.2,0,0,1); width:{{ scorePct }};"></div>
+            </div>
+            <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ t.scoreNote }}</span>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:1px solid var(--border-hairline);">
+            <span style="font:400 13px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.queue }}</span>
+            <span style="font:400 16px/1.55 var(--font-ui); color:#fff;">{{ queueLabel }}</span>
+          </div>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- STEP 5 — contact + create -->
+    <sc-if value="{{ s5Open }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">05</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.contactTitle }}</h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,240px),1fr)); gap:14px;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.nameLabel }}</label>
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ name }}" onChange="{{ onName }}" placeholder="{{ t.namePlaceholder }}" hint-size="100%,48px"></x-import>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <label style="font:400 14px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.phoneLabel }}</label>
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ phone }}" onChange="{{ onPhone }}" placeholder="{{ t.phonePlaceholder }}" hint-size="100%,48px"></x-import>
+            </div>
+          </div>
+          <div data-noprint="1" style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; padding-top:14px; border-top:1px solid var(--border-hairline);">
+            <span style="font:400 14px/1.55 var(--font-ui); color:var(--grey-3);">{{ submitHint }}</span>
+            <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ createCase }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.createCase }}</x-import>
+            </span>
+          </div>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- CASE FILE -->
+    <sc-if value="{{ caseCreated }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
+          <span style="font:400 12px/1.4 var(--font-ui); color:var(--ok);">{{ t.caseFileTitle }}</span>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,200px),1fr)); gap:14px;">
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.caseCode }}</span>
+              <span style="font:500 16px/1.4 var(--font-num); color:#fff;">{{ caseCode }}</span>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:5px;">
+              <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.accessKey }}</span>
+              <span style="font:500 16px/1.4 var(--font-num); color:#fff;">{{ accessKey }}</span>
+            </div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:10px; padding-top:14px; border-top:1px solid var(--border-hairline);">
+            <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.site }}</span>
+            <sc-for list="{{ siteRows }}" as="sr" hint-placeholder-count="4">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+                <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ sr.source }}</span>
+                <span style="font:500 15px/1.4 var(--font-num); color:#fff;">{{ sr.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <span style="font:400 13px/1.55 var(--font-ui); color:var(--grey-3);">{{ t.accessKeyHelp }}</span>
+        </div>
+      </x-import>
+    </sc-if>
+
+    <!-- ACT -->
+    <sc-if value="{{ caseCreated }}" hint-placeholder-val="{{ false }}">
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:baseline; gap:10px;">
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">06</span>
+            <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.actTitle }}</h2>
+          </div>
+          <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.actSub }}</span>
+
+          <sc-for list="{{ serviceRows }}" as="sv" hint-placeholder-count="6">
+            <div style="display:flex; flex-direction:column; gap:10px; padding:14px 0; border-top:1px solid var(--border-hairline);">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                <span style="font:400 15px/1.4 var(--font-ui); color:#fff;">{{ sv.label }}</span>
+                <button type="button" onClick="{{ sv.toggle }}" style="min-height:44px; padding:11px 18px; border:1px solid {{ sv.border }}; background:{{ sv.bg }}; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ sv.btnLabel }}</button>
+              </div>
+              <sc-if value="{{ sv.on }}" hint-placeholder-val="{{ false }}">
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,200px),1fr)); gap:10px;">
+                  <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Input" tone="recessed" size="lg" value="{{ sv.note }}" onChange="{{ sv.onNote }}" placeholder="{{ t.notePlaceholder }}" hint-size="100%,48px"></x-import>
+                  <select data-field="{{ sv.selId }}" value="{{ sv.status }}" onChange="{{ sv.onStatus }}" style="width:100%; box-sizing:border-box; min-height:44px; padding:11px 13px; background:var(--ink-2); color:#fff; border:1px solid var(--border-hairline); border-radius:8px; font:400 14px/1.3 var(--font-ui); outline:none;">
+                    <sc-for list="{{ statusOptions }}" as="so" hint-placeholder-count="4">
+                      <option value="{{ so.id }}">{{ so.label }}</option>
+                    </sc-for>
+                  </select>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,260px),1fr)); gap:18px; padding-top:16px; border-top:1px solid var(--border-hairline);">
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ t.appointmentTitle }}</span>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ slotRows }}" as="sl" hint-placeholder-count="4">
+                  <button type="button" onClick="{{ sl.pick }}" style="min-height:44px; padding:11px 14px; border:1px solid {{ sl.border }}; background:{{ sl.bg }}; color:{{ sl.fg }}; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-num);">{{ sl.label }}</button>
+                </sc-for>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <sc-for list="{{ modeRows }}" as="md" hint-placeholder-count="3">
+                  <button type="button" onClick="{{ md.pick }}" style="min-height:44px; padding:11px 16px; border:1px solid {{ md.border }}; background:{{ md.bg }}; color:{{ md.fg }}; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ md.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ t.reportTitle }}</span>
+              <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.reportSub }}</span>
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" onClick="{{ requestQuote }}" hint-size="auto,48px">{{ t.requestQuote }}</x-import>
+                <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+                  <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" onClick="{{ pay }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.pay }}</x-import>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <sc-if value="{{ hasActLog }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:8px; padding:14px 16px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
+              <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.actLogTitle }}</span>
+              <sc-for list="{{ actLog }}" as="line" hint-placeholder-count="2">
+                <span style="font:400 13px/1.65 var(--font-num); color:var(--grey-4);">{{ line }}</span>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+  </main>
+
+  <!-- LIVE BAR -->
+  <sc-if value="{{ showLive }}" hint-placeholder-val="{{ false }}">
+    <div data-noprint="1" style="position:fixed; left:0; right:0; bottom:0; z-index:55; background:rgba(13,16,34,.95); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-top:1px solid var(--border-subtle);">
+      <div style="max-width:720px; margin:0 auto; padding:12px 16px; display:flex; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ liveNote }}</span>
+          <span style="font:500 14px/1.3 var(--font-num); color:#fff;">{{ scoreLabel }}</span>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <sc-for list="{{ meterRows }}" as="m" hint-placeholder-count="3">
+            <span style="flex:1 1 0; display:flex; flex-direction:column; gap:5px; min-width:0;">
+              <span style="display:flex; align-items:baseline; justify-content:space-between; gap:6px;">
+                <span style="font:400 12px/1.3 var(--font-ui); color:var(--grey-3); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ m.short }}</span>
+                <span style="font:500 12px/1.3 var(--font-num); color:#fff; flex:0 0 auto;">{{ m.value }}</span>
+              </span>
+              <span style="display:block; height:5px; border-radius:999px; background:var(--ink-5); overflow:hidden;">
+                <span style="display:block; height:100%; border-radius:999px; background:var(--indigo); transition:width 220ms cubic-bezier(.2,0,0,1); width:{{ m.pct }};"></span>
+              </span>
+            </span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:900,&quot;height&quot;:1000}}">
+const AUTHORITIES = [
+  { id:'bmc', mr:'BMC / MCGM मुंबई', en:'BMC / MCGM Mumbai', qmr:'मुंबई BMC/MCGM छाननी रांग', qen:'Mumbai BMC/MCGM review queue' },
+  { id:'mmr', mr:'MMRDA / मुंबई MMR', en:'MMRDA / Mumbai MMR', qmr:'MMRDA/MMR विशेष नियोजन प्राधिकरण रांग', qen:'MMRDA/MMR special planning authority queue' },
+  { id:'pmc', mr:'पुणे PMC', en:'Pune PMC', qmr:'पुणे PMC AutoDCR/BPAMS आर्किटेक्ट रांग', qen:'Pune PMC AutoDCR/BPAMS architect queue' },
+  { id:'pcmc', mr:'PCMC पिंपरी चिंचवड', en:'PCMC', qmr:'PCMC आर्किटेक्ट रांग', qen:'PCMC architect queue' },
+  { id:'pmrda', mr:'PMRDA', en:'PMRDA', qmr:'PMRDA नियोजन व layout छाननी रांग', qen:'PMRDA planning and layout review queue' },
+  { id:'nmc', mr:'नाशिक NMC', en:'Nashik NMC', qmr:'नाशिक NMC छाननी रांग', qen:'Nashik NMC review queue' },
+  { id:'nmrda', mr:'NMRDA', en:'NMRDA', qmr:'NMRDA प्रादेशिक नियोजन छाननी रांग', qen:'NMRDA regional planning review queue' },
+  { id:'nmmc', mr:'नवी मुंबई NMMC', en:'Navi Mumbai NMMC', qmr:'नवी मुंबई NMMC छाननी रांग', qen:'Navi Mumbai NMMC review queue' },
+  { id:'maha_bpams', mr:'इतर महाराष्ट्र BPAMS नागरी संस्था', en:'Other Maharashtra BPAMS urban body', qmr:'महाराष्ट्र BPAMS नागरी संस्था intake रांग', qen:'Maharashtra BPAMS urban body intake queue' },
+  { id:'unknown', mr:'माहिती नाही', en:'Not sure', qmr:'प्राधिकरण निश्चिती कक्ष', qen:'Authority identification desk' }
+];
+
+const DOCS = {
+  seven_twelve:{ mr:'७/१२ उतारा', en:'7/12 extract' },
+  property_card:{ mr:'मिळकत पत्रिका (Property card)', en:'Property card' },
+  title_document:{ mr:'मालकी हक्क दस्त (Title document)', en:'Title document' },
+  dp_remark:{ mr:'DP रिमार्क', en:'DP remark' },
+  road_width_proof:{ mr:'रस्ता रुंदी पुरावा', en:'Road width proof' },
+  na_order:{ mr:'NA आदेश', en:'NA order' },
+  sanction_plan:{ mr:'मंजूर नकाशा', en:'Sanctioned plan' },
+  scrutiny_remark:{ mr:'छाननी शेरा (Scrutiny remark)', en:'Scrutiny remark' }
+};
+
+const FACT_KEYS = {
+  plot_area:{ mr:'भूखंड क्षेत्र', en:'Plot area' },
+  survey_cts:{ mr:'सर्व्हे / CTS क्रमांक', en:'Survey / CTS number' },
+  authority_area:{ mr:'प्राधिकरण क्षेत्र', en:'Authority area' },
+  proposed_use:{ mr:'प्रस्तावित वापर', en:'Proposed use' }
+};
+
+const TOPICS = [
+  { id:'building_permission', mr:'बांधकाम परवानगी', en:'Building permission', req:['dp_remark','road_width_proof','title_document','plot_area','survey_cts'] },
+  { id:'bpams_assistance', mr:'BPAMS सहाय्य', en:'BPAMS assistance', req:['sanction_plan','scrutiny_remark','title_document','dp_remark','survey_cts'] },
+  { id:'feasibility_report', mr:'Feasibility report', en:'Feasibility report', req:['dp_remark','road_width_proof','title_document','plot_area','survey_cts'] },
+  { id:'na_conversion', mr:'NA रूपांतर', en:'NA conversion', req:['seven_twelve','dp_remark','proposed_use','authority_area'] },
+  { id:'udcpr_fsi', mr:'UDCPR / FSI प्रश्न', en:'UDCPR / FSI question', req:['plot_area','road_width_proof','dp_remark','survey_cts'] },
+  { id:'layout', mr:'Layout मंजुरी', en:'Layout approval', req:['plot_area','dp_remark','road_width_proof','title_document'] },
+  { id:'documents', mr:'कागदपत्रे जुळवणी', en:'Documents', req:['seven_twelve','property_card','title_document','dp_remark'] },
+  { id:'objection', mr:'आक्षेप / objection', en:'Objection', req:['scrutiny_remark','sanction_plan','authority_area'] },
+  { id:'completion', mr:'भोगवटा / completion', en:'Completion', req:['sanction_plan','title_document','survey_cts'] },
+  { id:'unsure', mr:'नक्की माहीत नाही', en:'Not sure yet', req:['title_document','survey_cts','authority_area'] }
+];
+
+const ROLES = [
+  { id:'citizen', mr:'नागरिक / भूखंड मालक', en:'Citizen / plot owner' },
+  { id:'developer', mr:'विकसक', en:'Developer' },
+  { id:'architect', mr:'आर्किटेक्ट / इंजिनियर', en:'Architect / engineer' },
+  { id:'ai_agent', mr:'AI agent', en:'AI agent' }
+];
+
+const USES = [
+  { id:'residential', mr:'निवासी', en:'Residential' },
+  { id:'commercial', mr:'व्यापारी', en:'Commercial' },
+  { id:'industrial', mr:'औद्योगिक', en:'Industrial' },
+  { id:'mixed', mr:'संमिश्र वापर', en:'Mixed use' },
+  { id:'institutional', mr:'संस्थात्मक / सार्वजनिक', en:'Institutional / public' },
+  { id:'agricultural', mr:'शेती', en:'Agricultural' },
+  { id:'not_decided', mr:'अद्याप ठरलेले नाही', en:'Not decided yet' }
+];
+
+const SERVICES = [
+  { id:'tracing', mr:'BPAMS tracing', en:'BPAMS tracing' },
+  { id:'submission', mr:'BPAMS submission', en:'BPAMS submission' },
+  { id:'scrutiny', mr:'छाननी दुरुस्ती (Scrutiny correction)', en:'Scrutiny correction' },
+  { id:'reassign', mr:'फाईल पुनर्नियुक्ती (File reassignment)', en:'File reassignment' },
+  { id:'objection', mr:'आक्षेप उत्तर (Objection reply)', en:'Objection reply' },
+  { id:'coordination', mr:'आर्किटेक्ट समन्वय', en:'Architect coordination' }
+];
+
+const STATUSES = [
+  { id:'requested', mr:'विनंती नोंदवली', en:'Requested' },
+  { id:'in_progress', mr:'सुरू आहे', en:'In progress' },
+  { id:'completed', mr:'पूर्ण झाले', en:'Completed' },
+  { id:'cancelled', mr:'रद्द केले', en:'Cancelled' }
+];
+
+const SLOTS = ['10:00–12:00','12:00–14:00','15:00–17:00','17:00–19:00'];
+const MODES = [
+  { id:'phone', mr:'फोन', en:'Phone' },
+  { id:'video', mr:'व्हिडिओ', en:'Video' },
+  { id:'office', mr:'कार्यालय', en:'Office' }
+];
+
+const UDCPR_CITE = { title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'page 137', section:'FSI and road width', conf:'strong', excerpt:'Regulation 6.3 determines basic FSI, premium FSI and TDR loading through tables that vary by authority class, congested or non-congested location, land use and abutting road width.' };
+
+const RULES = {
+  building_permission:{
+    mr:'बांधकाम परवानगीसाठी authority कोणते आहे, भूखंड कोणत्या land use zone मध्ये येतो, abutting road width किती आहे आणि title स्पष्ट आहे का — या चार बाबींवर पुढील प्रक्रिया ठरते. खालील नियम काय सांगतो ते वाचा; आपल्या केसचा निर्णय हे पान देत नाही.',
+    en:'Which authority applies, which land use zone the plot falls in, the abutting road width, and whether title is clear — those four facts drive the rest of the process. Read what the regulation states below; this page does not decide your case.',
+    cite: UDCPR_CITE },
+  udcpr_fsi:{
+    mr:'FSI हा एकच आकडा नसतो — basic FSI, premium FSI आणि TDR loading वेगवेगळ्या tables मधून येतात आणि authority class, congested / non-congested स्थान, land use व abutting road width नुसार बदलतात. म्हणून road width proof आणि DP remark शिवाय FSI आकडा सांगता येत नाही.',
+    en:'FSI is not a single number — basic FSI, premium FSI and TDR loading come from separate tables that vary by authority class, congested or non-congested location, land use and abutting road width. Without a road width proof and DP remark, no FSI figure can be stated.',
+    cite: UDCPR_CITE },
+  feasibility_report:{
+    mr:'Feasibility report मध्ये zone, road width, FSI potential आणि marginal open space यांचा एकत्र अभ्यास होतो. हे पान कोणता आकडा गृहीत धरत नाही; अहवाल तयार करण्यासाठी technical review आवश्यक आहे.',
+    en:'A feasibility report reads zone, road width, FSI potential and marginal open spaces together. This page assumes no figure; producing the report needs a technical review.',
+    cite: Object.assign({}, UDCPR_CITE, { conf:'related' }) },
+  bpams_assistance:{
+    mr:'BPAMS कामामध्ये CAD tracing, proposal drawing तयारी आणि online submission हे टप्पे येतात. फाईल कोणत्या टप्प्यावर अडली आहे हे scrutiny remark आणि मंजूर नकाशावरून ठरते.',
+    en:'BPAMS work runs through CAD tracing, proposal drawing preparation and online submission. Where the file is stuck follows from the scrutiny remark and the sanctioned plan.',
+    cite:{ title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'', section:'Submission of plans and scrutiny', conf:'related', excerpt:'' } },
+  na_conversion:{
+    mr:'NA रूपांतरासाठी ७/१२ वरील नोंदी, प्रस्तावित वापर आणि DP मधील zoning जुळणे आवश्यक असते. zoning व प्रस्तावित वापर जुळत नसतील तर प्रकरण वेगळ्या मार्गाने जाते.',
+    en:'NA conversion needs the entries on the 7/12, the proposed use, and DP zoning to line up. Where zoning and proposed use do not match, the case takes a different route.',
+    cite:{ title:'Maharashtra Land Revenue Code, read with the sanctioned Development Plan', publisher:'Revenue and Forest Department, Maharashtra', page:'', section:'Non-agricultural use', conf:'related', excerpt:'' } },
+  layout:{
+    mr:'Layout मंजुरीमध्ये access road रुंदी, amenity space आणि plot subdivision नियम तपासले जातात. भूखंड क्षेत्र आणि DP remark शिवाय layout तपासणी सुरू होत नाही.',
+    en:'Layout approval tests access road width, amenity space and plot subdivision rules. Without plot area and a DP remark, the layout check cannot start.',
+    cite:{ title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'', section:'Layout and subdivision of land', conf:'related', excerpt:'' } },
+  documents:{
+    mr:'बहुतांश प्रकरणे कागदपत्रांच्या कमतरतेमुळे थांबतात — ७/१२, मिळकत पत्रिका, title दस्त आणि DP remark. कोणते गहाळ आहे ते खालील readiness मध्ये दिसते.',
+    en:'Most cases stall on missing paperwork — the 7/12, property card, title document and DP remark. What is missing shows in the readiness meters below.',
+    cite:{ title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'', section:'Documents to accompany an application', conf:'related', excerpt:'' } },
+  objection:{
+    mr:'आक्षेपाला उत्तर देताना scrutiny remark मध्ये नमूद केलेला मुद्दा आणि मंजूर नकाशा यांची तुलना केली जाते. उत्तर मुदतीत नोंदवणे आवश्यक असते.',
+    en:'Replying to an objection compares the point raised in the scrutiny remark against the sanctioned plan. The reply has to be filed within the stated period.',
+    cite:{ title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'', section:'Scrutiny, objections and compliance', conf:'related', excerpt:'' } },
+  completion:{
+    mr:'भोगवटा प्रमाणपत्रासाठी प्रत्यक्ष बांधकाम आणि मंजूर नकाशा जुळणे आवश्यक असते. deviation असल्यास वेगळी प्रक्रिया लागू होते.',
+    en:'An occupancy certificate requires the built work to match the sanctioned plan. Where there is deviation, a separate process applies.',
+    cite:{ title:'Latest UDCPR', publisher:'Directorate of Town Planning and Valuation, Maharashtra', page:'', section:'Occupancy certificate', conf:'related', excerpt:'' } },
+  unsure:{
+    mr:'विषय निश्चित नसेल तरी title दस्त, सर्व्हे क्रमांक आणि प्राधिकरण क्षेत्र या तीन गोष्टींवरून प्रकरण कोणत्या मार्गाने जाईल हे ठरवता येते.',
+    en:'Even where the topic is not settled, the title document, survey number and authority area are enough to decide which route the case takes.',
+    cite:{ title:'', publisher:'', page:'', section:'', conf:'none', excerpt:'' } }
+};
+
+const T = {
+  mr:{
+    products:'उत्पादने', productSub:'नगर मंजुरी कक्ष · Urban Sanction Desk · महाराष्ट्र',
+    navHome:'मुख्य पान', navLearn:'माहिती', navContact:'संपर्क', navBookCall:'कॉल ठरवा',
+    pageTitle:'तुमचे प्रकरण कुठे अडले आहे?',
+    pageIntro:'एका वेळी एक प्रश्न. तुम्ही उत्तर देताच सज्जता, नियम संदर्भ आणि वर्गीकरण लगेच पुन्हा मोजले जाते — काहीही जतन होण्याआधी.',
+    disclaimer:'हे पान मार्गदर्शन देते — निर्णय देत नाही. पात्रता, FSI किंवा मंजुरी याबाबत अंतिम मत येथे दिले जात नाही. नियम काय सांगतो, कोणती माहिती कमी आहे, आणि पुढे कोणाकडे जायचे — इतकेच.',
+    returningLabel:'यापूर्वी नोंदवलेले प्रकरण?', keyPlaceholder:'access key', openCase:'उघडा',
+    keyWrong:'ही key जुळत नाही', demoKey:'demo: AK-DEMO12',
+    expertHint:'आर्किटेक्ट किंवा विकसक? सर्व प्रश्न एकत्र उघडा.', showAll:'सर्व प्रश्न', stepByStep:'एक-एक प्रश्न',
+    askTitle:'काय अडले आहे, आणि कुठे?', problemLabel:'प्रकरणाचे वर्णन',
+    problemPlaceholder:'उदा. NMRDA कडे बांधकाम परवानगी फाईल scrutiny नंतर तीन महिने पुढे सरकली नाही.',
+    problemHelp:'तारखा, फाईल क्रमांक आणि शेवटचा शेरा लिहिल्यास सज्जता लवकर वाढते.',
+    authorityLabel:'प्राधिकरण', choose:'निवडा', edit:'बदला', next:'पुढे',
+    topicTitle:'विषय आणि तुमची भूमिका', topicLabel:'विषय', roleLabel:'तुमची भूमिका',
+    factsTitle:'भूखंडाची माहिती', areaTitle:'भूखंड क्षेत्र',
+    declaredLabel:'घोषित (Area Statement)', measuredLabel:'मोजलेले (drawing geometry)',
+    measuredNone:'अद्याप उपलब्ध नाही — drawing तपासणीनंतर मिळते.', measuredAdd:'मोजलेले क्षेत्र भरा',
+    measuredRemove:'मोजलेले क्षेत्र अनुपलब्ध', areaPlaceholder:'उदा. 400.000 sq.m',
+    areaHelp:'दोन्ही आकडे वेगवेगळ्या स्रोतांतून येतात. एकही गोल केला जात नाही.',
+    surveyLabel:'सर्व्हे / CTS क्रमांक', surveyPlaceholder:'उदा. Gat No. 24/2',
+    surveyHelp:'७/१२ उताऱ्यावर गट किंवा सर्व्हे क्रमांक दिलेला असतो.',
+    useLabel:'प्रस्तावित वापर', useHelp:'NA रूपांतरासाठी आवश्यक; कोणते FSI table लागू होते हे यावर ठरते.',
+    computedFrom:'तुमच्या उत्तरांवरून', ruleTitle:'नियम काय सांगतो',
+    ruleFootnote:'हा उतारा संदर्भासाठी आहे. प्रकरणनिहाय अर्थ तांत्रिक तपासणीनंतरच.',
+    readinessTitle:'सज्जता', notSavedYet:'अद्याप जतन केलेले नाही',
+    locationFacts:'स्थळ माहिती', documentsMeter:'विषयासाठी आवश्यक', ruleMeter:'नियम स्रोत',
+    locShort:'स्थळ', docShort:'कागदपत्रे', ruleShort:'नियम',
+    docsTitle:'कागदपत्रे', docsSub:'तुमच्या विषयासाठी आवश्यक कागदपत्रे प्रथम. एकच ओळ सज्जता आणि फाईल स्टोअर दोन्ही चालवते.',
+    requiredTag:'आवश्यक', iHaveIt:'माझ्याकडे आहे', upload:'अपलोड',
+    otherDocsShow:'इतर कागदपत्रे दाखवा', otherDocsHide:'इतर कागदपत्रे लपवा',
+    docsFormats:'स्वीकारले जाणारे प्रकार: pdf, jpg, png, webp, dwg, dxf',
+    routingTitle:'वर्गीकरण', quality:'प्रकरणाची गुणवत्ता', score:'फाईल तयारी गुण', queue:'नियुक्त रांग',
+    scoreNote:'हा फाईल तयारीचा गुण आहे — मंजुरीची शक्यता नव्हे. कोणताही अर्ज याने मंजूर किंवा नामंजूर होत नाही.',
+    contactTitle:'संपर्क आणि नोंदणी', nameLabel:'नाव', namePlaceholder:'तुमचे नाव',
+    phoneLabel:'मोबाइल क्रमांक', phonePlaceholder:'10 अंकी क्रमांक', createCase:'प्रकरण नोंदवा',
+    caseFileTitle:'प्रकरण नोंदले', caseCode:'प्रकरण क्रमांक', accessKey:'खाजगी access key', site:'स्थळ',
+    accessKeyHelp:'ही key जपून ठेवा. तीच key टाकल्यास प्रकरण पुन्हा उघडता येते.',
+    actTitle:'पुढील पाऊल', actSub:'सेवा मागा, अहवालाचे दरपत्रक मागा, वेळ ठरवा, किंवा भरणा करा.',
+    request:'विनंती करा', cancelRequest:'विनंती काढा', notePlaceholder:'टीप (ऐच्छिक)',
+    appointmentTitle:'वेळ ठरवा', reportTitle:'Feasibility अहवाल',
+    reportSub:'zone, road width आणि FSI potential एकत्र तपासून लेखी अहवाल.',
+    requestQuote:'दरपत्रक मागा', pay:'भरणा करा', actLogTitle:'या प्रकरणातील विनंत्या',
+    requested:'विनंती नोंदवली', unmarked:'नोंद नाही', haveIt:'माझ्याकडे आहे', uploaded:'अपलोड झाले',
+    complete:'पूर्ण', partial:'अपूर्ण', incomplete:'सुरुवात', missing:'कमी',
+    sourceFound:'स्रोत सापडला', sourcePending:'स्रोत शोध बाकी',
+    strong:'ठोस जुळणी', related:'संबंधित', none:'जुळणी नाही',
+    needAuthority:'प्राधिकरण निवडा', needTopic:'विषय निवडा', needPhone:'नोंदणीसाठी 10 अंकी मोबाइल क्रमांक आवश्यक',
+    readyToSubmit:'नोंदवल्यावर सेवा आणि वेळ ठरवणे उपलब्ध होईल.',
+    bandHigh:'तपासणीसाठी तयार प्रकरण', bandMid:'चांगले प्रकरण, काही तपशील कमी', bandLow:'प्राथमिक माहिती टप्पा',
+    queuePending:'प्राधिकरण निवडल्यावर ठरेल', liveNote:'थेट मोजणी सुरू · जतन नाही', liveSaved:'प्रकरण नोंदले',
+    declaredSrc:'घोषित · Area Statement', measuredSrc:'मोजलेले · drawing geometry',
+    frontageSrc:'रुंदी · drawing geometry', depthSrc:'खोली · drawing geometry',
+    addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही'
+  },
+  en:{
+    products:'Products', productSub:'Urban Sanction Desk · Maharashtra building permission',
+    navHome:'Home', navLearn:'Learn', navContact:'Contact us', navBookCall:'Book a call',
+    pageTitle:'Where is your case stuck?',
+    pageIntro:'One question at a time. As you answer, readiness, the rule reference and the routing all recompute — before anything is saved.',
+    disclaimer:'This page gives guidance, not a decision. Nothing here settles eligibility, FSI or approval. It states what the regulation says, what facts are missing, and who to go to next.',
+    returningLabel:'Returning to a saved case?', keyPlaceholder:'access key', openCase:'Open',
+    keyWrong:'That key does not match', demoKey:'demo: AK-DEMO12',
+    expertHint:'Architect or developer? Open every question at once.', showAll:'All questions', stepByStep:'One at a time',
+    askTitle:'What is stuck, and where?', problemLabel:'Problem description',
+    problemPlaceholder:'e.g. Building permission file at NMRDA has not moved for three months after scrutiny.',
+    problemHelp:'Dates, file numbers and the last remark raise readiness fastest.',
+    authorityLabel:'Authority', choose:'Choose', edit:'Edit', next:'Next',
+    topicTitle:'Topic and your role', topicLabel:'Topic', roleLabel:'Your role',
+    factsTitle:'Plot facts', areaTitle:'Plot area',
+    declaredLabel:'Declared (Area Statement)', measuredLabel:'Measured (drawing geometry)',
+    measuredNone:'Not available yet — comes from the drawing review.', measuredAdd:'Add measured area',
+    measuredRemove:'Mark measured unavailable', areaPlaceholder:'e.g. 400.000 sq.m',
+    areaHelp:'The two figures come from different sources. Neither is rounded into the other.',
+    surveyLabel:'Survey / CTS number', surveyPlaceholder:'e.g. Gat No. 24/2',
+    surveyHelp:'The 7/12 extract carries the gat or survey number.',
+    useLabel:'Proposed use', useHelp:'Required for NA conversion; it decides which FSI table applies.',
+    computedFrom:'From your answers', ruleTitle:'What the rule says',
+    ruleFootnote:'The excerpt is for reference. Case-specific reading follows a technical review.',
+    readinessTitle:'Readiness', notSavedYet:'Nothing saved yet',
+    locationFacts:'Location facts', documentsMeter:'Required for this topic', ruleMeter:'Rule source',
+    locShort:'Location', docShort:'Documents', ruleShort:'Rule',
+    docsTitle:'Documents', docsSub:'Documents your topic requires come first. The same row drives readiness and the file store.',
+    requiredTag:'required', iHaveIt:'I have it', upload:'Upload',
+    otherDocsShow:'Show other documents', otherDocsHide:'Hide other documents',
+    docsFormats:'Accepts pdf, jpg, png, webp, dwg, dxf',
+    routingTitle:'Routing', quality:'Case quality', score:'File-preparation score', queue:'Assigned queue',
+    scoreNote:'This scores how complete the file is — not the chance of approval. It approves and rejects nothing.',
+    contactTitle:'Contact and submission', nameLabel:'Name', namePlaceholder:'Your name',
+    phoneLabel:'Mobile number', phonePlaceholder:'10-digit number', createCase:'Create the case',
+    caseFileTitle:'Case created', caseCode:'Case code', accessKey:'Private access key', site:'Site',
+    accessKeyHelp:'Keep this key. Entering it reopens the case.',
+    actTitle:'Act', actSub:'Request a service, ask for a report quote, book a time, or pay.',
+    request:'Request', cancelRequest:'Withdraw', notePlaceholder:'Note (optional)',
+    appointmentTitle:'Book an appointment', reportTitle:'Feasibility report',
+    reportSub:'Zone, road width and FSI potential read together, in writing.',
+    requestQuote:'Request a quote', pay:'Pay', actLogTitle:'Requests on this case',
+    requested:'Requested', unmarked:'Not marked', haveIt:'I have it', uploaded:'Uploaded',
+    complete:'complete', partial:'partial', incomplete:'incomplete', missing:'missing',
+    sourceFound:'Source identified', sourcePending:'Source lookup pending',
+    strong:'strong', related:'related', none:'none',
+    needAuthority:'Choose an authority', needTopic:'Choose a topic', needPhone:'A 10-digit mobile number is needed to submit',
+    readyToSubmit:'Services and appointments unlock once the case is created.',
+    bandHigh:'Review-ready case', bandMid:'Good case, some details missing', bandLow:'Initial information stage',
+    queuePending:'Set once an authority is chosen', liveNote:'Recomputing live · not saved', liveSaved:'Case created',
+    declaredSrc:'Declared · Area Statement', measuredSrc:'Measured · drawing geometry',
+    frontageSrc:'Frontage · drawing geometry', depthSrc:'Depth · drawing geometry',
+    addressSrc:'Address · 7/12', roadSrc:'Road · site survey', measuredPending:'Not available yet'
+  }
+};
+
+const FACT_ITEMS = ['plot_area','survey_cts','authority_area','proposed_use'];
+
+const SAMPLE = {
+  problem:'Building permission file at NMRDA has not moved for three months after scrutiny. Plot No. 13, Gat No. 24/2, 12 m road.',
+  authority:'nmrda', topic:'building_permission', role:'citizen',
+  declaredArea:'400.000 sq.m', measuredAvailable:true, measuredArea:'399.96 sq.m',
+  survey:'Gat No. 24/2', proposedUse:'residential', name:'Sunil Patil', phone:'9422000000',
+  docs:{ title_document:{ state:'have', file:'' }, dp_remark:{ state:'uploaded', file:'dp-remark-gat-24-2.pdf' }, seven_twelve:{ state:'have', file:'' } }
+};
+
+class Component extends DCLogic {
+  state = {
+    lang:'en', problem:'', authority:'', topic:'', role:'',
+    declaredArea:'', measuredAvailable:false, measuredArea:'',
+    survey:'', proposedUse:'',
+    docs:{}, name:'', phone:'',
+    step:1, showAll:false, otherDocsOpen:false,
+    caseCreated:false, caseCode:'USD-20260919-75C960', accessKey:'',
+    services:{}, slot:'', mode:'', actLog:[],
+    keyInput:'', keyError:false, flyoutOpen:false
+  };
+
+  componentDidMount(){ this.syncSelects(); }
+  componentDidUpdate(){ this.syncSelects(); }
+
+  syncSelects(){
+    const map = { authority:this.state.authority, topic:this.state.topic };
+    Object.keys(map).forEach(f=>{
+      const el = document.querySelector('select[data-field="'+f+'"]');
+      if (el && el.options.length>1 && el.value!==map[f]) el.value = map[f];
+    });
+    Object.keys(this.state.services).forEach(id=>{
+      const sv = this.state.services[id];
+      const el = document.querySelector('select[data-field="svc-'+id+'"]');
+      if (el && sv && el.value!==sv.status) el.value = sv.status;
+    });
+  }
+
+  tr(){ return T[this.state.lang]; }
+  L(o){ return o ? o[this.state.lang] : ''; }
+  topicDef(){ return TOPICS.find(t=>t.id===this.state.topic) || null; }
+  authDef(){ return AUTHORITIES.find(a=>a.id===this.state.authority) || null; }
+  docState(k){ const d=this.state.docs[k]; return d ? d.state : 'none'; }
+
+  factSatisfied(key){
+    const s=this.state;
+    if (key==='plot_area') return s.declaredArea.trim()!=='';
+    if (key==='survey_cts') return s.survey.trim()!=='';
+    if (key==='authority_area') return s.authority!=='' && s.authority!=='unknown';
+    if (key==='proposed_use') return s.proposedUse!=='' && s.proposedUse!=='not_decided';
+    return false;
+  }
+
+  reqStatus(){
+    const def=this.topicDef();
+    if(!def) return { done:0, total:0, missing:[] };
+    let done=0; const missing=[];
+    def.req.forEach(k=>{
+      const ok = FACT_ITEMS.indexOf(k)>=0 ? this.factSatisfied(k) : this.docState(k)!=='none';
+      if(ok) done++; else missing.push(this.L(FACT_ITEMS.indexOf(k)>=0 ? FACT_KEYS[k] : DOCS[k]));
+    });
+    return { done, total:def.req.length, missing };
+  }
+
+  markedDocCount(){ return Object.keys(this.state.docs).filter(k=>this.state.docs[k].state!=='none').length; }
+
+  score(){
+    const s=this.state; let total=0;
+    if (s.authority && s.authority!=='unknown') total+=20;
+    if (this.factSatisfied('plot_area')) total+=15;
+    if (this.factSatisfied('survey_cts')) total+=15;
+    if (s.phone.trim().length>=10) total+=10;
+    total += Math.min(this.markedDocCount()*8, 32);
+    if (s.topic==='objection'||s.topic==='layout') total+=10;
+    if (s.topic==='building_permission'||s.topic==='na_conversion') total+=8;
+    return total;
+  }
+
+  band(sc){ const t=this.tr(); return sc>=70 ? t.bandHigh : sc>=45 ? t.bandMid : t.bandLow; }
+  set(p){ this.setState(p); }
+
+  setDoc(k,p){
+    const docs=Object.assign({},this.state.docs);
+    docs[k]=Object.assign({state:'none',file:''},docs[k],p);
+    this.setState({docs});
+  }
+
+  logAct(line){ this.setState({ actLog:this.state.actLog.concat([line]) }); }
+
+  renderVals(){
+    const s=this.state, t=this.tr();
+    const topicDef=this.topicDef(), authDef=this.authDef();
+    const all=s.showAll;
+
+    const s1Done = s.problem.trim()!=='' && s.authority!=='';
+    const s2Done = s1Done && s.topic!=='' && s.role!=='';
+    const s3Done = s2Done && (s.declaredArea.trim()!=='' || s.survey.trim()!=='' || s.proposedUse!=='');
+    const s4Done = s3Done && this.markedDocCount()>0;
+
+    const req=this.reqStatus();
+    const rule=RULES[s.topic]||null;
+    const conf=rule?rule.cite.conf:'none';
+    const confMap={
+      strong:{bg:'rgba(95,216,148,.16)',fg:'#7fe3ae',label:t.strong},
+      related:{bg:'var(--violet-tint)',fg:'var(--violet)',label:t.related},
+      none:{bg:'var(--ink-4)',fg:'var(--grey-3)',label:t.none}
+    };
+    const score=this.score();
+
+    const locFlags=[s.authority!=='' && s.authority!=='unknown', this.factSatisfied('plot_area'), this.factSatisfied('survey_cts')];
+    const locDone=locFlags.filter(Boolean).length;
+    const locMissing=[t.authorityLabel, t.areaTitle, t.surveyLabel].filter((x,i)=>!locFlags[i]);
+    const docWord = req.total===0 ? '' : req.done===req.total ? t.complete : req.done>0 ? t.partial : t.incomplete;
+
+    const meterRows=[
+      { label:t.locationFacts, short:t.locShort, value:locDone+' / 3', pct:Math.round(locDone/3*100)+'%',
+        detail: locMissing.length ? t.missing+': '+locMissing.join(', ') : t.complete },
+      { label:t.documentsMeter, short:t.docShort, value:req.done+' / '+(req.total||0), pct: req.total?Math.round(req.done/req.total*100)+'%':'0%',
+        detail: req.missing.length ? docWord+' · '+t.missing+': '+req.missing.join(', ') : docWord },
+      { label:t.ruleMeter, short:t.ruleShort, value: rule?'1 / 1':'0 / 1', pct: rule?'100%':'6%',
+        detail: rule && rule.cite.title ? t.sourceFound+' · '+rule.cite.title : t.sourcePending }
+    ];
+
+    const reqDocKeys = topicDef ? topicDef.req.filter(k=>FACT_ITEMS.indexOf(k)<0) : [];
+    const otherDocKeys = Object.keys(DOCS).filter(k=>reqDocKeys.indexOf(k)<0);
+    const mkDocRow = key => {
+      const st=this.docState(key), d=s.docs[key];
+      return {
+        label:this.L(DOCS[key]),
+        stateLabel: st==='uploaded' ? t.uploaded+' · '+(d&&d.file?d.file:'') : st==='have' ? t.haveIt : t.unmarked,
+        stateColor: st==='none' ? 'var(--grey-3)' : 'var(--ok)',
+        haveBg: st==='have' ? 'var(--indigo)' : 'transparent',
+        haveBorder: st==='have' ? 'var(--indigo)' : 'var(--border-strong)',
+        toggleHave: ()=>this.setDoc(key,{ state: st==='have'?'none':'have', file:'' }),
+        onUpload: e=>{ const f=e.target.files&&e.target.files[0]; if(f) this.setDoc(key,{state:'uploaded',file:f.name}); }
+      };
+    };
+
+    const serviceRows = SERVICES.map(sv=>{
+      const cur=s.services[sv.id];
+      const on=!!cur;
+      return {
+        label:this.L(sv), on, selId:'svc-'+sv.id,
+        note: cur?cur.note:'', status: cur?cur.status:'requested',
+        btnLabel: on ? t.cancelRequest : t.request,
+        bg: on ? 'var(--indigo)' : 'transparent',
+        border: on ? 'var(--indigo)' : 'var(--border-strong)',
+        toggle: ()=>{
+          const services=Object.assign({},s.services);
+          if(on){ delete services[sv.id]; this.setState({services}); }
+          else { services[sv.id]={note:'',status:'requested'}; this.setState({services}); this.logAct(this.L(sv)+' · '+t.requested); }
+        },
+        onNote: e=>{ const services=Object.assign({},s.services); services[sv.id]=Object.assign({},services[sv.id],{note:e.target.value}); this.setState({services}); },
+        onStatus: e=>{ const services=Object.assign({},s.services); services[sv.id]=Object.assign({},services[sv.id],{status:e.target.value}); this.setState({services}); }
+      };
+    });
+
+    const pickRow = (list, cur, onPick) => list.map(o=>({
+      label:this.L(o),
+      bg: cur===o.id ? 'var(--indigo)' : 'transparent',
+      fg: cur===o.id ? '#ffffff' : 'var(--grey-4)',
+      border: cur===o.id ? 'var(--indigo)' : 'var(--border-strong)',
+      pick: ()=>onPick(o.id)
+    }));
+
+    const siteRows=[
+      { source:t.addressSrc, value:'Plot No. 13, Gat No. 24/2, Mauje Gonde Dumala, Ta. Igatpuri, Dist. Nashik' },
+      { source:t.declaredSrc, value: s.declaredArea || '—' },
+      { source:t.measuredSrc, value: s.measuredAvailable ? (s.measuredArea||'—') : t.measuredPending },
+      { source:t.frontageSrc, value:'39.60 m' },
+      { source:t.depthSrc, value:'10.10 m' },
+      { source:t.roadSrc, value:'12 m wide existing road' }
+    ];
+
+    const submitHint = !s.authority ? t.needAuthority : !s.topic ? t.needTopic : s.phone.trim().length<10 ? t.needPhone : t.readyToSubmit;
+
+    return {
+      t,
+      authorities:AUTHORITIES.map(a=>({id:a.id,label:this.L(a)})),
+      topics:TOPICS.map(tp=>({id:tp.id,label:this.L(tp)})),
+      statusOptions:STATUSES.map(st=>({id:st.id,label:this.L(st)})),
+      roleRows: pickRow(ROLES, s.role, id=>this.set({role:id})),
+      useRows: pickRow(USES, s.proposedUse, id=>this.set({proposedUse:id})),
+      slotRows: SLOTS.map(sl=>({ label:sl, bg:s.slot===sl?'var(--indigo)':'transparent', fg:s.slot===sl?'#ffffff':'var(--grey-4)', border:s.slot===sl?'var(--indigo)':'var(--border-strong)', pick:()=>this.set({slot:sl}) })),
+      modeRows: pickRow(MODES, s.mode, id=>this.set({mode:id})),
+
+      flyoutOpen:s.flyoutOpen,
+      toggleFlyout:()=>this.set({flyoutOpen:!s.flyoutOpen}),
+      flyoutBg: s.flyoutOpen?'var(--ink-4)':'transparent',
+      flyoutFg: s.flyoutOpen?'#ffffff':'var(--grey-4)',
+      flyoutCaret: s.flyoutOpen?'rotate(180deg)':'rotate(0deg)',
+      productList:[
+        { name:'Urban Sanction Desk', href:'urban-sanction-desk.dc.html', tag:this.state.lang==='mr'?'सुरू आहे':'open now', tagColor:'var(--ok)', bg:'var(--ink-4)', dot:'var(--ok)',
+          line:this.state.lang==='mr'?'बांधकाम परवानगी प्रकरणात पुढचे पाऊल कळते.':'Know your next step in a building permission case.' },
+        { name:'Sarthi Reach', href:'sarthi-reach.dc.html', tag:'', tagColor:'var(--grey-3)', bg:'transparent', dot:'var(--ink-7)',
+          line:this.state.lang==='mr'?'लीड शोधा, लीडवर काम करा, लीड सोपवा.':'Find the lead, work the lead, hand over the lead.' }
+      ],
+
+      keyInput:s.keyInput, keyError:s.keyError,
+      onKeyInput:e=>this.set({keyInput:e.target.value,keyError:false}),
+      openWithKey:()=>{
+        const k=s.keyInput.trim().toUpperCase();
+        if(k!=='AK-DEMO12' && !(s.accessKey && k===s.accessKey)){ this.set({keyError:true}); return; }
+        this.setState(Object.assign({}, SAMPLE, { keyError:false, caseCreated:true, accessKey:k, step:6, showAll:true }));
+      },
+
+      showAllLabel: all ? t.stepByStep : t.showAll,
+      showAllBg: all ? 'var(--ink-4)' : 'transparent',
+      showAllBorder: all ? 'var(--border-strong)' : 'var(--border-subtle)',
+      toggleShowAll:()=>this.set({showAll:!all}),
+      notShowAll: !all,
+
+      problem:s.problem, onProblem:e=>this.set({problem:e.target.value}),
+      authority:s.authority, onAuthority:e=>this.set({authority:e.target.value}),
+      topic:s.topic, onTopic:e=>this.set({topic:e.target.value}),
+      declaredArea:s.declaredArea, onDeclared:e=>this.set({declaredArea:e.target.value}),
+      measuredArea:s.measuredArea, onMeasured:e=>this.set({measuredArea:e.target.value}),
+      measuredOn:s.measuredAvailable, measuredOff:!s.measuredAvailable,
+      measuredToggleLabel: s.measuredAvailable ? t.measuredRemove : t.measuredAdd,
+      toggleMeasured:()=>this.set({measuredAvailable:!s.measuredAvailable, measuredArea:''}),
+      survey:s.survey, onSurvey:e=>this.set({survey:e.target.value}),
+      name:s.name, onName:e=>this.set({name:e.target.value}),
+      phone:s.phone, onPhone:e=>this.set({phone:e.target.value}),
+
+      s1Open: all || s.step===1,
+      s1Fold: !all && s.step!==1 && s1Done,
+      s1Ready: s1Done,
+      s1Summary: (authDef?this.L(authDef):'') + ' · ' + s.problem.trim().slice(0,70) + (s.problem.trim().length>70?'…':''),
+      editStep1:()=>this.set({step:1}), goStep2:()=>this.set({step:2}),
+
+      s2Open: all || (s.step===2 && s1Done),
+      s2Fold: !all && s.step!==2 && s2Done,
+      s2Ready: s2Done,
+      s2Summary: (topicDef?this.L(topicDef):'') + ' · ' + this.L(ROLES.find(r=>r.id===s.role)||null),
+      editStep2:()=>this.set({step:2}), goStep3:()=>this.set({step:3}),
+
+      s3Open: all || (s.step===3 && s2Done),
+      s3Fold: !all && s.step!==3 && s3Done,
+      s3Summary: (s.declaredArea||'—') + ' · ' + (s.survey||'—') + ' · ' + this.L(USES.find(u=>u.id===s.proposedUse)||null),
+      editStep3:()=>this.set({step:3}), goStep4:()=>this.set({step:4}),
+
+      s4Open: all || (s.step===4 && s3Done),
+      otherDocsOpen:s.otherDocsOpen,
+      otherDocsLabel: s.otherDocsOpen ? t.otherDocsHide : t.otherDocsShow,
+      toggleOtherDocs:()=>this.set({otherDocsOpen:!s.otherDocsOpen}),
+      reqDocRows: reqDocKeys.map(mkDocRow),
+      otherDocRows: otherDocKeys.map(mkDocRow),
+      goStep5:()=>this.set({step:5}),
+
+      s5Open: (all || s.step===5) && s4Done && !s.caseCreated,
+
+      showRule: !!rule && s2Done,
+      showReadiness: s2Done && (all || s.step>=3),
+      showRouting: s4Done && (all || s.step>=4),
+      showLive: s2Done,
+      liveNote: s.caseCreated ? t.liveSaved+' · '+s.caseCode : t.liveNote,
+
+      ruleGuidance: rule?rule[s.lang]:'',
+      citeTitle: rule&&rule.cite.title?rule.cite.title:'—',
+      citePublisher: rule?rule.cite.publisher:'',
+      citePage: rule?rule.cite.page:'',
+      citeSection: rule&&rule.cite.section?'“'+rule.cite.section+'”':'',
+      hasExcerpt: !!(rule&&rule.cite.excerpt),
+      citeExcerpt: rule?rule.cite.excerpt:'',
+      confBg:confMap[conf].bg, confFg:confMap[conf].fg, confLabel:confMap[conf].label,
+
+      meterRows,
+      bandLabel:this.band(score), scoreLabel:score+' / 102', scorePct:Math.round(score/102*100)+'%',
+      queueLabel: authDef ? this.L({mr:authDef.qmr,en:authDef.qen}) : t.queuePending,
+      submitHint,
+      createCase:()=>{
+        if(s.phone.trim().length<10) return;
+        this.setState({ caseCreated:true, accessKey:'AK-'+Math.random().toString(36).slice(2,8).toUpperCase(), step:6 });
+      },
+
+      caseCreated:s.caseCreated, caseCode:s.caseCode, accessKey:s.accessKey, siteRows,
+      serviceRows,
+      requestQuote:()=>this.logAct(t.reportTitle+' · '+t.requested),
+      pay:()=>this.logAct(t.pay+' · '+t.requested),
+      hasActLog:s.actLog.length>0, actLog:s.actLog,
+
+      ctaProps:{ style:{ background:'var(--cta)', borderColor:'var(--cta)', color:'#ffffff' } }
+    };
+  }
+}
+</script>
+</body>
+</html>
