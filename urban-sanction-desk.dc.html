@@ -41,6 +41,19 @@
   a:hover { color: var(--grey-4); }
   select, input, textarea, button { font-family: var(--font-ui); }
   select option { background:#11152e; color:#fff; }
+  [data-rail]::-webkit-scrollbar{display:none;}
+  @media (max-width:720px){
+    [data-hdr]{padding:10px 16px !important;gap:8px !important;min-height:56px !important;}
+    [data-nav]{order:3;flex:1 1 100% !important;justify-content:flex-start !important;flex-wrap:nowrap !important;overflow-x:auto;padding:0 0 2px !important;scrollbar-width:none;}
+    [data-nav]::-webkit-scrollbar{display:none;}
+    [data-nav] > *{flex:0 0 auto;min-height:40px;display:inline-flex;align-items:center;}
+    [data-login]{display:none !important;}
+    [data-flyout]{position:fixed !important;top:104px !important;left:12px !important;right:12px !important;width:auto !important;}
+    [data-main]{padding:20px 16px 160px !important;}
+    [data-railwrap]{top:97px !important;margin:0 -16px;padding:10px 16px 0 !important;}
+    [data-next]{position:sticky;bottom:64px;z-index:20;padding:10px 0;background:linear-gradient(to top,var(--ink-3) 70%,transparent);}
+    [data-next] > span{flex:1;} [data-next] a, [data-next] button{width:100%;box-sizing:border-box;}
+  }
   @media print {
     body, div, section, header, main, blockquote { background:#fff !important; background-image:none !important; color:#111 !important; border-color:#999 !important; box-shadow:none !important; }
     span, h1, h2, h3, h4, p, label, li, strong, blockquote { color:#111 !important; }
@@ -51,22 +64,21 @@
 </helmet>
 <div style="background: var(--ink-0); min-height:100vh; font-family: var(--font-ui);">
 
-  <header data-noprint="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+  <header data-hdr="1" data-noprint="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
     <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-ui); letter-spacing: -0.04em; color: #fff; flex: 0 0 auto;">
-      <span style="width: 9px; height: 9px; border-radius: 999px; background: var(--gradient-spectrum);"></span>Sarthi Labs
+      <svg width="22" height="22" viewBox="8 6 48 52" fill="none" style="flex:0 0 auto;"><rect x="14" y="8" width="36" height="10" fill="#fff"/><rect x="14" y="18" width="10" height="10" fill="#fff"/><rect x="14" y="26" width="36" height="10" fill="#fff"/><rect x="40" y="36" width="10" height="10" fill="#fff"/><rect x="14" y="46" width="12" height="10" fill="#fff"/><rect x="29" y="46" width="9" height="10" fill="#8FA2F0"/><rect x="41" y="46" width="9" height="10" fill="#C94FB0"/></svg>Sarthi Labs
     </a>
 
-    <nav style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
+    <nav data-nav="1" style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
       <a href="index.html" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navHome }}</a>
-      <span style="position: relative; display: inline-flex;">
+      <span onMouseEnter="{{ hoverIn }}" onMouseLeave="{{ hoverOut }}" style="position: relative; display: inline-flex;">
         <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 500 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ flyoutFg }};">
           {{ t.products }}
           <span style="display: inline-flex; transform: {{ flyoutCaret }}; transition: transform 140ms cubic-bezier(.2,0,0,1);">
             <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="chevron-down" size="14" hint-size="14px,14px"></x-import>
           </span>
         </button>
-        <sc-if value="{{ flyoutOpen }}" hint-placeholder-val="{{ false }}">
-          <span style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
+        <span data-flyout="1" style="position: absolute; top: 46px; opacity:{{ flyOpacity }}; visibility:{{ flyVis }}; transform:{{ flyTransform }}; transition: opacity 180ms cubic-bezier(.2,0,0,1), transform 180ms cubic-bezier(.2,0,0,1), visibility 0s linear {{ flyDelay }}; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
             <sc-for list="{{ productList }}" as="p" hint-placeholder-count="2">
               <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; background: {{ p.bg }};" style-hover="background: var(--ink-4);">
                 <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: {{ p.dot }}; flex: 0 0 auto;"></span>
@@ -80,25 +92,23 @@
               </a>
             </sc-for>
           </span>
-        </sc-if>
       </span>
       <a href="index.html#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navLearn }}</a>
       <a href="index.html#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navContact }}</a>
     </nav>
 
     <div style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
-      <a href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
-      <span style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
+      <a data-login="1" href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
       <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="index.html#contact" dc-props="{{ ctaProps }}" hint-size="auto,40px">{{ t.navBookCall }}</x-import>
       </span>
     </div>
   </header>
 
-  <main style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
+  <main data-main="1" style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
 
     <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px; padding-bottom:6px;">
-      <span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span>
+      <span style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;"><span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span><a data-noprint="1" href="urban-sanction-journey.dc.html" style="font:400 13px/1.3 var(--font-ui); color:var(--violet);">{{ t.howItWorks }} →</a></span>
       <h1 style="margin:0; font:500 clamp(30px,7vw,44px)/1.1 var(--font-ui); letter-spacing:-0.03em; color:#fff; text-wrap:balance;">{{ t.pageTitle }}</h1>
       <div style="max-width:200px;">
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.GradientRule" hint-size="200px,3px"></x-import>
@@ -125,12 +135,23 @@
       </div>
     </div>
 
+    <div data-noprint="1" data-railwrap="1" style="position:sticky; top:65px; z-index:40; display:flex; flex-direction:column; gap:10px; padding:10px 0 0; background:linear-gradient(to bottom,var(--ink-0) 82%,rgba(10,12,28,0));">
+      <div data-rail="1" style="display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;">
+        <sc-for list="{{ rail }}" as="s" hint-placeholder-count="6">
+          <button type="button" onClick="{{ s.pick }}" style="flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px 0 10px; border-radius:999px; cursor:{{ s.cursor }}; opacity:{{ s.opacity }}; border:1px solid {{ s.border }}; background:{{ s.bg }}; color:{{ s.fg }}; font:500 14px/1 var(--font-ui);">
+            <span style="width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:{{ s.dotBg }}; color:#fff; font:500 12px/1 var(--font-num);">{{ s.num }}</span>{{ s.short }}
+          </button>
+        </sc-for>
+      </div>
+      <div style="height:3px; border-radius:999px; background:var(--ink-5); overflow:hidden;"><div style="height:100%; background:var(--gradient-spectrum); transition:width 240ms cubic-bezier(.2,0,0,1); width:{{ railPct }};"></div></div>
+    </div>
+
     <!-- STEP 1 -->
     <sc-if value="{{ s1Open }}" hint-placeholder-val="{{ true }}">
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">01</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 1 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.askTitle }}</h2>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
@@ -148,7 +169,7 @@
             </select>
           </div>
           <sc-if value="{{ s1Ready }}" hint-placeholder-val="{{ false }}">
-            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+            <div data-noprint="1" data-next="1" style="display:flex; justify-content:flex-end;">
               <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep2 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
               </span>
@@ -172,7 +193,7 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">02</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 2 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.topicTitle }}</h2>
           </div>
           <div style="display:flex; flex-direction:column; gap:8px;">
@@ -193,7 +214,7 @@
             </div>
           </div>
           <sc-if value="{{ s2Ready }}" hint-placeholder-val="{{ false }}">
-            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+            <div data-noprint="1" data-next="1" style="display:flex; justify-content:flex-end;">
               <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep3 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
               </span>
@@ -240,7 +261,7 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:18px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">03</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 3 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.factsTitle }}</h2>
           </div>
 
@@ -280,7 +301,7 @@
           </div>
 
           <sc-if value="{{ notShowAll }}" hint-placeholder-val="{{ true }}">
-            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+            <div data-noprint="1" data-next="1" style="display:flex; justify-content:flex-end;">
               <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep4 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
               </span>
@@ -328,7 +349,7 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">04</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 4 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.docsTitle }}</h2>
           </div>
           <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.docsSub }}</span>
@@ -371,7 +392,7 @@
           </sc-if>
           <span style="font:400 13px/1.5 var(--font-ui); color:var(--grey-3);">{{ t.docsFormats }}</span>
           <sc-if value="{{ notShowAll }}" hint-placeholder-val="{{ true }}">
-            <div data-noprint="1" style="display:flex; justify-content:flex-end;">
+            <div data-noprint="1" data-next="1" style="display:flex; justify-content:flex-end;">
               <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goStep5 }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.next }}</x-import>
               </span>
@@ -413,7 +434,7 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:16px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">05</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 5 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.contactTitle }}</h2>
           </div>
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,240px),1fr)); gap:14px;">
@@ -470,7 +491,7 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
         <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px;">
           <div style="display:flex; align-items:baseline; gap:10px;">
-            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">06</span>
+            <span style="font:400 12px/1.3 var(--font-num); color:var(--violet);">{{ t.stepWord }} 6 / 6</span>
             <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.actTitle }}</h2>
           </div>
           <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.actSub }}</span>
@@ -691,7 +712,7 @@ const RULES = {
 
 const T = {
   mr:{
-    products:'उत्पादने', productSub:'नगर मंजुरी कक्ष · Urban Sanction Desk · महाराष्ट्र',
+    products:'उत्पादने', howItWorks:'हे कसे चालते', stepWord:'टप्पा', productSub:'नगर मंजुरी कक्ष · Urban Sanction Desk · महाराष्ट्र',
     navHome:'मुख्य पान', navLearn:'माहिती', navContact:'संपर्क', navBookCall:'कॉल ठरवा',
     pageTitle:'तुमचे प्रकरण कुठे अडले आहे?',
     pageIntro:'एका वेळी एक प्रश्न. तुम्ही उत्तर देताच सज्जता, नियम संदर्भ आणि वर्गीकरण लगेच पुन्हा मोजले जाते — काहीही जतन होण्याआधी.',
@@ -745,7 +766,7 @@ const T = {
     addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही'
   },
   en:{
-    products:'Products', productSub:'Urban Sanction Desk · Maharashtra building permission',
+    products:'Products', howItWorks:'How it works', stepWord:'Step', productSub:'Urban Sanction Desk · Maharashtra building permission',
     navHome:'Home', navLearn:'Learn', navContact:'Contact us', navBookCall:'Book a call',
     pageTitle:'Where is your case stuck?',
     pageIntro:'One question at a time. As you answer, readiness, the rule reference and the routing all recompute — before anything is saved.',
@@ -986,6 +1007,24 @@ class Component extends DCLogic {
       slotRows: SLOTS.map(sl=>({ label:sl, bg:s.slot===sl?'var(--indigo)':'transparent', fg:s.slot===sl?'#ffffff':'var(--grey-4)', border:s.slot===sl?'var(--indigo)':'var(--border-strong)', pick:()=>this.set({slot:sl}) })),
       modeRows: pickRow(MODES, s.mode, id=>this.set({mode:id})),
 
+      rail: (()=>{
+        const names = s.lang==='mr' ? ['वर्णन','विषय','माहिती','कागदपत्रे','नोंदणी','कृती'] : ['Describe','Topic','Facts','Documents','Case file','Act'];
+        const ok = [true, s1Done, s2Done, s3Done, s4Done, s.caseCreated];
+        const cur = all ? 0 : s.step;
+        return names.map((nm,i)=>{
+          const n=i+1, active = cur===n || (all && false), done = !all && n<cur || (all && ok[i+1]), can = ok[i];
+          return { num:n, short:nm,
+            pick: ()=>{ if(can) this.set({step:n, showAll:false}); },
+            cursor: can?'pointer':'default', opacity: can?'1':'.45',
+            bg: active?'var(--ink-4)':'transparent', fg: active?'#fff':'var(--grey-4)',
+            border: active?'var(--indigo)':'var(--border-subtle)',
+            dotBg: done?'var(--ok)':active?'var(--indigo)':'var(--ink-7)' };
+        });
+      })(),
+      railPct: Math.round((all?[s1Done,s2Done,s3Done,s4Done,s.caseCreated].filter(Boolean).length+1:s.step)/6*100)+'%',
+      flyOpacity: s.flyoutOpen?'1':'0', flyVis: s.flyoutOpen?'visible':'hidden', flyTransform: s.flyoutOpen?'translateY(0)':'translateY(-6px)', flyDelay: s.flyoutOpen?'0s':'180ms',
+      hoverIn: ()=>{ clearTimeout(this._ht); this.setState({flyoutOpen:true}); },
+      hoverOut: ()=>{ clearTimeout(this._ht); this._ht=setTimeout(()=>this.setState({flyoutOpen:false}),160); },
       flyoutOpen:s.flyoutOpen,
       toggleFlyout:()=>this.set({flyoutOpen:!s.flyoutOpen}),
       flyoutBg: s.flyoutOpen?'var(--ink-4)':'transparent',
