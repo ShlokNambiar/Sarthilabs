@@ -95,7 +95,7 @@
             </sc-for>
           </span>
       </span>
-      <a href="index.html#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navLearn }}</a>
+      <a href="#learn" onClick="{{ goLearn }}" style="padding: 8px 14px; border-radius: 999px; background: {{ navLearnBg }}; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ navLearnFg }};" style-hover="background: var(--ink-4); color: #fff;">{{ t.navLearn }}</a>
       <a href="index.html#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">{{ t.navContact }}</a>
     </nav>
 
@@ -108,6 +108,14 @@
   </header>
 
   <main data-main="1" style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
+
+    <div data-noprint="1" role="tablist" style="display:flex; gap:4px; align-self:flex-start; padding:4px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:999px;">
+      <sc-for list="{{ viewTabs }}" as="vt" hint-placeholder-count="2">
+        <button type="button" role="tab" aria-selected="{{ vt.selected }}" onClick="{{ vt.pick }}" style="min-height:40px; padding:0 18px; border:0; border-radius:999px; cursor:pointer; background:{{ vt.bg }}; color:{{ vt.fg }}; font:500 14px/1 var(--font-ui);">{{ vt.label }}</button>
+      </sc-for>
+    </div>
+
+    <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
 
     <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px; padding-bottom:6px;">
       <span style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;"><span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span><a data-noprint="1" href="urban-sanction-journey.dc.html#buyer" style="font:400 13px/1.3 var(--font-ui); color:var(--violet);">{{ t.howItWorks }} →</a></span>
@@ -543,6 +551,35 @@
             </div>
           </div>
 
+          <div style="display:flex; flex-direction:column; gap:12px; padding-top:16px; border-top:1px solid var(--border-hairline);">
+            <div style="display:flex; flex-direction:column; gap:4px;">
+              <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ t.helpTitle }}</span>
+              <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.helpSub }}</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,280px),1fr)); gap:10px;">
+              <sc-for list="{{ helpRows }}" as="hp" hint-placeholder-count="4">
+                <div style="display:flex; flex-direction:column; gap:10px; padding:16px; background:var(--ink-2); border:1px solid {{ hp.border }}; border-radius:12px;">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="width:32px; height:32px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:var(--violet-tint); color:var(--violet); flex:0 0 auto;">
+                      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="{{ hp.icon }}" size="16" hint-size="16px,16px"></x-import>
+                    </span>
+                    <span style="font:500 15px/1.3 var(--font-ui); color:#fff;">{{ hp.title }}</span>
+                  </div>
+                  <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3); flex:1 1 auto;">{{ hp.body }}</span>
+                  <sc-if value="{{ hp.wantsDwg }}" hint-placeholder-val="{{ false }}">
+                    <label style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; min-height:44px; padding:8px 12px; border:1px dashed var(--border-strong); border-radius:8px; cursor:pointer;">
+                      <span style="font:400 13px/1.4 var(--font-num); color:{{ hp.dwgColor }}; overflow:hidden; text-overflow:ellipsis;">{{ hp.dwgLabel }}</span>
+                      <span style="font:500 13px/1 var(--font-ui); color:var(--violet);">{{ t.upload }}</span>
+                      <input type="file" accept=".dwg,.dxf" onChange="{{ hp.onDwg }}" style="display:none;">
+                    </label>
+                  </sc-if>
+                  <button type="button" onClick="{{ hp.toggle }}" style="align-self:flex-start; min-height:44px; padding:11px 18px; border:1px solid {{ hp.btnBorder }}; background:{{ hp.btnBg }}; color:#fff; cursor:pointer; border-radius:999px; font:500 13px/1 var(--font-ui);">{{ hp.btnLabel }}</button>
+                </div>
+              </sc-for>
+            </div>
+            <a data-noprint="1" href="#learn" onClick="{{ goLearn }}" style="align-self:flex-start; font:400 13px/1.4 var(--font-ui); color:var(--violet);">{{ t.helpLearnLink }} →</a>
+          </div>
+
           <sc-if value="{{ hasActLog }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex; flex-direction:column; gap:8px; padding:14px 16px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:12px;">
               <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ t.actLogTitle }}</span>
@@ -551,6 +588,82 @@
               </sc-for>
             </div>
           </sc-if>
+        </div>
+      </x-import>
+    </sc-if>
+    </sc-if>
+
+    <!-- LEARN -->
+    <sc-if value="{{ isLearn }}" hint-placeholder-val="{{ false }}">
+      <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px; padding-bottom:6px;">
+        <span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.learnEyebrow }}</span>
+        <h1 style="margin:0; font:500 clamp(30px,7vw,44px)/1.1 var(--font-ui); letter-spacing:-0.03em; color:#fff; text-wrap:balance;">{{ t.learnTitle }}</h1>
+        <div style="max-width:200px;">
+          <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.GradientRule" hint-size="200px,3px"></x-import>
+        </div>
+        <p style="margin:0; font:400 17px/1.6 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ t.learnIntro }}</p>
+      </div>
+
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:12px;">
+          <span style="font:400 12px/1.4 var(--font-ui); color:var(--violet);">{{ t.learnWhatTitle }}</span>
+          <sc-for list="{{ learnWhat }}" as="lw" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; gap:4px; padding-top:10px; border-top:1px solid var(--border-hairline);">
+              <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ lw.term }}</span>
+              <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-4);">{{ lw.body }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:4px;">
+          <h2 style="margin:0 0 8px; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.learnStepsTitle }}</h2>
+          <sc-for list="{{ learnSteps }}" as="ls" hint-placeholder-count="8">
+            <div style="display:flex; gap:14px; padding:14px 0; border-top:1px solid var(--border-hairline);">
+              <span style="width:28px; height:28px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:var(--indigo); color:#fff; font:500 13px/1 var(--font-num); flex:0 0 auto;">{{ ls.num }}</span>
+              <span style="display:flex; flex-direction:column; gap:6px; min-width:0;">
+                <span style="font:500 15px/1.4 var(--font-ui); color:#fff;">{{ ls.title }}</span>
+                <span style="font:400 14px/1.65 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ ls.body }}</span>
+                <sc-if value="{{ ls.hasLayers }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex; flex-wrap:wrap; gap:6px;">
+                    <sc-for list="{{ ls.layers }}" as="ly" hint-placeholder-count="3">
+                      <span style="padding:4px 10px; border-radius:6px; background:var(--ink-1); border:1px solid var(--border-hairline); font:400 12px/1.4 var(--font-num); color:var(--violet);">{{ ly }}</span>
+                    </sc-for>
+                  </span>
+                </sc-if>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="surface" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:12px;">
+          <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.learnRulesTitle }}</h2>
+          <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);">{{ t.learnRulesSub }}</span>
+          <sc-for list="{{ learnRules }}" as="lr" hint-placeholder-count="5">
+            <div style="display:flex; align-items:flex-start; gap:10px; padding:12px 14px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:10px;">
+              <span style="margin-top:2px; color:#f39ab8; display:inline-flex; flex:0 0 auto;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="triangle-alert" size="15" hint-size="15px,15px"></x-import></span>
+              <span style="display:flex; flex-direction:column; gap:4px;">
+                <span style="font:500 14px/1.5 var(--font-ui); color:#fff;">{{ lr.title }}</span>
+                <span style="font:400 13px/1.6 var(--font-ui); color:var(--grey-3);">{{ lr.body }}</span>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="20px" hint-size="100%,auto">
+        <div data-sheet="1" style="display:flex; flex-direction:column; gap:12px;">
+          <h2 style="margin:0; font:500 20px/1.3 var(--font-ui); letter-spacing:-0.02em; color:#fff;">{{ t.learnHelpTitle }}</h2>
+          <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-4);">{{ t.learnHelpBody }}</span>
+          <div style="display:flex; flex-wrap:wrap; gap:10px;">
+            <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
+              <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ goDesk }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">{{ t.learnToDesk }}</x-import>
+            </span>
+          </div>
+          <span style="font:400 12px/1.6 var(--font-num); color:var(--grey-3);">{{ t.learnSource }}</span>
         </div>
       </x-import>
     </sc-if>
@@ -651,6 +764,82 @@ const SERVICES = [
   { id:'reassign', mr:'फाईल पुनर्नियुक्ती (File reassignment)', en:'File reassignment' },
   { id:'objection', mr:'आक्षेप उत्तर (Objection reply)', en:'Objection reply' },
   { id:'coordination', mr:'आर्किटेक्ट समन्वय', en:'Architect coordination' }
+];
+
+const HELP = [
+  { id:'sanctioning', icon:'stamp', dwg:false,
+    mr:'मंजुरी (Sanctioning)', en:'Sanctioning',
+    bmr:'Feasibility नंतर संपूर्ण फाईल आम्ही चालवतो: BPAMS submission, scrutiny remark दुरुस्ती, objection उत्तर आणि मंजुरीपर्यंत पाठपुरावा.',
+    ben:'After feasibility we run the whole file: BPAMS submission, scrutiny corrections, objection replies and follow-up until sanction.' },
+  { id:'tracing_help', icon:'pen-tool', dwg:false,
+    mr:'Tracing', en:'Tracing',
+    bmr:'आर्किटेक्टचा नकाशा आम्ही PreDCR layers वर पुन्हा काढतो — closed polylines, नावे, margins — जेणेकरून AutoDCR तो थेट वाचू शकेल.',
+    ben:'We redraw the architect\'s plan on PreDCR layers — closed polylines, names, margins — so AutoDCR can read it first time.' },
+  { id:'assistant', icon:'sparkles', dwg:true,
+    mr:'Assistant', en:'Assistant',
+    bmr:'तुमची DWG फाईल अपलोड करा. Assistant उघड्या polylines, चुकीचे layers, नाव नसलेल्या खोल्या आणि plot बाहेर गेलेल्या वस्तू दाखवतो, आणि tracing मध्ये मदत करतो.',
+    ben:'Upload your DWG. The assistant flags open polylines, wrong layers, unnamed rooms and items that leak outside the plot, and helps you trace.' },
+  { id:'studio', icon:'layout-dashboard', dwg:false,
+    mr:'Studio', en:'Studio',
+    bmr:'भूखंड, DP remark आणि drawing एकाच workspace मध्ये. "इथे काय बांधता येईल?" विचारा आणि FSI व margins च्या मर्यादेत layout पर्याय तपासा.',
+    ben:'Plot, DP remark and drawing in one workspace. Ask "what can I build here?" and try layouts inside the FSI and margin limits.' }
+];
+
+const LEARN_WHAT = [
+  { mr:'BPAMS / AutoDCR', en:'BPAMS / AutoDCR',
+    bmr:'महाराष्ट्रातील नागरी संस्था बांधकाम परवानगी online घेतात. AutoDCR हे software DWG नकाशा वाचून क्षेत्रफळ मोजते आणि DCR / UDCPR नियम आपोआप तपासते.',
+    ben:'Maharashtra urban bodies take building permission online. AutoDCR reads the DWG plan, computes the areas and checks it against the DCR / UDCPR rules automatically.' },
+  { mr:'Tracing म्हणजे काय', en:'What tracing means',
+    bmr:'आर्किटेक्टचा सामान्य CAD नकाशा AutoDCR ला वाचता येत नाही. Tracing म्हणजे तोच नकाशा PreDCR च्या ठरलेल्या layers वर, closed polylines आणि नावांसह पुन्हा काढणे.',
+    ben:'AutoDCR cannot read an ordinary CAD plan. Tracing means redrawing that same plan on PreDCR\'s fixed layers, as closed polylines with names.' },
+  { mr:'PreDCR', en:'PreDCR',
+    bmr:'AutoCAD मध्ये चालणारे tool. एका click मध्ये सर्व layers तयार करते, खोल्यांना नावे देते आणि submission आधी drawing तपासते.',
+    ben:'A tool that runs inside AutoCAD. It creates every required layer in one click, assigns room names and verifies the drawing before submission.' }
+];
+
+const LEARN_STEPS = [
+  { mr:'कागदपत्रे आणि मूळ DWG गोळा करा', en:'Collect the papers and the source DWG',
+    bmr:'७/१२ उतारा, DP remark, मोजणी नकाशा आणि आर्किटेक्टची DWG फाईल. Plot ची मापे मोजणी नकाशाशी जुळली पाहिजेत.',
+    ben:'7/12 extract, DP remark, measurement plan and the architect\'s DWG. Plot dimensions must match the measurement plan.', layers:[] },
+  { mr:'PreDCR मध्ये फाईल तयार करा', en:'Set up the file in PreDCR',
+    bmr:'PreDCR उघडा, AutoCAD version निवडा, A0/A1/A2 printing layout template घाला, फाईल save करा आणि "Create DCR layer" वापरून सर्व layers एकदम तयार करा.',
+    ben:'Open PreDCR, pick the AutoCAD version, insert an A0/A1/A2 printing layout template, save the file, then run "Create DCR layer" to create every layer at once.', layers:[] },
+  { mr:'Layers map करा', en:'Map the layers',
+    bmr:'Building template घाला (इमारतीचे नाव, मजले, मजल्याची उंची). Layer mapping वापरून आर्किटेक्टचे layers PreDCR layers मध्ये बदला.',
+    ben:'Insert a building template (building name, floors, floor heights). Use layer mapping to convert the architect\'s layers to PreDCR layers.', layers:[] },
+  { mr:'Plot आणि रस्ता', en:'Plot and road',
+    bmr:'Plot ची closed polyline काढा आणि आत नाव लिहा. रस्ता काढा; रस्त्याचे नाव त्याच्या रुंदीने सुरू करा (उदा. "12.00 M WIDE ROAD").',
+    ben:'Draw the plot as a closed polyline with its name inside. Draw the road and start its name with its width (e.g. "12.00 M WIDE ROAD").', layers:['_MainPlot','_MainRoad','_DPRoad'] },
+  { mr:'प्रत्येक मजला', en:'Every floor',
+    bmr:'प्रत्येक मजल्याभोवती _Floor boundary. खोल्या _Room वर पूर्ण नावांसह (Living, Kitchen, Bedroom — संक्षेप नको). Carpet area, FSI poly, आणि दारे-खिडक्या PreDCR insert ने.',
+    ben:'A _Floor boundary around each floor. Rooms on _Room with full names (Living, Kitchen, Bedroom — no abbreviations). Carpet area, the FSI poly, and doors and windows via PreDCR insert.', layers:['_Floor','_Room','_Carpet Area','_ResiFSI','_CommFSI','_Door','_Window','_Balcony'] },
+  { mr:'जिना, टाकी, section', en:'Stairs, tanks, section',
+    bmr:'जिन्याचे risers उघड्या polylines, landings mark करा. U/G आणि O/H टाक्या plan आणि section दोन्हीत. Plinth खाली ground level ची उघडी polyline.',
+    ben:'Stair risers as open polylines, with landings marked. U/G and O/H tanks in both plan and section. Ground level as an open polyline below plinth.', layers:['_Staircase','_Tank','_Ground Level','_FloorInSection'] },
+  { mr:'इमारत आणि प्रस्तावित काम', en:'Building and proposed work',
+    bmr:'सर्व मजले आणि section भोवती _Building. एकूण coverage _Proposed Work वर. जुनी रचना असल्यास mark करा. शेवटी Mark → Margin ने margins mark करा.',
+    ben:'_Building around all floors and the section. Total coverage on _Proposed Work. Mark any existing structure. Finally mark the margins with Mark → Margin.', layers:['_Building','_Proposed Work','_Substructure','_ExStructure'] },
+  { mr:'तपासा आणि submit करा', en:'Verify and submit',
+    bmr:'Fix poly → Verify closed poly → "Verify current drawing as per AutoDCR requirements". "Entities on PreDCR layers are verified and found o.k." आल्यावरच DWG portal वर upload करा. Scrutiny remark आल्यास दुरुस्त करून पुन्हा upload.',
+    ben:'Fix poly → Verify closed poly → "Verify current drawing as per AutoDCR requirements". Only once it says "Entities on PreDCR layers are verified and found o.k." upload the DWG to the portal. If scrutiny raises remarks, fix and re-upload.', layers:[] }
+];
+
+const LEARN_RULES = [
+  { mr:'प्रत्येक वस्तू closed polyline', en:'Every item is a closed polyline',
+    bmr:'LWPOLYLINE, TEXT आणि MTEXT एवढेच. अपवाद: railway, drain, water, electric line, dead wall आणि ground level.',
+    ben:'Only LWPOLYLINE, TEXT and MTEXT. Exceptions: railway, drain, water and electric lines, dead wall and ground level.' },
+  { mr:'आतील वस्तू पूर्ण आत', en:'Sub-items sit fully inside',
+    bmr:'Parking किंवा open space चा एकही कोपरा plot बाहेर जाऊ नये. एका vertex मुळेही फाईल fail होते.',
+    ben:'No edge or vertex of parking or open space may cross the plot line. One stray vertex fails the file.' },
+  { mr:'त्याच layer वर, आत नाव', en:'Name inside, on the same layer',
+    bmr:'नाव त्याच layer वर आणि polyline च्या आत. पूर्ण नावे वापरा; संक्षेपांमुळे software खोली ओळखत नाही.',
+    ben:'The name goes on the same layer, inside the polyline. Use full names; abbreviations stop the software recognising the room.' },
+  { mr:'एकच DWG फाईल', en:'One DWG file',
+    bmr:'Plot layout, सर्व मजल्यांचे नकाशे आणि section एकाच फाईलमध्ये. Mirror केलेल्या दोन इमारतींसाठी दोन वेगळे plans.',
+    ben:'Plot layout, every floor plan and the section in one file. Two mirrored proposed works need two separate plans.' },
+  { mr:'मजल्यांची नावे ठरलेल्या पद्धतीने', en:'Floor names follow the pattern',
+    bmr:'उदा. GROUND FLOOR; TYPICAL FLOOR 1,2 & 5-8; TERRACE FLOOR.',
+    ben:'e.g. GROUND FLOOR; TYPICAL FLOOR 1,2 & 5-8; TERRACE FLOOR.' }
 ];
 
 const STATUSES = [
@@ -765,7 +954,17 @@ const T = {
     queuePending:'प्राधिकरण निवडल्यावर ठरेल', liveNote:'थेट मोजणी सुरू · जतन नाही', liveSaved:'प्रकरण नोंदले',
     declaredSrc:'घोषित · Area Statement', measuredSrc:'मोजलेले · drawing geometry',
     frontageSrc:'रुंदी · drawing geometry', depthSrc:'खोली · drawing geometry',
-    addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही'
+    addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही',
+    tabDesk:'कक्ष', tabLearn:'माहिती',
+    helpTitle:'आम्ही यातही मदत करतो', helpSub:'Feasibility अहवालानंतर पुढचे काम — मंजुरी, tracing, Assistant आणि Studio.',
+    helpLearnLink:'BPAMS tracing कसे होते ते वाचा', requestAccess:'प्रवेश मागा', dwgNone:'DWG / DXF निवडलेली नाही',
+    learnEyebrow:'माहिती · BPAMS tracing', learnTitle:'BPAMS tracing कसे होते',
+    learnIntro:'AutoDCR नकाशा स्वतः वाचते — पण तो ठरलेल्या layers वर, closed polylines आणि नावांसह काढलेला असेल तरच. ही पायरी चुकली की फाईल scrutiny मध्ये परत येते.',
+    learnWhatTitle:'आधी हे समजून घ्या', learnStepsTitle:'Tracing टप्प्याटप्प्याने',
+    learnRulesTitle:'फाईल fail होण्याची मुख्य कारणे', learnRulesSub:'Submit करण्याआधी ही पाच तपासणी करा.',
+    learnHelpTitle:'स्वतः करायचे नाही?', learnHelpBody:'Tracing आम्ही करू शकतो, किंवा तुमची DWG Assistant ला द्या आणि तो चुका दाखवेल. प्रकरण नोंदवा आणि "पुढील पाऊल" मध्ये विनंती करा.',
+    learnToDesk:'प्रकरण सुरू करा',
+    learnSource:'स्रोत: PreDCR Help Manual — Maharashtra (SoftTech Engineers), PMC AutoDCR portal. तुमच्या प्राधिकरणाचे सध्याचे drawing protocol वेगळे असू शकते.'
   },
   en:{
     products:'Products', howItWorks:'Who it is for', stepWord:'Step', productSub:'Urban Sanction Desk · Maharashtra building permission',
@@ -819,7 +1018,17 @@ const T = {
     queuePending:'Set once an authority is chosen', liveNote:'Recomputing live · not saved', liveSaved:'Case created',
     declaredSrc:'Declared · Area Statement', measuredSrc:'Measured · drawing geometry',
     frontageSrc:'Frontage · drawing geometry', depthSrc:'Depth · drawing geometry',
-    addressSrc:'Address · 7/12', roadSrc:'Road · site survey', measuredPending:'Not available yet'
+    addressSrc:'Address · 7/12', roadSrc:'Road · site survey', measuredPending:'Not available yet',
+    tabDesk:'Desk', tabLearn:'Learn',
+    helpTitle:'We can also help with', helpSub:'What comes after the feasibility report — sanctioning, tracing, the assistant and Studio.',
+    helpLearnLink:'Read how BPAMS tracing works', requestAccess:'Request access', dwgNone:'No DWG / DXF chosen',
+    learnEyebrow:'Learn · BPAMS tracing', learnTitle:'How BPAMS tracing works',
+    learnIntro:'AutoDCR reads the plan by itself — but only when it is drawn on fixed layers, as closed polylines with names. Get this step wrong and the file comes back from scrutiny.',
+    learnWhatTitle:'Start here', learnStepsTitle:'Tracing, step by step',
+    learnRulesTitle:'Why files fail', learnRulesSub:'Check these five before you submit.',
+    learnHelpTitle:'Rather not do it yourself?', learnHelpBody:'We can do the tracing, or hand your DWG to the assistant and it will flag the mistakes. Create a case and request it under Act.',
+    learnToDesk:'Start a case',
+    learnSource:'Source: PreDCR Help Manual — Maharashtra (SoftTech Engineers), PMC AutoDCR portal. Your authority\'s current drawing protocol may differ.'
   }
 };
 
@@ -842,10 +1051,17 @@ class Component extends DCLogic {
     step:1, showAll:false, otherDocsOpen:false,
     caseCreated:false, caseCode:'USD-20260919-75C960', accessKey:'',
     services:{}, slot:'', mode:'', actLog:[],
-    keyInput:'', keyError:false, flyoutOpen:false
+    keyInput:'', keyError:false, flyoutOpen:false,
+    view:'desk', help:{}, dwgFile:''
   };
 
-  componentDidMount(){ this.syncSelects(); }
+  componentDidMount(){
+    if (location.hash==='#learn') this.setState({view:'learn'});
+    this._onHash = ()=>this.setState({view: location.hash==='#learn' ? 'learn' : 'desk'});
+    window.addEventListener('hashchange', this._onHash);
+    this.syncSelects();
+  }
+  componentWillUnmount(){ window.removeEventListener('hashchange', this._onHash); }
   componentDidUpdate(){ this.syncSelects(); }
 
   syncSelects(){
@@ -999,8 +1215,51 @@ class Component extends DCLogic {
 
     const submitHint = !s.authority ? t.needAuthority : !s.topic ? t.needTopic : s.phone.trim().length<10 ? t.needPhone : t.readyToSubmit;
 
+    const goView = v => e => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({view:v, flyoutOpen:false});
+      try { history.replaceState(null,'', v==='learn' ? '#learn' : location.pathname+location.search); } catch(_){}
+      window.scrollTo(0,0);
+    };
+
+    const helpRows = HELP.map(hp=>{
+      const on=!!s.help[hp.id];
+      return {
+        title:this.L(hp), body:this.L({mr:hp.bmr,en:hp.ben}), icon:hp.icon,
+        wantsDwg:hp.dwg,
+        dwgLabel: s.dwgFile || t.dwgNone,
+        dwgColor: s.dwgFile ? 'var(--ok)' : 'var(--grey-3)',
+        onDwg: e=>{ const f=e.target.files&&e.target.files[0]; if(f) this.setState({dwgFile:f.name}); },
+        border: on ? 'var(--indigo)' : 'var(--border-hairline)',
+        btnLabel: on ? t.cancelRequest : (hp.id==='assistant'||hp.id==='studio' ? t.requestAccess : t.request),
+        btnBg: on ? 'var(--indigo)' : 'transparent',
+        btnBorder: on ? 'var(--indigo)' : 'var(--border-strong)',
+        toggle: ()=>{
+          const help=Object.assign({},s.help);
+          if(on){ delete help[hp.id]; this.setState({help}); }
+          else {
+            help[hp.id]=true; this.setState({help});
+            this.logAct(this.L(hp)+(hp.dwg&&s.dwgFile?' · '+s.dwgFile:'')+' · '+t.requested);
+          }
+        }
+      };
+    });
+
     return {
       t,
+      isDesk: s.view!=='learn', isLearn: s.view==='learn',
+      goLearn: goView('learn'), goDesk: goView('desk'),
+      navLearnBg: s.view==='learn' ? 'var(--ink-4)' : 'transparent',
+      navLearnFg: s.view==='learn' ? '#ffffff' : 'var(--grey-4)',
+      viewTabs: [['desk',t.tabDesk],['learn',t.tabLearn]].map(([id,label])=>({
+        label, selected: s.view===id ? 'true' : 'false', pick: goView(id),
+        bg: s.view===id ? 'var(--indigo)' : 'transparent',
+        fg: s.view===id ? '#ffffff' : 'var(--grey-4)'
+      })),
+      helpRows,
+      learnWhat: LEARN_WHAT.map(w=>({ term:this.L(w), body:this.L({mr:w.bmr,en:w.ben}) })),
+      learnSteps: LEARN_STEPS.map((st,i)=>({ num:i+1, title:this.L(st), body:this.L({mr:st.bmr,en:st.ben}), layers:st.layers, hasLayers:st.layers.length>0 })),
+      learnRules: LEARN_RULES.map(r=>({ title:this.L(r), body:this.L({mr:r.bmr,en:r.ben}) })),
       authorities:AUTHORITIES.map(a=>({id:a.id,label:this.L(a)})),
       topics:TOPICS.map(tp=>({id:tp.id,label:this.L(tp)})),
       statusOptions:STATUSES.map(st=>({id:st.id,label:this.L(st)})),
@@ -1095,7 +1354,7 @@ class Component extends DCLogic {
       showRule: !!rule && s2Done,
       showReadiness: s2Done && (all || s.step>=3),
       showRouting: s4Done && (all || s.step>=4),
-      showLive: s2Done,
+      showLive: s2Done && s.view!=='learn',
       liveNote: s.caseCreated ? t.liveSaved+' · '+s.caseCode : t.liveNote,
 
       ruleGuidance: rule?rule[s.lang]:'',
