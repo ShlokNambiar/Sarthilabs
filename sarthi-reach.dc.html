@@ -8,6 +8,8 @@
 <body>
 <x-dc>
 <helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/fonts.css">
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/colors.css">
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/typography.css">
@@ -40,16 +42,32 @@
   a { color:#fff; text-decoration:none; }
   a:hover { color: var(--grey-4); }
   button { font-family: var(--font-ui); }
+  @media (max-width:720px){[data-login]{display:none !important;}}
+
+@media (max-width:720px){
+  body{padding-bottom:68px;}
+  [data-hdr]{padding:8px 16px !important; min-height:52px !important; flex-wrap:nowrap !important; gap:8px !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:rgba(10,12,28,.94) !important;}
+  [data-nav]{position:fixed !important; left:0; right:0; bottom:0; z-index:60; order:0 !important; flex:none !important; display:flex !important; justify-content:space-around !important; flex-wrap:nowrap !important; overflow:visible !important; gap:0 !important; padding:6px 8px calc(6px + env(safe-area-inset-bottom)) !important; background:rgba(13,16,34,.94); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-top:1px solid rgba(159,176,245,.14); border-radius:0 !important;}
+  [data-nav] > *{flex:1 1 0 !important; justify-content:center !important; text-align:center; min-height:44px !important;}
+  [data-nav] > span{display:flex !important;} [data-nav] > span > button{width:100%; justify-content:center; min-height:44px;}
+  [data-flyout]{position:fixed !important; top:auto !important; bottom:72px !important; left:12px !important; right:12px !important; width:auto !important;}
+  h2{font-size:30px !important; line-height:1.15 !important;}
+  section{padding-left:16px !important; padding-right:16px !important;}
+  [data-sec]{padding-top:72px !important;}
+  [style*="padding: 32px"]{padding:22px !important;}
+  [data-nextrow]{bottom:60px !important;}
+  section{padding-top:64px !important;} section:first-of-type{padding-top:40px !important;}
+}
 </style>
 </helmet>
 <div style="background: var(--ink-0); min-height:100vh; font-family: var(--font-ui); overflow-x:hidden;">
 
-  <header style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+  <header data-hdr="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
     <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-ui); letter-spacing: -0.04em; color: #fff; flex: 0 0 auto;">
-      <svg width="22" height="22" viewBox="8 6 48 52" fill="none" style="flex:0 0 auto;"><rect x="14" y="8" width="36" height="10" fill="#fff"/><rect x="14" y="18" width="10" height="10" fill="#fff"/><rect x="14" y="26" width="36" height="10" fill="#fff"/><rect x="40" y="36" width="10" height="10" fill="#fff"/><rect x="14" y="46" width="12" height="10" fill="#fff"/><rect x="29" y="46" width="9" height="10" fill="#8FA2F0"/><rect x="41" y="46" width="9" height="10" fill="#C94FB0"/></svg>Sarthi Labs
+      <img src="logo/knot-site.png" alt="" style="height:36px;width:auto;flex:0 0 auto;"><span style="font:600 20px/1 Montserrat,var(--font-sans);letter-spacing:-0.01em;color:#fff;">Sarthi Labs</span>
     </a>
 
-    <nav style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
+    <nav data-nav="1" style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
       <a href="index.html" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color: #fff;">Home</a>
       <span style="position: relative; display: inline-flex;">
         <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 500 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ flyoutFg }};">
@@ -59,7 +77,7 @@
           </span>
         </button>
         <sc-if value="{{ flyoutOpen }}" hint-placeholder-val="{{ false }}">
-          <span style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
+          <span data-flyout="1" style="position: absolute; top: 46px; left: 0; z-index: 70; width: min(92vw, 380px); padding: 8px; background: var(--ink-3); border: 1px solid var(--border-subtle); border-radius: 16px; box-shadow: var(--shadow-float); display: flex; flex-direction: column; gap: 4px;">
             <sc-for list="{{ productList }}" as="p" hint-placeholder-count="2">
               <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; background: {{ p.bg }};" style-hover="background: var(--ink-4);">
                 <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: {{ p.dot }}; flex: 0 0 auto;"></span>
@@ -80,8 +98,7 @@
     </nav>
 
     <div style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
-      <a href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
-      <span style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
+      <a data-login="1" href="index.html#contact" style="font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="color: #fff;">Login</a>
       <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="#talk" dc-props="{{ ctaProps }}" hint-size="auto,40px">Book a call</x-import>
       </span>
@@ -93,11 +110,67 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,24px">Sarthi Reach</x-import>
       <h1 style="margin:0; max-width:900px; font:500 clamp(36px,6vw,68px)/1.05 var(--font-ui); letter-spacing:-0.032em; color:#fff; text-wrap:balance;">Find the lead, work the lead, <span style="color:var(--violet);">hand over the lead.</span></h1>
       <p style="margin:0; max-width:680px; font:400 18px/1.6 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">Sarthi Reach finds prospects from market data, then works them over AI voice and WhatsApp until they are qualified enough to hand to a human. Vertical-agnostic, built for Indian calling rules.</p>
+      <p style="margin:0; max-width:680px; font:400 16px/1.6 var(--font-ui); color:var(--grey-3); text-wrap:pretty;"><span style="color:#fff;">Built for</span> sales and renewal teams in India that work a defined audience: insurance agencies, lenders and builders who have the list and not the hours.</p>
       <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
         <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;">
           <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" href="#talk" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a walkthrough</x-import>
         </span>
-        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="#compliance" icon="chevron-right" iconPosition="right" hint-size="auto,48px">How it stays compliant</x-import>
+        <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="#journey" icon="chevron-right" iconPosition="right" hint-size="auto,48px">See the buyer journey</x-import>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey" style="padding:96px 24px 0; scroll-margin-top:84px;">
+    <div style="max-width:1264px; margin:0 auto;" data-reveal>
+      <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.SectionHeading" eyebrow="The buyer journey" title="From a list you own to a lead a rep can close." body="Six steps for the team running the campaign, in three stages. You stay in control at every one." size="lg" hint-size="100%,200px"></x-import>
+      <div style="margin-top:36px; display:flex; flex-direction:column; gap:14px;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+          <sc-for list="{{ stages }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex; flex-direction:column; gap:4px; padding:12px 14px; border-radius:12px; border:1px solid {{ g.border }}; background:{{ g.bg }};">
+              <span style="font:400 12px/1.3 var(--font-num); color:{{ g.fg }};">{{ g.range }}</span>
+              <span style="font:500 15px/1.3 var(--font-ui); color:#fff;">{{ g.name }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px;">
+          <sc-for list="{{ rail }}" as="s" hint-placeholder-count="6">
+            <button type="button" onClick="{{ s.pick }}" style="flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; min-height:44px; padding:0 16px 0 10px; border-radius:999px; cursor:pointer; border:1px solid {{ s.border }}; background:{{ s.bg }}; color:{{ s.fg }}; font:500 14px/1 var(--font-ui);">
+              <span style="width:24px; height:24px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:{{ s.dotBg }}; color:#fff; font:500 12px/1 var(--font-num);">{{ s.num }}</span>{{ s.short }}
+            </button>
+          </sc-for>
+        </div>
+        <div style="height:3px; border-radius:999px; background:var(--ink-5); overflow:hidden;"><div style="height:100%; background:var(--gradient-spectrum); transition:width 240ms cubic-bezier(.2,0,0,1); width:{{ progress }};"></div></div>
+        <div style="display:flex; flex-direction:column; gap:22px; padding:clamp(20px,4vw,32px); background:var(--ink-3); border:1px solid var(--border-hairline); border-radius:16px;">
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%,320px),1fr)); gap:28px; align-items:start;">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <span style="font:400 13px/1.3 var(--font-num); color:var(--violet);">{{ cur.stage }} · Step {{ cur.num }} of 6</span>
+            <h3 style="margin:0; font:500 clamp(22px,4vw,28px)/1.2 var(--font-ui); letter-spacing:-0.025em; color:#fff; text-wrap:balance;">{{ cur.title }}</h3>
+            <p style="margin:0; font:400 16px/1.65 var(--font-ui); color:var(--grey-4); text-wrap:pretty;">{{ cur.body }}</p>
+          </div>
+          <div style="display:flex; flex-direction:column; padding:6px 18px; background:var(--ink-1); border:1px solid var(--border-hairline); border-radius:12px;">
+            <span style="padding:12px 0 6px; font:400 12px/1.4 var(--font-ui); color:var(--violet);">{{ cur.mockTitle }}</span>
+            <sc-for list="{{ cur.rows }}" as="r" hint-placeholder-count="3">
+              <div style="display:flex; flex-direction:column; gap:4px; padding:12px 0; border-top:1px solid var(--border-hairline);">
+                <span style="font:400 12px/1.4 var(--font-ui); color:var(--grey-3);">{{ r.k }}</span>
+                <span style="font:400 15px/1.5 var(--font-ui); color:#fff; text-wrap:pretty;">{{ r.v }}</span>
+              </div>
+            </sc-for>
+          </div>
+          </div>
+          <div style="display:flex; gap:12px; align-items:flex-start; padding-top:18px; border-top:1px solid var(--border-hairline);">
+            <span style="margin-top:2px; color:var(--ok); display:inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span>
+            <span style="font:400 14px/1.6 var(--font-ui); color:var(--grey-3);"><span style="color:#fff;">The buyer gets:</span> {{ cur.outcome }}</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <button type="button" onClick="{{ prev }}" style="min-height:44px; padding:0 20px; border-radius:999px; border:1px solid {{ prevBorder }}; background:transparent; color:{{ prevFg }}; cursor:pointer; font:500 14px/1 var(--font-ui);">Back</button>
+            <sc-if value="{{ notLast }}" hint-placeholder-val="{{ true }}">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" onClick="{{ next }}" dc-props="{{ ctaProps }}" hint-size="auto,48px">Next step</x-import></span>
+            </sc-if>
+            <sc-if value="{{ isLast }}" hint-placeholder-val="{{ false }}">
+              <span style="--cta:#2947e6;" style-hover="--cta:#3b5bfd;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" icon="arrow-right" iconPosition="right" href="#talk" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a walkthrough</x-import></span>
+            </sc-if>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -288,8 +361,16 @@ const TRANSCRIPT = [
     text:'नमस्कार. Sarthi कडून — तुमच्या two-wheeler policy साठी own-damage सह अंदाजित premium: ₹2,340 प्रति वर्ष. गुरुवारी सहा नंतर कॉल करत आहोत.' }
 ];
 
+const STEPS = [
+  { short:'Audience', stage:'Set up', title:'Define who is worth calling this month.', body:'Pick the geography, the segment and the signal that makes someone worth a call. Prospects come from public and derived market data only.', mockTitle:'What you set', rows:[{k:'Geography',v:'Nashik district'},{k:'Signal',v:'Two-wheeler policies expiring within 30 days'},{k:'Language',v:'Marathi, Hindi or English per lead'}], outcome:'a matched list, never built from another client\u2019s records.' },
+  { short:'Compliance', stage:'Set up', title:'Check the compliance trail before anything dials.', body:'DND exclusions, the calling window and approved WhatsApp templates are shown to you up front, with counts, not buried in a log.', mockTitle:'What you review', rows:[{k:'TRAI DND',v:'1,860 removed before a single dial'},{k:'Calling window',v:'09:00\u201321:00 IST only'},{k:'WhatsApp',v:'Approved template, 24-hour window tracked'}], outcome:'proof the campaign is clean before it starts.' },
+  { short:'Launch', stage:'Run', title:'Start one conditional sequence.', body:'AI voice first, then WhatsApp, then a second call and a nudge. Every step is conditional: a lead who answers on day zero never gets the day-four message.', mockTitle:'The sequence', rows:[{k:'Day 0',v:'AI voice call, then WhatsApp if unanswered'},{k:'Day 2 \u00b7 Day 4',v:'Second call, then an approved nudge'},{k:'Day 7',v:'Human handover or dormant'}], outcome:'one campaign and one sequence, with no seat licences.' },
+  { short:'Watch', stage:'Run', title:'Follow it on one page.', body:'Dials, connects, reads, qualified leads and cost per qualified lead update as the campaign runs. Every call transcript is a click away.', mockTitle:'The page your team watches \u00b7 sample', rows:[{k:'Connect rate',v:'41%'},{k:'Qualified',v:'287 leads'},{k:'Cost per qualified lead',v:'\u20b994'}], outcome:'live numbers and transcripts, with the model\u2019s decisions written beside the words.' },
+  { short:'Handover', stage:'Close', title:'A rep takes a qualified lead.', body:'A lead is qualified when intent, a contactable time and the vertical\u2019s required facts are all captured. Then the AI stops contacting them and your rep opens the full transcript.', mockTitle:'What the rep receives', rows:[{k:'Transcript',v:'Full conversation, not a summary'},{k:'Decisions',v:'Intent, agreed time, captured facts'},{k:'Callback',v:'Thursday after 6pm'}], outcome:'leads a human can close, with the context to do it.' },
+  { short:'Review', stage:'Close', title:'Read the result and run it again.', body:'See cost per qualified lead and how many handovers closed. Change the audience or the sequence and rerun on the next list.', mockTitle:'Campaign result \u00b7 sample', rows:[{k:'Handover-to-close',v:'34%'},{k:'Cost per qualified lead',v:'\u20b994'},{k:'Next',v:'Same sequence, new audience'}], outcome:'a repeatable campaign, not a one-off list dump.' }
+];
 class Component extends DCLogic {
-  state = { flyoutOpen:false };
+  state = { flyoutOpen:false, step:0 };
 
   componentDidMount(){ this.wireReveal(); }
   componentDidUpdate(){ this.wireReveal(); }
@@ -321,14 +402,24 @@ class Component extends DCLogic {
 
   renderVals(){
     const open = this.state.flyoutOpen;
+    const s = this.state.step, n = STEPS.length, gi = Math.floor(s/2);
+    const gn = ['Set up','Run','Close'], gr = ['Steps 1\u20132','Steps 3\u20134','Steps 5\u20136'];
     return {
+      cur: Object.assign({ num:s+1 }, STEPS[s]), progress: ((s+1)/n*100)+'%',
+      stages: gn.map((nm,i)=>({ name:nm, range:gr[i], bg:i===gi?'var(--ink-4)':'transparent', border:i===gi?'var(--indigo)':'var(--border-hairline)', fg:i===gi?'var(--violet)':'var(--grey-3)' })),
+      rail: STEPS.map((x,i)=>({ num:i+1, short:x.short, pick:()=>this.setState({step:i}),
+        bg:i===s?'var(--ink-4)':'transparent', fg:i===s?'#fff':'var(--grey-4)', border:i===s?'var(--indigo)':'var(--border-hairline)',
+        dotBg:i<s?'var(--ok)':i===s?'var(--indigo)':'var(--ink-7)' })),
+      next:()=>this.setState({step:Math.min(n-1,s+1)}), prev:()=>this.setState({step:Math.max(0,s-1)}),
+      prevFg:s===0?'var(--ink-7)':'#fff', prevBorder:s===0?'var(--ink-5)':'var(--border-strong)',
+      notLast:s<n-1, isLast:s===n-1,
       flyoutOpen: open,
       toggleFlyout: ()=>this.setState({ flyoutOpen: !open }),
       flyoutBg: open ? 'var(--ink-4)' : 'transparent',
       flyoutFg: open ? '#ffffff' : 'var(--grey-3)',
       flyoutCaret: open ? 'rotate(180deg)' : 'rotate(0deg)',
       productList:[
-        { name:'Urban Sanction Desk', href:'urban-sanction-desk.dc.html', tag:'', tagColor:'var(--grey-3)', bg:'transparent', dot:'var(--ink-7)',
+        { name:'Urban Sanction Desk', href:'urban-sanction-journey.dc.html', tag:'', tagColor:'var(--grey-3)', bg:'transparent', dot:'var(--ink-7)',
           line:'Know your next step in a building permission case.' },
         { name:'Sarthi Reach', href:'sarthi-reach.dc.html', tag:'you are here', tagColor:'var(--ok)', bg:'var(--ink-4)', dot:'var(--ok)',
           line:'Find the lead, work the lead, hand over the lead.' }

@@ -8,6 +8,8 @@
 <body>
 <x-dc>
 <helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/fonts.css">
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/colors.css">
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/tokens/typography.css">
@@ -66,7 +68,7 @@
 
   <header data-hdr="1" data-noprint="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
     <a href="index.html" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-ui); letter-spacing: -0.04em; color: #fff; flex: 0 0 auto;">
-      <svg width="22" height="22" viewBox="8 6 48 52" fill="none" style="flex:0 0 auto;"><rect x="14" y="8" width="36" height="10" fill="#fff"/><rect x="14" y="18" width="10" height="10" fill="#fff"/><rect x="14" y="26" width="36" height="10" fill="#fff"/><rect x="40" y="36" width="10" height="10" fill="#fff"/><rect x="14" y="46" width="12" height="10" fill="#fff"/><rect x="29" y="46" width="9" height="10" fill="#8FA2F0"/><rect x="41" y="46" width="9" height="10" fill="#C94FB0"/></svg>Sarthi Labs
+      <img src="logo/knot-site.png" alt="" style="height:36px;width:auto;flex:0 0 auto;"><span style="font:600 20px/1 Montserrat,var(--font-sans);letter-spacing:-0.01em;color:#fff;">Sarthi Labs</span>
     </a>
 
     <nav data-nav="1" style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
@@ -108,7 +110,7 @@
   <main data-main="1" style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
 
     <div data-sheet="1" style="display:flex; flex-direction:column; gap:14px; padding-bottom:6px;">
-      <span style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;"><span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span><a data-noprint="1" href="urban-sanction-journey.dc.html" style="font:400 13px/1.3 var(--font-ui); color:var(--violet);">{{ t.howItWorks }} →</a></span>
+      <span style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;"><span style="font:400 13px/1.3 var(--font-ui); color:var(--grey-3);">{{ t.productSub }}</span><a data-noprint="1" href="urban-sanction-journey.dc.html#buyer" style="font:400 13px/1.3 var(--font-ui); color:var(--violet);">{{ t.howItWorks }} →</a></span>
       <h1 style="margin:0; font:500 clamp(30px,7vw,44px)/1.1 var(--font-ui); letter-spacing:-0.03em; color:#fff; text-wrap:balance;">{{ t.pageTitle }}</h1>
       <div style="max-width:200px;">
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.GradientRule" hint-size="200px,3px"></x-import>
@@ -712,7 +714,7 @@ const RULES = {
 
 const T = {
   mr:{
-    products:'उत्पादने', howItWorks:'हे कसे चालते', stepWord:'टप्पा', productSub:'नगर मंजुरी कक्ष · Urban Sanction Desk · महाराष्ट्र',
+    products:'उत्पादने', howItWorks:'कोणासाठी आणि कसे', stepWord:'टप्पा', productSub:'नगर मंजुरी कक्ष · Urban Sanction Desk · महाराष्ट्र',
     navHome:'मुख्य पान', navLearn:'माहिती', navContact:'संपर्क', navBookCall:'कॉल ठरवा',
     pageTitle:'तुमचे प्रकरण कुठे अडले आहे?',
     pageIntro:'एका वेळी एक प्रश्न. तुम्ही उत्तर देताच सज्जता, नियम संदर्भ आणि वर्गीकरण लगेच पुन्हा मोजले जाते — काहीही जतन होण्याआधी.',
@@ -766,7 +768,7 @@ const T = {
     addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही'
   },
   en:{
-    products:'Products', howItWorks:'How it works', stepWord:'Step', productSub:'Urban Sanction Desk · Maharashtra building permission',
+    products:'Products', howItWorks:'Who it is for', stepWord:'Step', productSub:'Urban Sanction Desk · Maharashtra building permission',
     navHome:'Home', navLearn:'Learn', navContact:'Contact us', navBookCall:'Book a call',
     pageTitle:'Where is your case stuck?',
     pageIntro:'One question at a time. As you answer, readiness, the rule reference and the routing all recompute — before anything is saved.',
@@ -1031,7 +1033,7 @@ class Component extends DCLogic {
       flyoutFg: s.flyoutOpen?'#ffffff':'var(--grey-4)',
       flyoutCaret: s.flyoutOpen?'rotate(180deg)':'rotate(0deg)',
       productList:[
-        { name:'Urban Sanction Desk', href:'urban-sanction-desk.dc.html', tag:this.state.lang==='mr'?'सुरू आहे':'open now', tagColor:'var(--ok)', bg:'var(--ink-4)', dot:'var(--ok)',
+        { name:'Urban Sanction Desk', href:'urban-sanction-journey.dc.html', tag:this.state.lang==='mr'?'सुरू आहे':'open now', tagColor:'var(--ok)', bg:'var(--ink-4)', dot:'var(--ok)',
           line:this.state.lang==='mr'?'बांधकाम परवानगी प्रकरणात पुढचे पाऊल कळते.':'Know your next step in a building permission case.' },
         { name:'Sarthi Reach', href:'sarthi-reach.dc.html', tag:'', tagColor:'var(--grey-3)', bg:'transparent', dot:'var(--ink-7)',
           line:this.state.lang==='mr'?'लीड शोधा, लीडवर काम करा, लीड सोपवा.':'Find the lead, work the lead, hand over the lead.' }
