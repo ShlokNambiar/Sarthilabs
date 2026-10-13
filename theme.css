@@ -1,0 +1,146 @@
+/* Sarthi Labs theme — premium, minimal, purple.
+   The single source of colour and type for every page. Load it after the
+   design-system stylesheets so these values win.
+
+   Section 1 holds the approved palette. Section 2 points the design system's
+   older token names (--ink-*, --grey-*, --violet …) at that palette, so pages
+   and components written against the old dark theme pick it up without
+   per-page colour values. Add new colours to section 1, never to a page. */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700&display=swap");
+
+:root{
+  /* ---- 1. Approved palette ---- */
+  --color-primary:#482475;         /* primary buttons, brand, active states */
+  --color-primary-hover:#361A59;   /* hover and pressed */
+  --color-background:#F8F6F2;      /* page background */
+  --color-surface:#FFFFFF;         /* cards, forms, modals */
+  --color-surface-accent:#E9E1F4;  /* highlighted sections, selected items */
+  --color-text-primary:#201B2A;    /* headings and body */
+  --color-text-secondary:#716B79;  /* descriptions and metadata */
+  --color-accent:#A98AD5;          /* decorative only, never text */
+  --color-success:#247A68;
+  --color-border:#E9E1F4;
+  --color-on-primary:#FFFFFF;
+  --color-focus:#482475;
+
+  /* supporting values derived from the palette */
+  --color-recessed:#F5F2ED;        /* inputs and inset panels */
+  --color-border-strong:#D6CBE6;   /* outlined buttons, inputs on focus */
+  --color-text-body:#3D3747;       /* long-form body copy */
+
+  /* semantic states kept separate from the brand */
+  --color-error:#B42318;
+  --color-error-surface:#FDECEA;
+  --color-warning:#8A5A00;
+  --color-warning-surface:#FFF4D6;
+  --color-info:#2F5E9E;
+  --color-success-surface:#EAF5F2;
+  --color-disabled:#A39DAB;
+
+  --font-head:"Plus Jakarta Sans","Noto Sans Devanagari","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --font-body:"Inter","Noto Sans Devanagari","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  /* ---- 2. Design-system tokens mapped onto the palette ---- */
+  --ink-0:var(--color-background);
+  --ink-1:#F3F0EA;
+  --ink-2:var(--color-recessed);
+  --ink-3:var(--color-surface);
+  --ink-4:var(--color-surface-accent);
+  --ink-5:#F4F0FA;   /* raised lavender; lightest shade that keeps secondary text at AA */
+  --ink-6:var(--color-border);
+  --ink-7:var(--color-border-strong);
+  --ink-8:#C2B3D9;
+
+  --grey-1:var(--color-text-secondary); /* used for small print, so it must stay readable */
+  --grey-2:var(--color-text-secondary);
+  --grey-3:var(--color-text-secondary);
+  --grey-4:var(--color-text-body);
+  --paper-1:var(--color-surface-accent);
+
+  --blue:var(--color-primary);
+  --indigo:var(--color-primary);
+  --orange:var(--color-primary);
+  --orange-bright:var(--color-primary-hover);
+  --violet:var(--color-primary);
+  --violet-deep:var(--color-primary-hover);
+  --violet-tint:var(--color-surface-accent);
+  --orange-tint:var(--color-surface-accent);
+  --teal:var(--color-success);
+  --ok:var(--color-success);
+  --cta:var(--color-primary);
+
+  --spectrum-0:#361A59; --spectrum-1:#482475; --spectrum-2:#593593; --spectrum-3:#6B47A8;
+  --spectrum-4:#7D5ABB; --spectrum-5:#9072C8; --spectrum-6:#A98AD5; --spectrum-7:#C2AEE4;
+  --gradient-spectrum:linear-gradient(90deg,var(--spectrum-0) 0%,var(--spectrum-2) 30%,var(--spectrum-4) 60%,var(--spectrum-7) 100%);
+  --gradient-halo:linear-gradient(120deg,#A98AD5 0%,#482475 60%,#361A59 100%);
+
+  --bg-page:var(--color-background);
+  --bg-surface:var(--color-surface);
+  --bg-surface-raised:var(--color-surface);
+  --bg-surface-recessed:var(--color-recessed);
+  --bg-surface-hover:var(--color-surface-accent);
+  --bg-inverse:var(--color-primary);
+  --bg-scrim:rgba(32,27,42,.40);
+
+  --text-primary:var(--color-text-primary);
+  --text-secondary:var(--color-text-body);
+  --text-tertiary:var(--color-text-secondary);
+  --text-disabled:var(--color-disabled);
+  --text-inverse:var(--color-on-primary);
+  --text-accent:var(--color-primary);
+  --text-link:var(--color-primary);
+  --text-link-hover:var(--color-primary-hover);
+
+  --border-hairline:var(--color-border);
+  --border-strong:var(--color-border-strong);
+  --border-subtle:rgba(72,36,117,.10);
+  --border-focus:var(--color-focus);
+
+  --surface-card:var(--color-surface);
+  --surface-card-border:var(--color-border);
+  --surface-code:var(--color-recessed);
+
+  --status-live:var(--color-success);
+  --status-warn:var(--color-warning);
+  --status-idle:var(--color-text-secondary);
+
+  --shadow-card:0 1px 2px rgba(32,27,42,.04);
+  --shadow-float:0 12px 32px rgba(32,27,42,.12);
+  --shadow-modal:0 24px 64px rgba(32,27,42,.18);
+  --shadow-glow-spectrum:0 0 48px rgba(72,36,117,.12);
+  --scrim-bottom:linear-gradient(180deg,rgba(248,246,242,0) 0%,rgba(248,246,242,.9) 100%);
+  --scrim-top:linear-gradient(0deg,rgba(248,246,242,0) 0%,rgba(248,246,242,.8) 100%);
+
+  /* page chrome */
+  --chrome-bg:rgba(248,246,242,.82);
+  --chrome-bg-solid:rgba(248,246,242,.96);
+  --chrome-fade:rgba(248,246,242,0);
+  --chrome-veil:rgba(248,246,242,.42);  /* wash over the hero animation */
+
+  --font-sans:var(--font-body);
+  --font-ui:var(--font-body);
+  --font-core:var(--font-body);
+}
+
+/* ---- 3. Global element rules ---- */
+html, body { background:var(--color-background); }
+body { color:var(--color-text-body); font-family:var(--font-body); }
+a { color:var(--color-primary); }
+a:hover { color:var(--color-primary-hover); }
+
+/* Headings use Plus Jakarta Sans at 600–700 even where inline styles set the font shorthand. */
+h1, h2, h3, h4 { font-family:var(--font-head) !important; font-weight:700 !important; color:var(--color-text-primary); }
+h2, h3, h4 { font-weight:600 !important; }
+
+/* Buttons use Inter 600. */
+button, [role="button"], [role="tab"] { font-family:var(--font-body) !important; font-weight:600 !important; }
+
+select option { background:var(--color-surface); color:var(--color-text-primary); }
+::selection { background:var(--color-surface-accent); color:var(--color-text-primary); }
+
+/* Keyboard focus stays visible on every control. */
+:focus-visible { outline:2px solid var(--color-focus); outline-offset:2px; }
+input:focus-visible, textarea:focus-visible, select:focus-visible { outline-offset:0; }
+
+[disabled], [aria-disabled="true"] { cursor:not-allowed; }

@@ -110,7 +110,7 @@ function ChatBubble({
       padding: '11px 15px',
       borderRadius: 'var(--radius-lg)',
       background: mine ? 'var(--paper-1)' : 'var(--ink-5)',
-      color: mine ? 'var(--ink-0)' : 'var(--text-secondary)',
+      color: mine ? 'var(--text-primary)' : 'var(--text-secondary)',
       font: 'var(--weight-regular) var(--size-body-sm)/1.55 var(--font-sans)',
       letterSpacing: 'var(--tracking-body)',
       textWrap: 'pretty'
@@ -214,7 +214,7 @@ function ThreadListItem({
       flex: 1,
       minWidth: 0,
       font: 'var(--weight-medium) var(--size-body-sm)/1.3 var(--font-sans)',
-      color: 'var(--white)',
+      color: 'var(--text-primary)',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap'
@@ -479,7 +479,7 @@ function AnnouncementPill({
   }, badge), /*#__PURE__*/React.createElement("span", {
     style: {
       font: 'var(--weight-medium) var(--size-body-sm)/1 var(--font-sans)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, title), detail && /*#__PURE__*/React.createElement("span", {
     style: {
@@ -495,7 +495,7 @@ function AnnouncementPill({
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, /*#__PURE__*/React.createElement(__ds_scope.Icon, {
     name: icon,
@@ -527,18 +527,18 @@ const SIZES = {
 };
 const VARIANTS = {
   primary: {
-    background: 'var(--white)',
-    color: 'var(--ink-0)',
-    border: '1px solid var(--white)'
+    background: 'var(--color-primary)',
+    color: 'var(--color-on-primary)',
+    border: '1px solid var(--color-primary)'
   },
   secondary: {
     background: 'var(--ink-4)',
-    color: 'var(--white)',
+    color: 'var(--text-primary)',
     border: '1px solid transparent'
   },
   outline: {
     background: 'transparent',
-    color: 'var(--white)',
+    color: 'var(--text-primary)',
     border: '1px solid var(--border-strong)'
   },
   ghost: {
@@ -549,17 +549,17 @@ const VARIANTS = {
 };
 const HOVER = {
   primary: {
-    background: 'var(--grey-4)',
-    borderColor: 'var(--grey-4)'
+    background: 'var(--color-primary-hover)',
+    borderColor: 'var(--color-primary-hover)'
   },
   secondary: {
-    background: 'var(--ink-6)'
+    background: 'var(--ink-5)'
   },
   outline: {
     background: 'var(--ink-4)'
   },
   ghost: {
-    color: 'var(--white)',
+    color: 'var(--text-primary)',
     background: 'var(--ink-4)'
   }
 };
@@ -603,7 +603,7 @@ function Button({
       height: s.height,
       padding: s.padding,
       borderRadius: 'var(--radius-pill)',
-      font: `var(--weight-medium) ${s.font}/1 var(--font-sans)`,
+      font: `var(--weight-semibold) ${s.font}/1 var(--font-sans)`,
       letterSpacing: 'var(--tracking-body)',
       whiteSpace: 'nowrap',
       cursor: disabled ? 'not-allowed' : 'pointer',
@@ -641,10 +641,10 @@ function IconButton({
   const [hover, setHover] = React.useState(false);
   const base = variant === 'solid' ? {
     background: 'var(--ink-5)',
-    color: 'var(--white)'
+    color: 'var(--text-primary)'
   } : variant === 'inverse' ? {
     background: 'var(--paper-1)',
-    color: 'var(--ink-0)'
+    color: 'var(--text-primary)'
   } : {
     background: 'transparent',
     color: 'var(--text-tertiary)'
@@ -667,8 +667,8 @@ function IconButton({
       transition: 'var(--transition-control)',
       ...base,
       ...(hover ? {
-        background: variant === 'inverse' ? 'var(--white)' : 'var(--ink-4)',
-        color: variant === 'inverse' ? 'var(--ink-0)' : 'var(--white)'
+        background: variant === 'inverse' ? 'var(--color-primary)' : 'var(--ink-4)',
+        color: variant === 'inverse' ? 'var(--color-on-primary)' : 'var(--text-primary)'
       } : null),
       ...style
     }
@@ -828,8 +828,8 @@ function SplitButton({
     style: {
       display: 'inline-flex',
       alignItems: 'stretch',
-      background: 'var(--white)',
-      color: 'var(--ink-0)',
+      background: 'var(--color-primary)',
+      color: 'var(--color-on-primary)',
       borderRadius: 'var(--radius-pill)',
       height: h,
       overflow: 'hidden'
@@ -902,7 +902,7 @@ function SplitButton({
     },
     onMouseEnter: e => {
       e.currentTarget.style.background = 'var(--ink-5)';
-      e.currentTarget.style.color = 'var(--white)';
+      e.currentTarget.style.color = 'var(--text-primary)';
     },
     onMouseLeave: e => {
       e.currentTarget.style.background = 'transparent';
@@ -948,7 +948,7 @@ function Tabs({
         padding: '0 16px',
         borderRadius: 'var(--radius-pill)',
         background: on ? 'var(--ink-5)' : 'transparent',
-        color: on ? 'var(--white)' : 'var(--text-tertiary)',
+        color: on ? 'var(--text-primary)' : 'var(--text-tertiary)',
         font: `var(--weight-medium) var(--size-body-sm)/1 var(--font-sans)`,
         letterSpacing: 'var(--tracking-body)',
         transition: 'var(--transition-control)'
@@ -1070,7 +1070,7 @@ function FeatureCard({
     style: {
       font: `var(--weight-medium) var(--size-h4)/1.4 var(--font-sans)`,
       letterSpacing: 'var(--tracking-body)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, title), body && /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1159,7 +1159,7 @@ function NewsCard({
     style: {
       font: `var(--weight-medium) 21px/1.2 var(--font-sans)`,
       letterSpacing: 'var(--tracking-heading)',
-      color: light ? 'var(--ink-0)' : 'var(--white)'
+      color: light ? 'var(--text-primary)' : 'var(--text-primary)'
     }
   }, artworkLabel)), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -1175,7 +1175,7 @@ function NewsCard({
     style: {
       font: `var(--weight-medium) var(--size-h4)/1.35 var(--font-sans)`,
       letterSpacing: 'var(--tracking-body)',
-      color: hover ? 'var(--text-secondary)' : 'var(--white)',
+      color: hover ? 'var(--text-secondary)' : 'var(--text-primary)',
       transition: 'var(--transition-control)',
       textWrap: 'pretty'
     }
@@ -1215,7 +1215,7 @@ function PlanCard({
     style: {
       font: `var(--weight-medium) var(--size-h2)/1.2 var(--font-sans)`,
       letterSpacing: 'var(--tracking-heading)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, title), body && /*#__PURE__*/React.createElement("p", {
     style: {
@@ -1371,7 +1371,7 @@ function Wordmark({
     style: {
       font: `var(--weight-semibold) ${size}px/1 var(--font-sans)`,
       letterSpacing: '-0.04em',
-      color: 'var(--white)',
+      color: 'var(--text-primary)',
       textDecoration: 'none',
       ...style
     }
@@ -1424,7 +1424,7 @@ function NavBar({
         textDecoration: 'none',
         transition: 'var(--transition-control)'
       },
-      onMouseEnter: e => e.currentTarget.style.color = 'var(--white)',
+      onMouseEnter: e => e.currentTarget.style.color = 'var(--text-primary)',
       onMouseLeave: e => e.currentTarget.style.color = 'var(--text-secondary)'
     }, label, caret && /*#__PURE__*/React.createElement(__ds_scope.Icon, {
       name: "chevron-down",
@@ -1494,7 +1494,7 @@ function SiteFooter({
   }, /*#__PURE__*/React.createElement("span", {
     style: {
       font: 'var(--weight-medium) var(--size-caption)/1 var(--font-sans)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, col.title), col.links.map(l => /*#__PURE__*/React.createElement("a", {
     key: l,
@@ -1505,7 +1505,7 @@ function SiteFooter({
       textDecoration: 'none',
       transition: 'var(--transition-control)'
     },
-    onMouseEnter: e => e.currentTarget.style.color = 'var(--white)',
+    onMouseEnter: e => e.currentTarget.style.color = 'var(--text-primary)',
     onMouseLeave: e => e.currentTarget.style.color = 'var(--text-tertiary)'
   }, l)))))));
 }
@@ -1551,7 +1551,7 @@ function Conversation({
     style: {
       flex: 1,
       font: 'var(--weight-medium) 14px/1 var(--font-sans)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, thread.name), /*#__PURE__*/React.createElement(IconButton, {
     name: "monitor",
@@ -1843,7 +1843,7 @@ function Hero({
       textAlign: 'center',
       font: 'var(--weight-medium) 72px/1.04 var(--font-sans)',
       letterSpacing: 'var(--tracking-display)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "Frontier AI models", /*#__PURE__*/React.createElement("br", null), "for everything you ", /*#__PURE__*/React.createElement(SpectrumWord, null, "ship"), "."), /*#__PURE__*/React.createElement("p", {
     style: {
@@ -2012,11 +2012,11 @@ function BotMock() {
     maxWidth: 330
   }, "that clears it. report filed: ", /*#__PURE__*/React.createElement("b", {
     style: {
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "9 receipts"), " matched, ", /*#__PURE__*/React.createElement("b", {
     style: {
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "$2,340"), " across 3 trips, nothing outstanding."));
 }
@@ -2068,7 +2068,7 @@ function MediaGrid() {
       left: 22,
       bottom: 18,
       font: 'var(--weight-medium) 15px/1 var(--font-sans)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "Imagine"), /*#__PURE__*/React.createElement("a", {
     href: "#",
@@ -2111,7 +2111,7 @@ function MediaGrid() {
       left: 22,
       bottom: 18,
       font: 'var(--weight-medium) 15px/1 var(--font-sans)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "Voice"), /*#__PURE__*/React.createElement("a", {
     href: "#",
@@ -2291,7 +2291,7 @@ function GetStarted({
       textAlign: 'center',
       font: 'var(--weight-medium) 40px/1.15 var(--font-sans)',
       letterSpacing: 'var(--tracking-display)',
-      color: 'var(--white)'
+      color: 'var(--text-primary)'
     }
   }, "Choose how to get started"), /*#__PURE__*/React.createElement("div", {
     style: {
