@@ -76,6 +76,7 @@ void main() {
   p = rotate2d(radians(uRotation) + time * uRotationSpeed) * p;
   vec3 color = vec3(0.0);
   float fiberField = 0.0;
+  float glowField = 0.0;
 
   for (int index = 0; index < MAX_LAYERS; index++) {
     float fi = float(index) + 1.0;
@@ -95,6 +96,7 @@ void main() {
 
     float glow = exp(-uGlowFalloff * abs(sin(p.x * 3.0 + time + fi)));
     color += uGlowColor * glow * uGlowIntensity / (fi * 2.0);
+    glowField += glow * uGlowIntensity / (fi * 2.0);
   }
 
   float center = exp(-2.2 * dot(uv, uv));
@@ -111,13 +113,18 @@ void main() {
   vec3 outputColor;
   if (uLightMode > 0.5) {
     float edgeFade = mix(1.0 - uVignette, 1.0, vignette);
-    float fibers = pow(smoothstep(0.12, 1.05, fiberField) * edgeFade, 1.5);
-    float atmosphere = (center * 0.025 + cloud * 0.015) * edgeFade;
-    vec3 fiberInk = mix(backdrop, uLineColor, 0.52);
-    vec3 airColor = mix(backdrop, uGlowColor, 0.16);
+    // Light mode inks the fibers onto the page colour instead of adding light,
+    // so it needs more weight than the dark path to read at the same strength.
+    float fibers = pow(smoothstep(0.08, 1.0, fiberField) * edgeFade, 1.25);
+    float glowWash = clamp(glowField, 0.0, 1.0) * edgeFade;
+    float atmosphere = (center * 0.35 + cloud * 0.25) * edgeFade;
+    vec3 fiberInk = mix(backdrop, uLineColor, 0.9);
+    vec3 glowInk = mix(backdrop, uGlowColor, 0.55);
+    vec3 airColor = mix(backdrop, uGlowColor, 0.22);
 
     outputColor = mix(backdrop, airColor, atmosphere);
-    outputColor = mix(outputColor, fiberInk, fibers * 0.3);
+    outputColor = mix(outputColor, glowInk, glowWash * 0.45);
+    outputColor = mix(outputColor, fiberInk, fibers * 0.7);
   } else {
     outputColor = backdrop + color;
   }
