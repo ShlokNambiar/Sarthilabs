@@ -86,7 +86,7 @@
             </sc-for>
           </span>
       </span>
-      <a href="#learn" onClick="{{ goLearn }}" style="padding: 8px 14px; border-radius: 999px; background: {{ navLearnBg }}; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: {{ navLearnFg }};" style-hover="background: var(--ink-4); color:var(--color-text-primary);">{{ t.navLearn }}</a>
+      <a href="udcpr-assistant.html" target="_blank" rel="noopener" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color:var(--color-text-primary);">{{ t.navLearn }}</a>
       <a href="index.html#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-ui); letter-spacing: -0.011em; color: var(--grey-4);" style-hover="background: var(--ink-4); color:var(--color-text-primary);">{{ t.navContact }}</a>
     </nav>
 
@@ -100,10 +100,12 @@
 
   <main data-main="1" style="max-width:720px; margin:0 auto; padding:28px 16px 140px; display:flex; flex-direction:column; gap:14px;">
 
-    <div data-noprint="1" role="tablist" style="display:flex; gap:4px; align-self:flex-start; padding:4px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:999px;">
-      <sc-for list="{{ viewTabs }}" as="vt" hint-placeholder-count="2">
-        <button type="button" role="tab" aria-selected="{{ vt.selected }}" onClick="{{ vt.pick }}" style="min-height:40px; padding:0 18px; border:0; border-radius:999px; cursor:pointer; background:{{ vt.bg }}; color:{{ vt.fg }}; font:500 14px/1 var(--font-ui);">{{ vt.label }}</button>
-      </sc-for>
+    <div data-noprint="1" style="display:flex; gap:4px; align-self:flex-start; padding:4px; background:var(--ink-2); border:1px solid var(--border-hairline); border-radius:999px;">
+      <button type="button" aria-pressed="{{ deskTab.selected }}" onClick="{{ goDesk }}" style="min-height:40px; padding:0 18px; border:0; border-radius:999px; cursor:pointer; background:{{ deskTab.bg }}; color:{{ deskTab.fg }}; font:500 14px/1 var(--font-ui);">{{ t.tabDesk }}</button>
+      <a href="udcpr-assistant.html" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:6px; min-height:40px; padding:0 16px 0 18px; border-radius:999px; background:transparent; color:var(--grey-4); font:600 14px/1 var(--font-ui);" style-hover="background:var(--ink-4); color:var(--color-text-primary);">{{ t.tabLearn }}
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+        <span style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">{{ t.newTab }}</span>
+      </a>
     </div>
 
     <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ true }}">
@@ -946,7 +948,7 @@ const T = {
     declaredSrc:'घोषित · Area Statement', measuredSrc:'मोजलेले · drawing geometry',
     frontageSrc:'रुंदी · drawing geometry', depthSrc:'खोली · drawing geometry',
     addressSrc:'पत्ता · ७/१२', roadSrc:'रस्ता · site survey', measuredPending:'अद्याप उपलब्ध नाही',
-    tabDesk:'कक्ष', tabLearn:'माहिती',
+    tabDesk:'कक्ष', tabLearn:'माहिती', newTab:'(नवीन टॅबमध्ये उघडते)',
     helpTitle:'आम्ही यातही मदत करतो', helpSub:'Feasibility अहवालानंतर पुढचे काम — मंजुरी, tracing, Assistant आणि Studio.',
     helpLearnLink:'BPAMS tracing कसे होते ते वाचा', requestAccess:'प्रवेश मागा', dwgNone:'DWG / DXF निवडलेली नाही',
     learnEyebrow:'माहिती · BPAMS tracing', learnTitle:'BPAMS tracing कसे होते',
@@ -1010,7 +1012,7 @@ const T = {
     declaredSrc:'Declared · Area Statement', measuredSrc:'Measured · drawing geometry',
     frontageSrc:'Frontage · drawing geometry', depthSrc:'Depth · drawing geometry',
     addressSrc:'Address · 7/12', roadSrc:'Road · site survey', measuredPending:'Not available yet',
-    tabDesk:'Desk', tabLearn:'Learn',
+    tabDesk:'Desk', tabLearn:'Learn', newTab:'(opens in a new tab)',
     helpTitle:'We can also help with', helpSub:'What comes after the feasibility report — sanctioning, tracing, the assistant and Studio.',
     helpLearnLink:'Read how BPAMS tracing works', requestAccess:'Request access', dwgNone:'No DWG / DXF chosen',
     learnEyebrow:'Learn · BPAMS tracing', learnTitle:'How BPAMS tracing works',
@@ -1243,13 +1245,11 @@ class Component extends DCLogic {
       t,
       isDesk: s.view!=='learn', isLearn: s.view==='learn',
       goLearn: goView('learn'), goDesk: goView('desk'),
-      navLearnBg: s.view==='learn' ? 'var(--ink-4)' : 'transparent',
-      navLearnFg: s.view==='learn' ? 'var(--color-text-primary)' : 'var(--grey-4)',
-      viewTabs: [['desk',t.tabDesk],['learn',t.tabLearn]].map(([id,label])=>({
-        label, selected: s.view===id ? 'true' : 'false', pick: goView(id),
-        bg: s.view===id ? 'var(--indigo)' : 'transparent',
-        fg: s.view===id ? 'var(--color-on-primary)' : 'var(--grey-4)'
-      })),
+      deskTab: {
+        selected: s.view!=='learn' ? 'true' : 'false',
+        bg: s.view!=='learn' ? 'var(--indigo)' : 'transparent',
+        fg: s.view!=='learn' ? 'var(--color-on-primary)' : 'var(--grey-4)'
+      },
       helpRows,
       learnWhat: LEARN_WHAT.map(w=>({ term:this.L(w), body:this.L({mr:w.bmr,en:w.ben}) })),
       learnSteps: LEARN_STEPS.map((st,i)=>({ num:i+1, title:this.L(st), body:this.L({mr:st.bmr,en:st.ben}), layers:st.layers, hasLayers:st.layers.length>0 })),
