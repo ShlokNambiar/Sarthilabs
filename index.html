@@ -21,21 +21,10 @@
 <link rel="stylesheet" href="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/styles.css">
 <script src="_ds/spacexai-design-system-f8c95e5e-5d73-48e7-98f0-b4e58e87442d/_ds_bundle.js"></script>
 <style>
-  :root{
-    --ink-0:#0a0c1c; --ink-1:#0d1022; --ink-2:#11152e; --ink-3:#161a34;
-    --ink-4:#1c2140; --ink-5:#212749; --ink-6:#272d52; --ink-7:#343c68; --ink-8:#3f4878;
-    --grey-1:#5c6384; --grey-2:#767da0; --grey-3:#8e95b4; --grey-4:#b9bfd6;
-    --blue:#2947e6; --indigo:#3b5bfd; --violet:#8fa2f0;
-    --orange:#2947e6; --orange-bright:#3b5bfd; --orange-tint:#141a3c;
-    --violet-tint:#1a1f45; --violet-deep:#3a3f8a;
-    --spectrum-0:#262c52; --spectrum-1:#2947e6; --spectrum-2:#3b5bfd; --spectrum-3:#6d7ff5;
-    --spectrum-4:#8fa2f0; --spectrum-5:#a86ae8; --spectrum-6:#c94fb0; --spectrum-7:#e0457f;
-    --border-subtle:rgba(143,162,240,.10); --border-focus:rgba(143,162,240,.55);
-    --cta:#2947e6;
-  }
+  
   html, body { margin: 0; padding: 0; background: var(--ink-0); }
   body { font-family: var(--font-sans); color: var(--text-secondary); -webkit-font-smoothing: antialiased; }
-  a { color: var(--white); text-decoration: none; }
+  a { color:var(--color-text-primary); text-decoration: none; }
   a:hover { color: var(--grey-4); }
 @media (max-width: 720px){
   [data-hdr]{padding:10px 16px !important; gap:8px !important; min-height:56px !important;}
@@ -63,8 +52,8 @@
 
 @media (max-width:720px){
   body{padding-bottom:68px;}
-  [data-hdr]{padding:8px 16px !important; min-height:52px !important; flex-wrap:nowrap !important; gap:8px !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:rgba(10,12,28,.94) !important;}
-  [data-nav]{position:fixed !important; left:0; right:0; bottom:0; z-index:60; order:0 !important; flex:none !important; display:flex !important; justify-content:space-around !important; flex-wrap:nowrap !important; overflow:visible !important; gap:0 !important; padding:6px 8px calc(6px + env(safe-area-inset-bottom)) !important; background:rgba(13,16,34,.94); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-top:1px solid rgba(159,176,245,.14); border-radius:0 !important;}
+  [data-hdr]{padding:8px 16px !important; min-height:52px !important; flex-wrap:nowrap !important; gap:8px !important; backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:var(--chrome-bg-solid) !important;}
+  [data-nav]{position:fixed !important; left:0; right:0; bottom:0; z-index:60; order:0 !important; flex:none !important; display:flex !important; justify-content:space-around !important; flex-wrap:nowrap !important; overflow:visible !important; gap:0 !important; padding:6px 8px calc(6px + env(safe-area-inset-bottom)) !important; background:var(--chrome-bg-solid); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px); border-top:1px solid var(--border-subtle); border-radius:0 !important;}
   [data-nav] > *{flex:1 1 0 !important; justify-content:center !important; text-align:center; min-height:44px !important;}
   [data-nav] > span{display:flex !important;} [data-nav] > span > button{width:100%; justify-content:center; min-height:44px;}
   [data-flyout]{position:fixed !important; top:auto !important; bottom:72px !important; left:12px !important; right:12px !important; width:auto !important;}
@@ -75,16 +64,17 @@
   [data-nextrow]{bottom:60px !important;}
 }
 </style>
+<link rel="stylesheet" href="theme.css">
 </helmet>
 <div style="position: relative; background: var(--ink-0); min-height: 100vh; font-family: var(--font-sans); overflow-x: hidden;">
 
-  <header data-hdr="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: rgba(10,12,28,.72); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
-    <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-sans); letter-spacing: -0.04em; color: var(--white); flex: 0 0 auto;">
-      <img src="logo/knot-site.png" alt="" style="height:36px;width:auto;flex:0 0 auto;"><span style="font:600 20px/1 Montserrat,var(--font-sans);letter-spacing:-0.01em;color:#fff;">Sarthi Labs</span>
+  <header data-hdr="1" style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; min-height: 64px; padding: 10px 24px; background: var(--chrome-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle);">
+    <a href="#top" style="display: inline-flex; align-items: center; gap: 10px; font: 600 20px/1 var(--font-sans); letter-spacing: -0.04em; color:var(--color-text-primary); flex: 0 0 auto;">
+      <img src="logo/knot-plum.png" alt="" style="height:36px;width:auto;flex:0 0 auto;"><span style="font:600 20px/1 Montserrat,var(--font-sans);letter-spacing:-0.01em;color:var(--color-text-primary);">Sarthi Labs</span>
     </a>
 
     <nav data-nav="1" style="display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; flex-wrap: wrap; padding: 4px; border-radius: 999px;">
-      <a href="#top" style="padding: 8px 14px; border-radius: 999px; background: var(--ink-4); font: 500 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--white);" style-hover="background: var(--ink-5);">Home</a>
+      <a href="#top" style="padding: 8px 14px; border-radius: 999px; background: var(--ink-4); font: 500 14px/1 var(--font-sans); letter-spacing: -0.011em; color:var(--color-text-primary);" style-hover="background: var(--ink-5);">Home</a>
       <span onMouseEnter="{{ hoverIn }}" onMouseLeave="{{ hoverOut }}" style="position: relative; display: inline-flex;">
         <button type="button" onClick="{{ toggleFlyout }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 999px; border: 0; cursor: pointer; background: {{ flyoutBg }}; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: {{ flyoutFg }};">
           Products
@@ -97,21 +87,21 @@
               <a href="{{ p.href }}" style="display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px;" style-hover="background: var(--ink-4);">
                 <span style="margin-top: 5px; width: 7px; height: 7px; border-radius: 999px; background: var(--ink-7); flex: 0 0 auto;"></span>
                 <span style="display: flex; flex-direction: column; gap: 4px; min-width: 0;">
-                  <span style="font: 500 15px/1.3 var(--font-sans); color: var(--white);">{{ p.name }}</span>
+                  <span style="font: 500 15px/1.3 var(--font-sans); color:var(--color-text-primary);">{{ p.name }}</span>
                   <span style="font: 400 13px/1.45 var(--font-sans); color: var(--text-tertiary);">{{ p.line }}</span>
                 </span>
               </a>
             </sc-for>
           </span>
       </span>
-      <a href="#engage" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color: var(--white);">Learn</a>
-      <a href="#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color: var(--white);">Contact us</a>
+      <a href="udcpr-assistant.html" target="_blank" rel="noopener" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color:var(--color-text-primary);">Learn</a>
+      <a href="#contact" style="padding: 8px 14px; border-radius: 999px; background: transparent; font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="background: var(--ink-4); color:var(--color-text-primary);">Contact us</a>
     </nav>
 
     <div data-hdr-cta="1" style="display: flex; align-items: center; gap: 14px; flex: 0 0 auto;">
-      <a data-login="1" href="#contact" style="font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="color: var(--white);">Login</a>
+      <a data-login="1" href="#contact" style="font: 400 14px/1 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary);" style-hover="color:var(--color-text-primary);">Login</a>
       <span data-login="1" style="width: 1px; height: 22px; background: var(--border-hairline);"></span>
-      <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+      <span style="--cta: var(--color-primary);" style-hover="--cta: var(--color-primary-hover);">
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="#contact" dc-props="{{ ctaProps }}" hint-size="auto,40px">Book a call</x-import>
       </span>
     </div>
@@ -119,16 +109,16 @@
 
   <div aria-hidden="true" data-fib="1" style="position: absolute; top: 0; left: 0; right: 0; height: 1020px; z-index: 0; pointer-events: none; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 100%); -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 52%, rgba(0,0,0,0) 100%);">
     <x-import component="GhostFibers" from="./GhostFibers.jsx" dc-props="{{ fibersProps }}" hint-size="100%,100%"></x-import>
-    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(10,12,28,.72) 0%, rgba(10,12,28,.42) 55%, rgba(10,12,28,0) 100%);"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(ellipse 60% 45% at 50% 38%, var(--chrome-veil) 0%, var(--chrome-fade) 100%);"></div>
   </div>
 
   <section id="top" data-hero="1" style="position: relative; z-index: 1; padding: 104px 24px 0;">
     <div style="max-width: 1264px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 28px;" data-reveal>
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.AnnouncementPill" badge="Now booking" title="Q4 architecture reviews" detail="Two slots" href="#engage" icon="arrow-right" hint-size="auto,40px"></x-import>
-      <h1 style="margin: 0; max-width: 940px; font-weight: 500; font-size: clamp(38px, 6.4vw, 72px); line-height: 1.04; letter-spacing: -0.032em; color: var(--white); text-wrap: balance;">Ship AI into<br><span style="color: var(--violet);">real infrastructure.</span></h1>
+      <h1 style="margin: 0; max-width: 940px; font-weight: 500; font-size: clamp(38px, 6.4vw, 72px); line-height: 1.04; letter-spacing: -0.032em; color:var(--color-text-primary); text-wrap: balance;">Ship AI into<br><span style="color: var(--violet);">real infrastructure.</span></h1>
       <p style="margin: 0; max-width: 680px; font: 400 18px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Sarthi Labs works in your repo alongside your engineers — model architecture, evals, inference infrastructure and the hardware underneath it — and ships products of our own, until your team owns it in production.</p>
       <div data-herobtns="1" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
-        <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+        <span style="--cta: var(--color-primary);" style-hover="--cta: var(--color-primary-hover);">
           <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="lg" href="#contact" dc-props="{{ ctaProps }}" hint-size="auto,48px">Book a call</x-import>
         </span>
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" variant="outline" size="lg" href="#engage" icon="chevron-right" iconPosition="right" hint-size="auto,48px">See engagement models</x-import>
@@ -141,19 +131,19 @@
       <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="recessed" padding="0" hint-size="100%,140px">
         <div data-stats="1" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));">
           <div style="padding: 28px 24px; text-align: center;">
-            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">4 weeks</div>
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color:var(--color-text-primary);">4 weeks</div>
             <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">review to shipped prototype</div>
           </div>
           <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
-            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">&lt;200ms</div>
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color:var(--color-text-primary);">&lt;200ms</div>
             <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">p95 latency budgets</div>
           </div>
           <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
-            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">100%</div>
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color:var(--color-text-primary);">100%</div>
             <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">code in your repo</div>
           </div>
           <div style="padding: 28px 24px; text-align: center; border-left: 1px solid var(--border-hairline);">
-            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color: var(--white);">8 weeks</div>
+            <div style="font: 500 34px/1.1 var(--font-sans); letter-spacing: -0.032em; color:var(--color-text-primary);">8 weeks</div>
             <div style="margin-top: 8px; font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">paired support after launch</div>
           </div>
         </div>
@@ -170,7 +160,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">01</div>
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Architecture review</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Architecture review</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Model choice, retrieval design, and a latency and cost budget you can defend in a planning meeting. Two weeks, one written recommendation, no slideware.</p>
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: a decision record and a build plan</div>
           </div>
@@ -178,7 +168,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">02</div>
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Build alongside your team</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Build alongside your team</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Two engineers in your repo, your standup, and your on-call rotation. We pair on the first production feature instead of delivering a demo you have to rewrite.</p>
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: merged pull requests</div>
           </div>
@@ -186,7 +176,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">03</div>
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Evals and guardrails</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Evals and guardrails</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">Offline evals, online guardrails, tracing, and cost controls — so the thing you shipped still works after the next model swap.</p>
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: an eval suite in CI</div>
           </div>
@@ -194,7 +184,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,320px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div style="font: 400 13px/1.3 var(--font-mono); color: var(--violet);">04</div>
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">AI infrastructure and hardware</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">AI infrastructure and hardware</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); letter-spacing: -0.011em; color: var(--text-secondary); text-wrap: pretty;">GPU and accelerator sizing, procurement guidance, and cluster or edge setup — in the cloud, on-prem, or both — matched to the models and traffic you actually run.</p>
             <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-hairline); font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">You get: a sized, costed hardware plan</div>
           </div>
@@ -212,7 +202,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="raised" padding="32px" hint-size="100%,300px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,22px">Maharashtra</x-import></div>
-            <h3 style="margin: 0; font: 500 24px/1.25 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Urban Sanction Desk</h3>
+            <h3 style="margin: 0; font: 500 24px/1.25 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Urban Sanction Desk</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); color: var(--text-secondary); text-wrap: pretty;">Know your next step in a building permission case. Built for property owners, small builders and the architects who file for them. Describe the problem in plain words, get the cited rule, a document checklist and a case file. Guidance, not a decision.</p>
             <div style="margin-top: auto; padding-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
               <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="urban-sanction-journey.dc.html" icon="arrow-right" iconPosition="right" hint-size="auto,40px">See who it is for</x-import>
@@ -223,7 +213,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="raised" padding="32px" hint-size="100%,300px">
           <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
             <div><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,22px">AI voice and WhatsApp</x-import></div>
-            <h3 style="margin: 0; font: 500 24px/1.25 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Sarthi Reach</h3>
+            <h3 style="margin: 0; font: 500 24px/1.25 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Sarthi Reach</h3>
             <p style="margin: 0; font: 400 16px/1.5 var(--font-sans); color: var(--text-secondary); text-wrap: pretty;">Find the lead, work the lead, hand over the lead. Prospects from market data, worked until qualified, built for Indian calling rules.</p>
             <div style="margin-top: auto; padding-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
               <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" href="sarthi-reach.dc.html" icon="arrow-right" iconPosition="right" hint-size="auto,40px">See Sarthi Reach</x-import>
@@ -242,7 +232,7 @@
       <div style="margin-top: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; align-items: stretch;" data-reveal>
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,420px">
           <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Architecture review</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Architecture review</h3>
             <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">2 weeks · fixed fee</div>
             <div style="height: 1px; background: var(--border-hairline);"></div>
             <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -259,7 +249,7 @@
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" tone="raised" padding="32px" hint-size="100%,420px">
           <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Build sprint</h3>
+              <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Build sprint</h3>
               <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Badge" tone="violet" hint-size="auto,22px">Most teams</x-import>
             </div>
             <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">6 weeks · two engineers embedded</div>
@@ -271,7 +261,7 @@
               <div style="display: flex; gap: 12px;"><span style="margin-top: 2px; color: var(--violet); display: inline-flex;"><x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Icon" name="check" size="16" hint-size="16px,16px"></x-import></span><span style="font: 400 15px/1.45 var(--font-sans); color: var(--text-secondary);">Eight weeks of paired support</span></div>
             </div>
             <div style="margin-top: auto; padding-top: 20px;">
-              <span style="display: block; --cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+              <span style="display: block; --cta: var(--color-primary);" style-hover="--cta: var(--color-primary-hover);">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" fullWidth="{{ true }}" href="#contact" dc-props="{{ ctaProps }}" hint-size="100%,40px">Book a call</x-import>
               </span>
             </div>
@@ -279,7 +269,7 @@
         </x-import>
         <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Card" padding="32px" hint-size="100%,420px">
           <div style="display: flex; flex-direction: column; gap: 16px; height: 100%;">
-            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color: var(--white);">Retained partner</h3>
+            <h3 style="margin: 0; font: 500 20px/1.3 var(--font-sans); letter-spacing: -0.02em; color:var(--color-text-primary);">Retained partner</h3>
             <div style="font: 400 14px/1.4 var(--font-sans); color: var(--text-tertiary);">monthly · capped hours</div>
             <div style="height: 1px; background: var(--border-hairline);"></div>
             <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -315,11 +305,11 @@
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px;">
               <label style="font: 400 13px/1.3 var(--font-sans); color: var(--text-tertiary);">What are you building, and what is stuck?</label>
-              <textarea rows="4" placeholder="Retrieval over 2M internal docs. Accuracy is fine in the notebook, not in the product." style="width: 100%; box-sizing: border-box; resize: vertical; padding: 12px 14px; background: var(--ink-2); color: var(--white); border: 1px solid var(--border-hairline); border-radius: 8px; font: 400 15px/1.5 var(--font-sans); letter-spacing: -0.011em; outline: none;"></textarea>
+              <textarea rows="4" placeholder="Retrieval over 2M internal docs. Accuracy is fine in the notebook, not in the product." style="width: 100%; box-sizing: border-box; resize: vertical; padding: 12px 14px; background: var(--ink-2); color:var(--color-text-primary); border: 1px solid var(--border-hairline); border-radius: 8px; font: 400 15px/1.5 var(--font-sans); letter-spacing: -0.011em; outline: none;"></textarea>
             </div>
             <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
               <span style="font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">Replies within one working day.</span>
-              <span style="--cta: #2947e6;" style-hover="--cta: #3b5bfd;">
+              <span style="--cta: var(--color-primary);" style-hover="--cta: var(--color-primary-hover);">
                 <x-import component-from-global-scope="SpaceXAIDesignSystem_f8c95e.Button" size="md" icon="arrow-right" iconPosition="right" dc-props="{{ ctaProps }}" hint-size="auto,40px">Request a call</x-import>
               </span>
             </div>
@@ -331,16 +321,16 @@
 
   <footer data-foot="1" style="margin-top: 128px; padding: 40px 24px; border-top: 1px solid var(--border-hairline);">
     <div data-footin="1" style="max-width: 1264px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
-      <span style="font: 600 18px/1 var(--font-sans); letter-spacing: -0.04em; color: var(--white);">Sarthi Labs</span>
+      <span style="font: 600 18px/1 var(--font-sans); letter-spacing: -0.04em; color:var(--color-text-primary);">Sarthi Labs</span>
       <div style="display: flex; gap: 20px; flex-wrap: wrap;">
         <a href="urban-sanction-desk.dc.html" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Urban Sanction Desk</a>
         <a href="sarthi-reach.dc.html" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Sarthi Reach</a>
         <a href="#capabilities" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">What we do</a>
-        <a href="#engage" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Learn</a>
+        <a href="udcpr-assistant.html" target="_blank" rel="noopener" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Learn</a>
         <a href="#contact" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Contact us</a>
         <a href="#contact" style="font: 400 14px/1.3 var(--font-sans); color: var(--text-tertiary);">Login</a>
       </div>
-      <span style="font: 400 13px/1.4 var(--font-sans); color: var(--text-disabled);">© 2026 Sarthi Labs</span>
+      <span style="font: 400 13px/1.4 var(--font-sans); color: var(--text-tertiary);">© 2026 Sarthi Labs</span>
     </div>
   </footer>
 </div>
@@ -401,15 +391,16 @@ class Component extends DCLogic {
       flyoutOpen: open,
       toggleFlyout: () => this.setState({ flyoutOpen: !open }),
       flyoutBg: open ? 'var(--ink-4)' : 'transparent',
-      flyoutFg: open ? 'var(--white)' : 'var(--text-secondary)',
+      flyoutFg: open ? 'var(--color-text-primary)' : 'var(--text-secondary)',
       flyoutCaret: open ? 'rotate(180deg)' : 'rotate(0deg)',
       productList: [
         { name: 'Urban Sanction Desk', href: 'urban-sanction-journey.dc.html', line: 'Know your next step in a building permission case.' },
         { name: 'Sarthi Reach', href: 'sarthi-reach.dc.html', line: 'Find the lead, work the lead, hand over the lead.' }
       ],
-      ctaProps: { style: { background: 'var(--cta)', borderColor: 'var(--cta)', color: '#ffffff' } },
+      ctaProps: { style: { background: 'var(--cta)', borderColor: 'var(--cta)', color: 'var(--color-on-primary)' } },
       fibersProps: {
-        lineColor: '#140E35', glowColor: '#3437A0', speed: 0.2, scale: 2, rotation: 0,
+        // WebGL needs literal hex: --color-primary and --color-accent from theme.css
+        lightMode: true, lineColor: '#482475', glowColor: '#A98AD5', speed: 0.2, scale: 2, rotation: 0,
         rotationSpeed: 0.25, layers: 4, waveAmplitude: 0.015, waveFrequency: 3, waveSpeed: 0.15,
         layerSpeed: 0.08, twist: 0.1, twistFrequency: 5, twistSpeed: 1.2, lineFrequency: 5,
         lineSpacing: 2, lineSharpness: 16, glowFalloff: 10, glowIntensity: 1.05, brightness: 1.25,
