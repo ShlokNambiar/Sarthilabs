@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drawing Check</title>
+<meta name="description" content="Upload a building-permission drawing (DWG, DXF or PDF). Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules before you submit to AutoDCR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="theme.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { margin: 0; }
+  body { min-height: 100vh; font: 400 16px/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+
+  /* ---- header (same pattern as udcpr-assistant.html) ---- */
+  .hdr { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 10px 24px; background: var(--chrome-bg); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--border-subtle); }
+  .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--color-text-primary); text-decoration: none; }
+  .brand img { height: 36px; width: auto; }
+  .brand span { font: 600 20px/1 Montserrat, var(--font-body); letter-spacing: -0.01em; }
+  .hdr nav { display: flex; align-items: center; gap: 4px; }
+  .hdr nav a { padding: 8px 14px; border-radius: 999px; font: 400 14px/1 var(--font-body); color: var(--color-text-body); text-decoration: none; }
+  .hdr nav a:hover { background: var(--color-surface-accent); color: var(--color-text-primary); }
+  .hdr nav a[aria-current="page"] { background: var(--color-surface-accent); color: var(--color-text-primary); font-weight: 500; }
+  .lang { display: inline-flex; padding: 3px; border: 1px solid var(--color-border-strong); border-radius: 999px; background: var(--color-surface); }
+  .lang button { min-height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--color-text-secondary); font-size: 13px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--color-primary); color: var(--color-on-primary); }
+
+  main { width: 100%; max-width: 1240px; margin: 0 auto; padding: 32px 24px 80px; display: flex; flex-direction: column; gap: 24px; }
+
+  /* ---- intro ---- */
+  .intro { display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+  .eyebrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font: 400 13px/1.3 var(--font-body); color: var(--color-text-secondary); }
+  .chip-status { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: var(--color-warning-surface); color: var(--color-warning); font: 500 12px/1.4 var(--font-body); }
+  .chip-status::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: currentColor; }
+  .chip-status.live { background: var(--color-success-surface); color: var(--color-success); }
+  h1 { margin: 0; font-size: clamp(30px, 6vw, 42px); line-height: 1.1; letter-spacing: -0.03em; text-wrap: balance; }
+  .rule { width: 160px; height: 3px; border-radius: 999px; background: var(--gradient-spectrum); }
+  .lede { margin: 0; max-width: 64ch; font-size: 17px; color: var(--color-text-body); text-wrap: pretty; }
+  .note { display: flex; gap: 10px; align-items: flex-start; padding: 14px 16px; background: var(--color-recessed); border: 1px solid var(--color-border); border-radius: 12px; font-size: 14px; color: var(--color-text-body); }
+  .note svg { flex: 0 0 auto; margin-top: 3px; color: var(--color-primary); }
+
+  /* ---- upload ---- */
+  .card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 16px; box-shadow: var(--shadow-card); }
+  .upload { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+  .drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 200px; padding: 28px 20px; border: 1.5px dashed var(--color-border-strong); border-radius: 12px; background: var(--color-recessed); text-align: center; cursor: pointer; transition: background .15s, border-color .15s; }
+  .drop:hover, .drop.over { background: var(--color-surface-accent); border-color: var(--color-primary); }
+  .drop .ico { width: 48px; height: 48px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; background: var(--color-surface-accent); color: var(--color-primary); }
+  .drop strong { font: 600 18px/1.3 var(--font-head); color: var(--color-text-primary); }
+  .drop > span:not(.btn):not(.ico) { font-size: 14px; color: var(--color-text-secondary); }
+  .drop .btn-primary { color: var(--color-on-primary); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid transparent; font-size: 14px; text-decoration: none; cursor: pointer; white-space: nowrap; }
+  .btn-primary { background: var(--color-primary); color: var(--color-on-primary); }
+  .btn-primary:hover { background: var(--color-primary-hover); color: var(--color-on-primary); }
+  .btn-outline { background: var(--color-surface); color: var(--color-primary); border-color: var(--color-border-strong); }
+  .btn-outline:hover { background: var(--color-surface-accent); }
+  .samples { display: flex; flex-direction: column; gap: 8px; }
+  .samples h2 { margin: 0; font-size: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips button { min-height: 40px; padding: 8px 14px; border: 1px solid var(--color-border-strong); border-radius: 999px; background: var(--color-surface); color: var(--color-text-primary); font-size: 13px; cursor: pointer; text-align: left; }
+  .chips button:hover { background: var(--color-surface-accent); border-color: var(--color-surface-accent); }
+
+  /* ---- progress ---- */
+  .progress { padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .progress .file { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .progress .file b { font: 600 16px/1.3 var(--font-head); color: var(--color-text-primary); overflow-wrap: anywhere; }
+  .progress .file span { font-size: 13px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
+  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .steps li { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--color-text-secondary); }
+  .steps li::before { content: ""; height: 4px; border-radius: 999px; background: var(--color-border); }
+  .steps li.done::before { background: var(--color-primary); }
+  .steps li.active::before { background: linear-gradient(90deg, var(--color-primary), var(--color-accent), var(--color-primary)); background-size: 200% 100%; animation: flow 1.2s linear infinite; }
+  .steps li.active { color: var(--color-text-primary); font-weight: 500; }
+  @keyframes flow { to { background-position: -200% 0; } }
+
+  /* ---- verdict + stats ---- */
+  .verdict { padding: 20px 24px; display: flex; gap: 16px; align-items: flex-start; border-radius: 16px; }
+  .verdict .ico { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; }
+  .verdict h2 { margin: 0 0 4px; font-size: 21px; letter-spacing: -0.02em; }
+  .verdict p { margin: 0; font-size: 15px; color: var(--color-text-body); }
+  .verdict.ok { background: var(--color-success-surface); border: 1px solid #cfe8e1; } .verdict.ok .ico { background: var(--color-success); color: #fff; }
+  .verdict.warn { background: var(--color-warning-surface); border: 1px solid #f3e2b0; } .verdict.warn .ico { background: var(--color-warning); color: #fff; }
+  .verdict.err { background: var(--color-error-surface); border: 1px solid #f6cfca; } .verdict.err .ico { background: var(--color-error); color: #fff; }
+  .verdict.info { background: var(--color-surface-accent); border: 1px solid var(--color-border-strong); } .verdict.info .ico { background: var(--color-primary); color: #fff; }
+  .verdict .file-line { margin-top: 6px; font-size: 13px; color: var(--color-text-secondary); overflow-wrap: anywhere; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--color-border); border: 1px solid var(--color-border); border-radius: 16px; overflow: hidden; }
+  .stat { padding: 16px 18px; background: var(--color-surface); display: flex; flex-direction: column; gap: 4px; }
+  .stat .k { font-size: 13px; color: var(--color-text-secondary); }
+  .stat .v { font: 700 26px/1.15 var(--font-head); letter-spacing: -0.02em; color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
+  .stat .v small { font: 500 14px/1 var(--font-body); color: var(--color-text-secondary); margin-left: 3px; }
+  .stat .s { font-size: 12px; color: var(--color-text-secondary); }
+  .stat .s.good { color: var(--color-success); } .stat .s.bad { color: var(--color-error); }
+
+  /* ---- workspace ---- */
+  .work { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 20px; align-items: start; }
+  .tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--color-border); border-radius: 999px; background: var(--color-surface); overflow-x: auto; scrollbar-width: none; }
+  .tabs button { flex: 1 0 auto; min-height: 38px; padding: 0 14px; border: 0; border-radius: 999px; background: transparent; color: var(--color-text-body); font-size: 13px; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--color-primary); color: var(--color-on-primary); }
+  .tabs button .n { display: inline-block; min-width: 20px; margin-left: 4px; padding: 1px 6px; border-radius: 999px; background: var(--color-surface-accent); color: var(--color-primary); font-size: 11px; }
+  .tabs button[aria-selected="true"] .n { background: rgba(255,255,255,.2); color: #fff; }
+  .panel { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; }
+
+  .group { padding: 4px 0; }
+  .group > header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 16px; border-bottom: 1px solid var(--color-border); }
+  .group > header b { font: 600 15px/1.3 var(--font-head); color: var(--color-text-primary); }
+  .group > header .rid { font: 500 12px/1 var(--font-body); color: var(--color-text-secondary); margin-right: 6px; }
+  .group .hint { margin: 0; padding: 10px 16px 4px; font-size: 13px; color: var(--color-text-secondary); }
+  .fnd { display: flex; gap: 10px; width: 100%; padding: 10px 16px; border: 0; border-top: 1px solid var(--color-recessed); background: transparent; text-align: left; font: 400 14px/1.5 var(--font-body) !important; color: var(--color-text-body); cursor: pointer; }
+  .fnd:hover, .fnd.sel { background: var(--color-surface-accent); }
+  .fnd .dot { flex: 0 0 auto; width: 8px; height: 8px; margin-top: 7px; border-radius: 999px; }
+  .fnd .loc { flex: 0 0 auto; margin-left: auto; color: var(--color-primary); font-size: 12px; font-weight: 600; }
+  .pill { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 999px; font: 600 12px/1.3 var(--font-body); white-space: nowrap; }
+  .pill.err { background: var(--color-error-surface); color: var(--color-error); }
+  .pill.warn { background: var(--color-warning-surface); color: var(--color-warning); }
+  .pill.ok { background: var(--color-success-surface); color: var(--color-success); }
+  .pill.info { background: var(--color-surface-accent); color: var(--color-primary); }
+  .sev-error { background: var(--color-error); } .sev-warning { background: var(--color-warning); } .sev-info { background: var(--color-info); }
+
+  .facts { padding: 6px 0; }
+  .facts h3 { margin: 0; padding: 12px 16px 6px; font-size: 15px; }
+  .kv { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0; }
+  .kv > div { padding: 8px 16px; border-top: 1px solid var(--color-recessed); font-size: 14px; }
+  .kv > div:nth-child(odd) { color: var(--color-text-secondary); }
+  .kv > div:nth-child(even) { color: var(--color-text-primary); text-align: right; font-variant-numeric: tabular-nums; }
+  .warnline { margin: 0; padding: 8px 16px 12px; font-size: 13px; color: var(--color-warning); }
+  table.floors { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.floors th, table.floors td { padding: 9px 16px; border-top: 1px solid var(--color-recessed); text-align: left; }
+  table.floors th { font: 500 12px/1.3 var(--font-body); color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: .04em; }
+  table.floors td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.floors tr.room td { font-size: 13px; color: var(--color-text-secondary); }
+  table.floors tr.room td:first-child { padding-left: 32px; }
+  .empty { padding: 20px 16px; font-size: 14px; color: var(--color-text-secondary); }
+
+  /* ---- viewer ---- */
+  .viewer { position: sticky; top: 84px; display: flex; flex-direction: column; overflow: hidden; }
+  .vbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--color-border); }
+  .vbar .t { font: 600 14px/1.3 var(--font-head); color: var(--color-text-primary); padding-left: 4px; }
+  .vbar .tools { display: flex; gap: 4px; }
+  .vbar .tools button { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); color: var(--color-text-body); cursor: pointer; }
+  .vbar .tools button:hover { background: var(--color-surface-accent); }
+  .vbar .tools button[aria-pressed="false"] { opacity: .45; }
+  .canvas { position: relative; height: min(70vh, 720px); background: #fff; cursor: grab; touch-action: none; overflow: hidden;
+            background-image: radial-gradient(var(--color-border) 1px, transparent 1px); background-size: 18px 18px; }
+  .canvas.drag { cursor: grabbing; }
+  .canvas svg { width: 100%; height: 100%; display: block; }
+  .canvas .marker { cursor: pointer; }
+  .canvas.no-lines #linework { display: none; }
+  .tip { position: absolute; pointer-events: none; max-width: 300px; padding: 8px 10px; border-radius: 10px; background: var(--color-text-primary); color: #fff; font-size: 12.5px; line-height: 1.45; box-shadow: var(--shadow-float); z-index: 3; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 10px 14px; border-top: 1px solid var(--color-border); font-size: 12px; color: var(--color-text-secondary); }
+  .legend i { display: inline-block; width: 10px; height: 10px; margin-right: 5px; border-radius: 3px; vertical-align: -1px; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+  .fine { margin: 0; font-size: 12.5px; color: var(--color-text-secondary); }
+  .fine a { color: var(--color-primary); }
+  .spin { width: 16px; height: 16px; border: 2px solid var(--color-border-strong); border-top-color: var(--color-primary); border-radius: 999px; animation: rot .8s linear infinite; }
+  @keyframes rot { to { transform: rotate(360deg); } }
+
+  @media (max-width: 980px) {
+    .work { grid-template-columns: 1fr; }
+    .viewer { position: relative; top: 0; order: -1; }
+    .canvas { height: 56vh; }
+  }
+  @media (max-width: 720px) {
+    .hdr { padding: 8px 16px; min-height: 56px; }
+    .hdr nav a:not([aria-current]) { display: none; }
+    main { padding: 24px 16px 64px; }
+    .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: 11px; }
+    .stat .v { font-size: 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .steps li.active::before, .spin { animation: none; } }
+  @media print {
+    .hdr, .upload-wrap, .vbar .tools, .actions, .tabs, #intro .note { display: none !important; }
+    .panel[hidden] { display: flex !important; }
+    .work { grid-template-columns: 1fr; }
+    .viewer { position: static; }
+    .card { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a>
+  <nav aria-label="Main">
+    <a href="index.html" data-i18n="navHome">Home</a>
+    <a href="urban-sanction-desk.dc.html" data-i18n="navDesk">Urban Sanction Desk</a>
+    <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Drawing Check</a>
+    <a href="udcpr-assistant.html" data-i18n="navLearn">Learn</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+  </div>
+</header>
+
+<main>
+  <section class="intro" id="intro">
+    <div class="eyebrow">
+      <span data-i18n="eyebrow">Urban Sanction Desk · Assistant</span>
+      <span class="chip-status" id="engineChip" data-i18n="engineChecking">Checking engine…</span>
+    </div>
+    <h1 data-i18n="title">Drawing Check</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="lede" data-i18n="lede">Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.</p>
+    <div class="note" role="note">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <span data-i18n="note">This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.</span>
+    </div>
+  </section>
+
+  <div class="upload-wrap" id="uploadWrap">
+    <section class="card upload" aria-labelledby="up-h">
+      <h2 id="up-h" hidden>Upload</h2>
+      <label class="drop" id="drop" tabindex="0">
+        <span class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M20 15v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4"/></svg></span>
+        <strong data-i18n="dropTitle">Drop your drawing here</strong>
+        <span data-i18n="dropSub">DWG, DXF or a PDF exported from CAD · up to 100 MB</span>
+        <span class="btn btn-primary" data-i18n="choose">Choose file</span>
+        <input id="file" type="file" accept=".dwg,.dxf,.pdf" hidden>
+      </label>
+      <div class="samples" id="samples" hidden>
+        <h2 data-i18n="samplesTitle">No drawing at hand? Try a sample</h2>
+        <div class="chips" id="sampleChips"></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="card progress" id="progress" hidden aria-live="polite">
+    <div class="file"><b id="pName"></b><span id="pTime"></span></div>
+    <ol class="steps" id="steps">
+      <li data-step="upload" data-i18n="stUpload">Upload</li>
+      <li data-step="reading" data-i18n="stRead">Read the drawing</li>
+      <li data-step="measuring" data-i18n="stMeasure">Measure</li>
+      <li data-step="checking" data-i18n="stCheck">Check PreDCR</li>
+      <li data-step="reporting" data-i18n="stReport">Report</li>
+    </ol>
+  </section>
+
+  <section id="results" hidden>
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      <div class="verdict" id="verdict"></div>
+      <div class="stats" id="stats"></div>
+      <div class="work">
+        <div>
+          <div class="tabs" role="tablist" id="tabs">
+            <button role="tab" aria-selected="true" data-tab="findings"><span data-i18n="tabFindings">Findings</span><span class="n" id="nFind">0</span></button>
+            <button role="tab" aria-selected="false" data-tab="plot" data-i18n="tabPlot">Plot &amp; building</button>
+            <button role="tab" aria-selected="false" data-tab="floors" data-i18n="tabFloors">Floors</button>
+            <button role="tab" aria-selected="false" data-tab="tech" data-i18n="tabTech">How it was read</button>
+          </div>
+          <div class="panel" data-panel="findings" id="pFindings"></div>
+          <div class="panel" data-panel="plot" id="pPlot" hidden></div>
+          <div class="panel" data-panel="floors" id="pFloors" hidden></div>
+          <div class="panel" data-panel="tech" id="pTech" hidden></div>
+        </div>
+        <section class="card viewer" aria-label="Drawing">
+          <div class="vbar">
+            <span class="t" data-i18n="viewer">Drawing</span>
+            <div class="tools">
+              <button type="button" id="zIn" title="Zoom in" aria-label="Zoom in"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+              <button type="button" id="zOut" title="Zoom out" aria-label="Zoom out"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg></button>
+              <button type="button" id="zFit" title="Fit" aria-label="Fit to view"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+              <button type="button" id="tLines" title="Show linework" aria-label="Show linework" aria-pressed="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg></button>
+            </div>
+          </div>
+          <div class="canvas" id="canvas"><div class="tip" id="tip" hidden></div></div>
+          <div class="legend">
+            <span><i style="background:#482475"></i><span data-i18n="lgPlot">Plot</span></span>
+            <span><i style="background:#B42318"></i><span data-i18n="lgBuilding">Proposed work</span></span>
+            <span><i style="background:#A98AD5"></i><span data-i18n="lgRooms">Rooms</span></span>
+            <span><i style="background:#716B79"></i><span data-i18n="lgRoad">Road</span></span>
+            <span><i style="background:#2F5E9E"></i><span data-i18n="lgParking">Parking</span></span>
+            <span><i style="background:var(--color-error); border-radius:99px"></i><span data-i18n="lgFinding">Finding</span></span>
+          </div>
+        </section>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-primary" id="again" data-i18n="checkAnother">Check another drawing</button>
+        <a class="btn btn-outline" id="dlJson" download data-i18n="download">Download report (JSON)</a>
+        <button type="button" class="btn btn-outline" id="print" data-i18n="print">Print report</button>
+        <a class="btn btn-outline" href="urban-sanction-desk.dc.html" data-i18n="getTraced">Get it traced by Sarthi</a>
+        <a class="btn btn-outline" href="udcpr-assistant.html" data-i18n="askAssistant">Ask the UDCPR Assistant</a>
+      </div>
+      <p class="fine" id="fine" data-i18n="fine">Measurements carry a confidence score and the exact drawing entities they came from. Nothing is guessed: when units, scale or an outline are unclear, the check says so instead of reporting a number.</p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ---------------------------------------------------------------------------
+   Connecting the engine
+   ENGINE_ENDPOINT is the Sarthi CAD engine's base URL. Empty means the same
+   origin as this page (the local demo serves site and engine together).
+   API: POST /v1/jobs (multipart "file") -> {job_id}; GET /v1/jobs/{id};
+        GET /v1/jobs/{id}/result; GET /v1/jobs/{id}/overlay.svg;
+        GET /v1/samples; POST /v1/samples/{name}/jobs
+--------------------------------------------------------------------------- */
+const ENGINE_ENDPOINT = window.SARTHI_ENGINE_ENDPOINT || '';
+const api = p => ENGINE_ENDPOINT.replace(/\/$/, '') + p;
+
+/* ---------------- copy ---------------- */
+const T = {
+  en: {
+    navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
+    eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
+    title:'Drawing Check',
+    lede:'Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.',
+    note:'This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.',
+    dropTitle:'Drop your drawing here', dropSub:'DWG, DXF or a PDF exported from CAD · up to 100 MB', choose:'Choose file',
+    samplesTitle:'No drawing at hand? Try a sample',
+    stUpload:'Upload', stRead:'Read the drawing', stMeasure:'Measure', stCheck:'Check PreDCR', stReport:'Report',
+    tabFindings:'Findings', tabPlot:'Plot & building', tabFloors:'Floors', tabTech:'How it was read',
+    viewer:'Drawing', lgPlot:'Plot', lgBuilding:'Proposed work', lgRooms:'Rooms', lgRoad:'Road', lgParking:'Parking', lgFinding:'Finding',
+    checkAnother:'Check another drawing', download:'Download report (JSON)', print:'Print report',
+    getTraced:'Get it traced by Sarthi', askAssistant:'Ask the UDCPR Assistant',
+    fine:'Measurements carry a confidence score and the exact drawing entities they came from. Nothing is guessed: when units, scale or an outline are unclear, the check says so instead of reporting a number.',
+    vReadyT:'Ready for AutoDCR scrutiny', vReadyS:'No PreDCR drawing errors found.',
+    vFixT:n => `${n} ${n===1?'error':'errors'} to fix before submission`, vFixS:'AutoDCR would reject or misread these items. Each one points at the exact place in the drawing.',
+    vReviewT:'Needs a closer look', vReviewS:'Part of the drawing could not be read with confidence. The reasons are listed below.',
+    vFreeT:'Measured, but not drawn on PreDCR layers', vFreeS:'This drawing does not use the PreDCR layers yet, so the PreDCR check could not run. Sarthi can trace it onto PreDCR layers for you.',
+    vRejT:'This file cannot be checked', vRejS:'It is not a readable DWG, DXF or vector PDF.',
+    vAutoT:'AutoDCR output drawing: measured', vAutoS:'This is AutoDCR’s own plot of a scrutinised drawing (an approved map), so the PreDCR input rules do not apply. The plot was measured and compared with the drawing’s area table.',
+    notCheckedAuto:'PreDCR rules apply to the architect’s input drawing, not to AutoDCR’s output, so this check was skipped.',
+    plotArea:'Plot area', frontage:'Frontage', roadWidth:'Road width', footprint:'Proposed work footprint', errors:'PreDCR errors', warnings:'warnings', warning1:'warning',
+    stated:'stated', drawn:'drawn', tableSays:"Drawing's area table", matches:'matches', differs:'differs',
+    noFindings:'No PreDCR findings. Every checked item is closed, named, on the right layer and inside its container.',
+    notChecked:'The PreDCR check did not run because this drawing is not on PreDCR layers.',
+    locate:'Show', perimeter:'Perimeter', depth:'Depth', meanDepth:'Mean depth', confidence:'Confidence',
+    roadStated:'Road (stated in name)', roadDrawn:'Road (drawn width)', edges:'Distance from proposed work to plot edges',
+    front:'Front', rear:'Rear', side1:'Side 1', side2:'Side 2', floorName:'Floor', area:'Area', rooms:'Rooms',
+    noFloors:'No floor plans were found on PreDCR layers.', noPlot:'No plot boundary was found.',
+    format:'Format', readers:'Readers', agreement:'Reader agreement', independent:'two independent decoders', units:'Units', method:'Method',
+    scale:'Drawing scale', views:'views', mode:'Detection', protocol:'PreDCR layers', freeform:'not on PreDCR layers',
+    took:s => `done in ${s}s`, failed:'The check failed', offline:'The drawing engine is not reachable. Start it, or open a case and the team will check your drawing.',
+    uploading:'Uploading…',
+  },
+  mr: {
+    navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
+    eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
+    title:'नकाशा तपासणी',
+    lede:'तुमचा बांधकाम परवानगीचा नकाशा अपलोड करा. Sarthi तो वाचतो, plot मोजतो आणि PreDCR नियमांनुसार तपासतो, जेणेकरून AutoDCR तो पहिल्याच वेळी वाचू शकेल.',
+    note:'हे नकाशा कसा काढला आहे ते तपासते (layers, बंद रेषा, नावे, units) आणि मोजमाप करते. UDCPR नियम लावत नाही किंवा मंजुरी ठरवत नाही. प्रत्येक प्रकरणाचा निर्णय नियोजन प्राधिकरण घेते.',
+    dropTitle:'तुमचा नकाशा इथे टाका', dropSub:'DWG, DXF किंवा CAD मधून काढलेला PDF · 100 MB पर्यंत', choose:'फाईल निवडा',
+    samplesTitle:'नकाशा नाही? नमुना वापरून पाहा',
+    stUpload:'अपलोड', stRead:'नकाशा वाचणे', stMeasure:'मोजमाप', stCheck:'PreDCR तपासणी', stReport:'अहवाल',
+    tabFindings:'त्रुटी', tabPlot:'Plot आणि इमारत', tabFloors:'मजले', tabTech:'कसा वाचला',
+    viewer:'नकाशा', lgPlot:'Plot', lgBuilding:'प्रस्तावित बांधकाम', lgRooms:'खोल्या', lgRoad:'रस्ता', lgParking:'पार्किंग', lgFinding:'त्रुटी',
+    checkAnother:'दुसरा नकाशा तपासा', download:'अहवाल डाउनलोड (JSON)', print:'अहवाल छापा',
+    getTraced:'Sarthi कडून tracing करून घ्या', askAssistant:'UDCPR Assistant ला विचारा',
+    fine:'प्रत्येक मोजमापासोबत विश्वास-गुण आणि तो नकाशातील कोणत्या भागातून आला ते दिले आहे. काहीही अंदाजाने भरले जात नाही: units, scale किंवा रेषा अस्पष्ट असल्यास आकडा न देता तसे सांगितले जाते.',
+    vReadyT:'AutoDCR scrutiny साठी तयार', vReadyS:'PreDCR नकाशात कोणतीही त्रुटी आढळली नाही.',
+    vFixT:n => `submission आधी ${n} त्रुटी दुरुस्त करा`, vFixS:'या गोष्टी AutoDCR नाकारेल किंवा चुकीच्या वाचेल. प्रत्येक त्रुटी नकाशातील नेमकी जागा दाखवते.',
+    vReviewT:'अधिक तपासणी आवश्यक', vReviewS:'नकाशाचा काही भाग खात्रीने वाचता आला नाही. कारणे खाली दिली आहेत.',
+    vFreeT:'मोजमाप झाले, पण नकाशा PreDCR layers वर नाही', vFreeS:'हा नकाशा अजून PreDCR layers वर नाही, म्हणून PreDCR तपासणी झाली नाही. Sarthi तो PreDCR layers वर trace करून देऊ शकते.',
+    vRejT:'ही फाईल तपासता येत नाही', vRejS:'ही वाचता येणारी DWG, DXF किंवा vector PDF नाही.',
+    vAutoT:'AutoDCR चा output नकाशा: मोजमाप झाले', vAutoS:'हा AutoDCR ने तपासलेल्या नकाशाचा स्वतःचा plot आहे (approved map), त्यामुळे PreDCR चे input नियम लागू होत नाहीत. Plot मोजून नकाशातील क्षेत्रफळ तक्त्याशी तुलना केली आहे.',
+    notCheckedAuto:'PreDCR नियम आर्किटेक्टच्या input नकाशाला लागू होतात, AutoDCR च्या output ला नाही; म्हणून ही तपासणी केली नाही.',
+    plotArea:'Plot क्षेत्रफळ', frontage:'Frontage', roadWidth:'रस्त्याची रुंदी', footprint:'प्रस्तावित बांधकाम', errors:'PreDCR त्रुटी', warnings:'सूचना', warning1:'सूचना',
+    stated:'लिहिलेली', drawn:'काढलेली', tableSays:'नकाशातील क्षेत्रफळ तक्ता', matches:'जुळते', differs:'फरक',
+    noFindings:'PreDCR त्रुटी नाहीत. तपासलेली प्रत्येक वस्तू बंद, नाव दिलेली, योग्य layer वर आणि आपल्या container मध्ये आहे.',
+    notChecked:'हा नकाशा PreDCR layers वर नसल्याने PreDCR तपासणी झाली नाही.',
+    locate:'दाखवा', perimeter:'परिमिती', depth:'खोली', meanDepth:'सरासरी खोली', confidence:'विश्वास',
+    roadStated:'रस्ता (नावात लिहिलेली)', roadDrawn:'रस्ता (काढलेली रुंदी)', edges:'प्रस्तावित बांधकामापासून plot च्या कडांपर्यंत अंतर',
+    front:'समोर', rear:'मागे', side1:'बाजू 1', side2:'बाजू 2', floorName:'मजला', area:'क्षेत्रफळ', rooms:'खोल्या',
+    noFloors:'PreDCR layers वर मजल्यांचे नकाशे सापडले नाहीत.', noPlot:'Plot ची हद्द सापडली नाही.',
+    format:'प्रकार', readers:'Readers', agreement:'Readers मधील एकमत', independent:'दोन स्वतंत्र decoders', units:'Units', method:'पद्धत',
+    scale:'नकाशाचे scale', views:'views', mode:'ओळख', protocol:'PreDCR layers', freeform:'PreDCR layers वर नाही',
+    took:s => `${s} सेकंदात पूर्ण`, failed:'तपासणी अयशस्वी', offline:'नकाशा engine उपलब्ध नाही. ते सुरू करा, किंवा case उघडा आणि आमची टीम नकाशा तपासेल.',
+    uploading:'अपलोड होत आहे…',
+  }
+};
+const RULES = {
+  'PD-01': { en:'Closed polylines', mr:'बंद polylines' },
+  'PD-02': { en:'No self-crossing outlines', mr:'स्वतःला छेदणाऱ्या रेषा नकोत' },
+  'PD-03': { en:'Items inside their container', mr:'वस्तू आपल्या container मध्ये' },
+  'PD-04': { en:'One name inside each item', mr:'प्रत्येक वस्तूत एकच नाव' },
+  'PD-05': { en:'Room names in full', mr:'खोल्यांची पूर्ण नावे' },
+  'PD-06': { en:'Plot, floors and section in one file', mr:'Plot, मजले आणि section एकाच फाईलमध्ये' },
+  'PD-07': { en:'Floor names link to the section', mr:'मजल्यांची नावे section शी जुळावी' },
+  'PD-08': { en:'No overlapping items', mr:'वस्तू एकमेकांवर नकोत' },
+  'PD-09': { en:'Layer names spelled exactly', mr:'Layer ची नावे अचूक' },
+  'PD-10': { en:'Drawn 1:1 in metres', mr:'1:1 मीटरमध्ये काढलेला' },
+  'PD-11': { en:'Proposed work linked to its building', mr:'प्रस्तावित बांधकाम इमारतीशी जोडलेले' },
+  'PD-12': { en:'Reference points in every floor', mr:'प्रत्येक मजल्यात reference points' },
+};
+let lang = 'en';
+try { lang = localStorage.getItem('sarthi-lang') === 'mr' ? 'mr' : 'en'; } catch (_) {}
+const t = k => T[lang][k];
+
+function applyLang() {
+  document.documentElement.lang = lang === 'mr' ? 'mr' : 'en';
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = T[lang][el.dataset.i18n]; if (typeof v === 'string') el.textContent = v; });
+  document.querySelectorAll('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  setEngineChip(engineState);
+  if (current) render(current);
+}
+document.querySelectorAll('.lang button').forEach(b => b.addEventListener('click', () => {
+  lang = b.dataset.lang; try { localStorage.setItem('sarthi-lang', lang); } catch (_) {}
+  applyLang();
+}));
+
+/* ---------------- helpers ---------------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'>','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = (v, d = 2) => v == null || isNaN(v) ? '—' : Number(v).toLocaleString('en-IN', { minimumFractionDigits: d, maximumFractionDigits: d });
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ---------------- engine status ---------------- */
+let engineState = 'checking';
+function setEngineChip(state) {
+  engineState = state;
+  const c = $('#engineChip');
+  c.classList.toggle('live', state === 'live');
+  c.textContent = state === 'live' ? t('engineLive') : state === 'off' ? t('engineOff') : t('engineChecking');
+}
+async function probe() {
+  try {
+    const r = await fetch(api('/v1/health'));
+    setEngineChip(r.ok ? 'live' : 'off');
+    if (r.ok) loadSamples();
+  } catch (_) { setEngineChip('off'); }
+}
+async function loadSamples() {
+  try {
+    const list = await (await fetch(api('/v1/samples'))).json();
+    if (!list.length) return;
+    const box = $('#sampleChips'); box.innerHTML = '';
+    list.forEach(s => {
+      const b = document.createElement('button'); b.type = 'button';
+      b.textContent = s.name.replace(/\.(dwg|dxf|pdf)$/i, '') + ' · ' + s.name.split('.').pop().toUpperCase();
+      b.addEventListener('click', () => startSample(s.name));
+      box.appendChild(b);
+    });
+    $('#samples').hidden = false;
+  } catch (_) {}
+}
+
+/* ---------------- upload + progress ---------------- */
+const drop = $('#drop'), fileInput = $('#file');
+drop.addEventListener('dragover', e => { e.preventDefault(); drop.classList.add('over'); });
+drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) startUpload(f); });
+drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
+fileInput.addEventListener('change', () => { const f = fileInput.files[0]; if (f) startUpload(f); fileInput.value = ''; });
+
+const ORDER = ['upload', 'reading', 'measuring', 'checking', 'reporting'];
+let t0 = 0, timer = null;
+function showProgress(name) {
+  $('#uploadWrap').hidden = true; $('#results').hidden = true; $('#progress').hidden = false;
+  $('#pName').textContent = name; t0 = Date.now();
+  clearInterval(timer);
+  timer = setInterval(() => { $('#pTime').textContent = ((Date.now() - t0) / 1000).toFixed(0) + 's'; }, 250);
+  setStep('upload');
+}
+function setStep(stage) {
+  const i = Math.max(0, ORDER.indexOf(stage));
+  document.querySelectorAll('#steps li').forEach((li, k) => {
+    li.classList.toggle('done', k < i); li.classList.toggle('active', k === i);
+  });
+}
+function failView(msg) {
+  clearInterval(timer);
+  $('#progress').hidden = true; $('#uploadWrap').hidden = false;
+  alertBox(msg);
+}
+function alertBox(msg) {
+  let n = $('#errNote');
+  if (!n) { n = document.createElement('div'); n.id = 'errNote'; n.className = 'note'; n.style.background = 'var(--color-error-surface)'; n.style.borderColor = '#f6cfca'; $('#uploadWrap').prepend(n); }
+  n.textContent = msg;
+}
+
+async function startUpload(f) {
+  showProgress(f.name);
+  const fd = new FormData(); fd.append('file', f);
+  try {
+    const r = await fetch(api('/v1/jobs'), { method: 'POST', body: fd });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const { job_id } = await r.json();
+    await follow(job_id);
+  } catch (e) { failView(engineState === 'live' ? t('failed') + ': ' + e.message : t('offline')); }
+}
+async function startSample(name) {
+  showProgress(name);
+  try {
+    const r = await fetch(api(`/v1/samples/${encodeURIComponent(name)}/jobs`), { method: 'POST' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    await follow((await r.json()).job_id);
+  } catch (e) { failView(t('failed') + ': ' + e.message); }
+}
+async function follow(jobId) {
+  try { history.replaceState(null, '', '?job=' + jobId); } catch (_) {}
+  while (true) {
+    const s = await (await fetch(api('/v1/jobs/' + jobId))).json();
+    if (s.state === 'failed') throw new Error(s.error || 'failed');
+    if (s.stage) setStep(s.stage);
+    if (s.state === 'done') break;
+    await sleep(500);
+  }
+  setStep('reporting');
+  const res = await (await fetch(api(`/v1/jobs/${jobId}/result`))).json();
+  const ov = await fetch(api(`/v1/jobs/${jobId}/overlay.svg`));
+  const svg = ov.ok ? await ov.text() : null;
+  clearInterval(timer);
+  const secs = ((Date.now() - t0) / 1000).toFixed(1);
+  show(res, svg, jobId, t0 ? secs : null);
+}
+
+/* ---------------- results ---------------- */
+let current = null;
+function show(res, svg, jobId, secs) {
+  current = { res, svg, jobId, secs };
+  $('#progress').hidden = true; $('#uploadWrap').hidden = true; $('#results').hidden = false;
+  render(current);
+  mountViewer(svg, res);
+  const blob = new Blob([JSON.stringify(res, null, 1)], { type: 'application/json' });
+  const a = $('#dlJson'); a.href = URL.createObjectURL(blob);
+  a.download = (res.file?.name || 'drawing').replace(/\.[^.]+$/, '') + '.sarthi-check.json';
+  window.scrollTo({ top: $('#results').offsetTop - 80, behavior: 'smooth' });
+}
+
+const ICON = {
+  ok:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  err:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 8v5M12 16h.01"/></svg>',
+  info:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>'
+};
+
+function findings(res) { return (res.predcr && res.predcr.findings) || []; }
+function primaryPlot(res) { return ((res.objects || {}).plots || []).find(p => p.view == null); }
+
+function render({ res, secs }) {
+  const F = findings(res), E = F.filter(f => f.severity === 'error').length, W = F.filter(f => f.severity === 'warning').length;
+  const checked = res.predcr && res.predcr.checked;
+
+  // verdict
+  let kind, title, sub;
+  if (res.status === 'rejected') { kind = 'err'; title = t('vRejT'); sub = t('vRejS'); }
+  else if (res.status === 'review_required') { kind = 'warn'; title = t('vReviewT'); sub = t('vReviewS'); }
+  else if (res.drawing_kind === 'autodcr_output') { kind = 'info'; title = t('vAutoT'); sub = t('vAutoS'); }
+  else if (!checked) { kind = 'info'; title = t('vFreeT'); sub = t('vFreeS'); }
+  else if (E) { kind = 'err'; title = t('vFixT')(E); sub = t('vFixS'); }
+  else { kind = 'ok'; title = t('vReadyT'); sub = t('vReadyS'); }
+  const fileLine = [res.file?.name, res.inspection?.format?.toUpperCase(), res.inspection?.release ? 'AutoCAD ' + res.inspection.release : null, secs ? t('took')(secs) : null].filter(Boolean).join(' · ');
+  $('#verdict').className = 'verdict ' + kind;
+  $('#verdict').innerHTML = `<span class="ico">${ICON[kind === 'ok' ? 'ok' : kind === 'info' ? 'info' : 'err']}</span>
+    <div><h2>${esc(title)}</h2><p>${esc(sub)}</p><div class="file-line">${esc(fileLine)}</div></div>`;
+
+  // stats
+  const p = primaryPlot(res);
+  const road = p && (p.roads || []).find(r => r.stated_width_m != null || r.measured_width_m?.value != null);
+  const fp = ((res.objects || {}).building_footprints || []).find(b => b.view == null);
+  const chk = p && p.area_statement_check;
+  const S = [];
+  if (p) S.push(stat(t('plotArea'), fmt(p.area_sqm), 'm²', chk ? `${t('tableSays')} ${fmt(chk.stated_gross_sqm)} m² · ${chk.agrees ? t('matches') : t('differs')} ${chk.delta_pct > 0 ? '+' : ''}${chk.delta_pct}%` : `${t('confidence')} ${Math.round(p.confidence.value * 100)}%`, chk ? (chk.agrees ? 'good' : 'bad') : ''));
+  if (p && p.frontage_m?.value != null) S.push(stat(t('frontage'), fmt(p.frontage_m.value), 'm', p.depth_m?.value != null ? `${t('depth')} ${fmt(p.depth_m.value)} m` : ''));
+  if (road) S.push(stat(t('roadWidth'), road.stated_width_m != null ? fmt(road.stated_width_m) : fmt(road.measured_width_m?.value), 'm',
+                       `${t('stated')} ${fmt(road.stated_width_m)} · ${t('drawn')} ${fmt(road.measured_width_m?.value)}`, road.warning ? 'bad' : ''));
+  if (fp) S.push(stat(t('footprint'), fmt(fp.area_sqm), 'm²', fp.name || ''));
+  if (checked) S.push(stat(t('errors'), String(E), '', W ? `${W} ${W === 1 ? t('warning1') : t('warnings')}` : '', E ? 'bad' : 'good'));
+  $('#stats').innerHTML = S.join('');
+  $('#stats').hidden = !S.length;
+
+  $('#nFind').textContent = E + W;
+  renderFindings(res, checked);
+  renderPlot(res);
+  renderFloors(res);
+  renderTech(res);
+}
+function stat(k, v, unit, s, cls) {
+  return `<div class="stat"><span class="k">${esc(k)}</span><span class="v">${esc(v)}${unit ? `<small>${esc(unit)}</small>` : ''}</span>${s ? `<span class="s ${cls || ''}">${esc(s)}</span>` : ''}</div>`;
+}
+
+function renderFindings(res, checked) {
+  const box = $('#pFindings');
+  const F = findings(res).map((f, i) => ({ ...f, i }));
+  if (!checked) {
+    const w = (res.warnings || []).map(x => `<li>${esc(x.message)}</li>`).join('');
+    const why = res.drawing_kind === 'autodcr_output' ? t('notCheckedAuto') : t('notChecked');
+    box.innerHTML = `<div class="card"><div class="empty">${esc(why)}${w ? `<ul>${w}</ul>` : ''}</div></div>`;
+    return;
+  }
+  if (!F.length) { box.innerHTML = `<div class="card"><div class="empty">${esc(t('noFindings'))}</div></div>`; return; }
+  const groups = {};
+  F.forEach(f => (groups[f.rule_id] = groups[f.rule_id] || []).push(f));
+  const order = Object.keys(groups).sort((a, b) => {
+    const ea = groups[a].some(f => f.severity === 'error'), eb = groups[b].some(f => f.severity === 'error');
+    return ea === eb ? a.localeCompare(b) : (ea ? -1 : 1);
+  });
+  box.innerHTML = order.map(rid => {
+    const fs = groups[rid], e = fs.filter(f => f.severity === 'error').length, w = fs.length - e;
+    const name = (RULES[rid] || {})[lang] || rid;
+    return `<section class="card group">
+      <header><span><span class="rid">${esc(rid)}</span><b>${esc(name)}</b></span>
+        <span>${e ? `<span class="pill err">${e}</span>` : ''} ${w ? `<span class="pill warn">${w}</span>` : ''}</span></header>
+      ${fs[0].fix_hint ? `<p class="hint">${esc(fs[0].fix_hint)}</p>` : ''}
+      ${fs.slice(0, 50).map(f => `<button type="button" class="fnd" data-i="${f.i}">
+          <span class="dot sev-${f.severity}"></span><span>${esc(f.message)}</span>
+          ${f.location || f.bbox ? `<span class="loc">${esc(t('locate'))} →</span>` : ''}</button>`).join('')}
+      ${fs.length > 50 ? `<div class="empty">+${fs.length - 50}</div>` : ''}
+    </section>`;
+  }).join('');
+  box.querySelectorAll('.fnd').forEach(b => b.addEventListener('click', () => {
+    box.querySelectorAll('.fnd.sel').forEach(x => x.classList.remove('sel'));
+    b.classList.add('sel');
+    focusFinding(findings(current.res)[+b.dataset.i], +b.dataset.i);
+  }));
+}
+
+function renderPlot(res) {
+  const box = $('#pPlot'), p = primaryPlot(res);
+  if (!p) { box.innerHTML = `<div class="card"><div class="empty">${esc(t('noPlot'))}</div></div>`; return; }
+  const chk = p.area_statement_check;
+  const rows = [
+    [t('plotArea'), fmt(p.area_sqm) + ' m²'],
+    [t('perimeter'), fmt(p.perimeter_m) + ' m'],
+    [t('frontage'), fmt(p.frontage_m?.value) + ' m'],
+    [t('depth'), fmt(p.depth_m?.value) + ' m'],
+    [t('meanDepth'), fmt(p.depth_m?.params?.mean_depth_m) + ' m'],
+  ];
+  if (chk) rows.push([t('tableSays') + ` (${chk.formula.replace(/_/g, ' ')})`, `${fmt(chk.stated_gross_sqm)} m² · ${chk.delta_pct > 0 ? '+' : ''}${chk.delta_pct}%`]);
+  rows.push([t('confidence'), Math.round(p.confidence.value * 100) + '%']);
+  const roads = (p.roads || []).map(r => `<h3>${esc(r.name || r.id)}</h3><div class="kv">
+      <div>${esc(t('roadStated'))}</div><div>${fmt(r.stated_width_m)} m</div>
+      <div>${esc(t('roadDrawn'))}</div><div>${fmt(r.measured_width_m?.value)} m</div></div>
+      ${r.warning ? `<p class="warnline">${esc(r.warning)}</p>` : ''}`).join('');
+  const fps = ((res.objects || {}).building_footprints || []).filter(b => b.view == null).map(b => {
+    const d = b.distance_to_plot_edges_m || {};
+    return `<section class="card facts"><h3>${esc(b.name || b.id)} · ${fmt(b.area_sqm)} m²</h3>
+      <p class="hint" style="margin:0;padding:0 16px 6px;font-size:13px;color:var(--color-text-secondary)">${esc(t('edges'))}</p>
+      <div class="kv"><div>${esc(t('front'))}</div><div>${fmt(d.front?.value)} m</div><div>${esc(t('rear'))}</div><div>${fmt(d.rear?.value)} m</div>
+      <div>${esc(t('side1'))}</div><div>${fmt(d.side_1?.value)} m</div><div>${esc(t('side2'))}</div><div>${fmt(d.side_2?.value)} m</div></div></section>`;
+  }).join('');
+  box.innerHTML = `<section class="card facts"><h3>${esc(p.name || p.id)}</h3><div class="kv">${rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')}</div>${roads}</section>${fps}`;
+}
+
+function renderFloors(res) {
+  const fl = ((res.objects || {}).floors || []).filter(f => f.view == null);
+  const box = $('#pFloors');
+  if (!fl.length) { box.innerHTML = `<div class="card"><div class="empty">${esc(t('noFloors'))}</div></div>`; return; }
+  box.innerHTML = `<section class="card"><table class="floors"><thead><tr><th>${esc(t('floorName'))}</th><th style="text-align:right">${esc(t('area'))}</th></tr></thead><tbody>
+    ${fl.map(f => `<tr><td><b>${esc(f.name || f.id)}</b></td><td class="n">${fmt(f.area_sqm)} m²</td></tr>
+      ${(f.rooms || []).map(r => `<tr class="room"><td>${esc(r.name || r.id)}</td><td class="n">${fmt(r.area_sqm)} m²</td></tr>`).join('')}`).join('')}
+    </tbody></table></section>`;
+}
+
+function renderTech(res) {
+  const u = res.file?.units || {}, ag = res.parse?.agreement;
+  const rd = (res.parse?.path || []).filter(r => r.outcome !== 'skipped').map(r => `${r.reader}: ${r.outcome}`).join(', ');
+  const rows = [
+    [t('format'), [res.inspection?.format, res.inspection?.version, res.inspection?.release].filter(Boolean).join(' · ')],
+    [t('readers'), rd || '—'],
+  ];
+  if (ag) rows.push([t('agreement'), `${(ag.overall * 100).toFixed(1)}%${ag.independent ? ' · ' + t('independent') : ''}`]);
+  rows.push([t('units'), u.resolved || '—'], [t('method'), (u.method || '—').replace(/_/g, ' ')]);
+  if (res.pdf_scale?.views) rows.push([t('scale'), res.pdf_scale.views.map(v => '1:' + v.scale_denominator.toFixed(2) + (v.primary ? ' ★' : '')).join(', ')]);
+  rows.push([t('mode'), res.drawing_kind === 'autodcr_output' ? 'AutoDCR DCR_* layers' : res.detection_mode === 'protocol' ? t('protocol') : t('freeform')]);
+  const warns = [...(u.warnings || []), ...((res.pdf_scale?.views || []).flatMap(v => v.warnings || [])), ...(res.parse?.messages || []), ...((res.warnings || []).map(w => w.message))];
+  $('#pTech').innerHTML = `<section class="card facts"><div class="kv">${rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')}</div>
+    ${warns.map(w => `<p class="warnline">${esc(w)}</p>`).join('')}</section>`;
+}
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('#tabs button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  document.querySelectorAll('.panel').forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
+}));
+
+/* ---------------- viewer ---------------- */
+let svgEl = null, vb0 = null, vb = null;
+const canvas = $('#canvas'), tip = $('#tip');
+function mountViewer(svgText, res) {
+  canvas.querySelectorAll('svg').forEach(s => s.remove());
+  svgEl = null;
+  if (!svgText || svgText.includes('data-empty')) return;
+  canvas.insertAdjacentHTML('beforeend', svgText);
+  svgEl = canvas.querySelector('svg');
+  vb0 = svgEl.getAttribute('viewBox').split(/\s+/).map(Number);
+  vb = vb0.slice();
+  // finding markers (world metres -> svg: y is negated)
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g'); g.id = 'markers';
+  findings(res).forEach((f, i) => {
+    if (!f.location) return;
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', f.location[0]); c.setAttribute('cy', -f.location[1]);
+    c.setAttribute('class', 'marker');
+    c.setAttribute('fill', f.severity === 'error' ? '#B42318' : f.severity === 'warning' ? '#8A5A00' : '#2F5E9E');
+    c.setAttribute('fill-opacity', '.85'); c.setAttribute('stroke', '#fff'); c.style.vectorEffect = 'non-scaling-stroke';
+    c.dataset.i = i;
+    c.addEventListener('click', ev => { ev.stopPropagation(); selectFindingInList(i); });
+    g.appendChild(c);
+  });
+  svgEl.appendChild(g);
+  svgEl.querySelectorAll('.obj').forEach(o => {
+    o.addEventListener('mousemove', ev => showTip(ev, `<b>${esc(o.dataset.name || o.dataset.id)}</b><br>${esc(o.dataset.layer)} · ${fmt(+o.dataset.area)} m²`));
+    o.addEventListener('mouseleave', () => tip.hidden = true);
+  });
+  g.querySelectorAll('circle').forEach(c => {
+    const f = findings(res)[+c.dataset.i];
+    c.addEventListener('mousemove', ev => showTip(ev, `<b>${esc(f.rule_id)}</b> ${esc(f.message)}`));
+    c.addEventListener('mouseleave', () => tip.hidden = true);
+  });
+  applyVB();
+}
+function applyVB() {
+  if (!svgEl) return;
+  svgEl.setAttribute('viewBox', vb.join(' '));
+  const r = Math.max(vb[2], vb[3]) * 0.009;
+  svgEl.querySelectorAll('#markers circle').forEach(c => c.setAttribute('r', r));
+}
+function showTip(ev, html) {
+  const box = canvas.getBoundingClientRect();
+  tip.innerHTML = html; tip.hidden = false;
+  tip.style.left = Math.min(ev.clientX - box.left + 14, box.width - 310) + 'px';
+  tip.style.top = (ev.clientY - box.top + 14) + 'px';
+}
+function zoom(f, cx, cy) {
+  if (!svgEl) return;
+  cx = cx ?? vb[0] + vb[2] / 2; cy = cy ?? vb[1] + vb[3] / 2;
+  const w = vb[2] * f, h = vb[3] * f;
+  vb = [cx - (cx - vb[0]) * f, cy - (cy - vb[1]) * f, w, h];
+  applyVB();
+}
+function clientToSvg(x, y) {
+  const r = canvas.getBoundingClientRect();
+  const s = Math.max(vb[2] / r.width, vb[3] / r.height);
+  const ox = vb[0] - (r.width * s - vb[2]) / 2, oy = vb[1] - (r.height * s - vb[3]) / 2;
+  return [ox + (x - r.left) * s, oy + (y - r.top) * s, s];
+}
+canvas.addEventListener('wheel', e => {
+  if (!svgEl) return; e.preventDefault();
+  const [x, y] = clientToSvg(e.clientX, e.clientY);
+  zoom(e.deltaY > 0 ? 1.18 : 1 / 1.18, x, y);
+}, { passive: false });
+let drag = null;
+canvas.addEventListener('pointerdown', e => { if (!svgEl || e.target.closest('.marker')) return; drag = { x: e.clientX, y: e.clientY, vb: vb.slice() }; canvas.classList.add('drag'); canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointermove', e => {
+  if (!drag) return;
+  const r = canvas.getBoundingClientRect(), s = Math.max(drag.vb[2] / r.width, drag.vb[3] / r.height);
+  vb = [drag.vb[0] - (e.clientX - drag.x) * s, drag.vb[1] - (e.clientY - drag.y) * s, drag.vb[2], drag.vb[3]];
+  applyVB();
+});
+canvas.addEventListener('pointerup', () => { drag = null; canvas.classList.remove('drag'); });
+$('#zIn').onclick = () => zoom(1 / 1.4);
+$('#zOut').onclick = () => zoom(1.4);
+$('#zFit').onclick = () => { if (vb0) { vb = vb0.slice(); applyVB(); } };
+$('#tLines').onclick = e => {
+  const on = canvas.classList.toggle('no-lines');
+  e.currentTarget.setAttribute('aria-pressed', String(!on));
+};
+
+function focusFinding(f, i) {
+  if (!svgEl || !f) return;
+  svgEl.querySelectorAll('.obj.sel').forEach(o => o.classList.remove('sel'));
+  (f.object_ids || []).forEach(id => { const o = svgEl.querySelector(`.obj[data-id="${CSS.escape(id)}"]`); if (o) o.classList.add('sel'); });
+  let x0, y0, x1, y1;
+  if (f.bbox) { [[x0, y0], [x1, y1]] = f.bbox; }
+  else if (f.location) { x0 = x1 = f.location[0]; y0 = y1 = f.location[1]; }
+  else return;
+  const span = Math.max(x1 - x0, y1 - y0, vb0[2] * 0.04) * 2.2;
+  const cx = (x0 + x1) / 2, cy = -(y0 + y1) / 2;
+  vb = [cx - span / 2, cy - span / 2, span, span];
+  applyVB();
+  const m = svgEl.querySelector(`#markers circle[data-i="${i}"]`);
+  if (m) { m.animate([{ opacity: 1 }, { opacity: .2 }, { opacity: 1 }], { duration: 700, iterations: 2 }); }
+  if (window.innerWidth <= 980) canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function selectFindingInList(i) {
+  document.querySelector('#tabs button[data-tab="findings"]').click();
+  const b = document.querySelector(`.fnd[data-i="${i}"]`);
+  if (b) { b.click(); b.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+
+/* ---------------- actions ---------------- */
+$('#again').onclick = () => {
+  current = null; $('#results').hidden = true; $('#uploadWrap').hidden = false;
+  try { history.replaceState(null, '', location.pathname); } catch (_) {}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+$('#print').onclick = () => window.print();
+
+/* ---------------- boot ---------------- */
+applyLang();
+probe().then(async () => {
+  const job = new URLSearchParams(location.search).get('job');
+  if (job && /^[a-f0-9]{32}$/.test(job) && engineState === 'live') {
+    try {
+      showProgress('…'); t0 = 0;
+      await follow(job);
+    } catch (e) { failView(t('failed') + ': ' + e.message); }
+  }
+});
+</script>
+</body>
+</html>
