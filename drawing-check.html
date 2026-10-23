@@ -549,7 +549,8 @@ function render({ res, secs }) {
 
   // stats
   const p = primaryPlot(res);
-  const road = p && (p.roads || []).find(r => r.stated_width_m != null || r.measured_width_m?.value != null);
+  const roads = (p && p.roads) || [];
+  const road = roads.find(r => r.stated_width_m != null) || roads.find(r => r.measured_width_m?.value != null);
   const fp = ((res.objects || {}).building_footprints || []).find(b => b.view == null);
   const chk = p && p.area_statement_check;
   const S = [];
@@ -656,7 +657,7 @@ function renderTech(res) {
   rows.push([t('units'), u.resolved || '—'], [t('method'), (u.method || '—').replace(/_/g, ' ')]);
   if (res.pdf_scale?.views) rows.push([t('scale'), res.pdf_scale.views.map(v => '1:' + v.scale_denominator.toFixed(2) + (v.primary ? ' ★' : '')).join(', ')]);
   rows.push([t('mode'), res.drawing_kind === 'autodcr_output' ? 'AutoDCR DCR_* layers' : res.detection_mode === 'protocol' ? t('protocol') : t('freeform')]);
-  const warns = [...(u.warnings || []), ...((res.pdf_scale?.views || []).flatMap(v => v.warnings || [])), ...(res.parse?.messages || []), ...((res.warnings || []).map(w => w.message))];
+  const warns = [...new Set([...(u.warnings || []), ...((res.pdf_scale?.views || []).flatMap(v => v.warnings || [])), ...(res.parse?.messages || []), ...((res.warnings || []).map(w => w.message))])];
   $('#pTech').innerHTML = `<section class="card facts"><div class="kv">${rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')}</div>
     ${warns.map(w => `<p class="warnline">${esc(w)}</p>`).join('')}</section>`;
 }
