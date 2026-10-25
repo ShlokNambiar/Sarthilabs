@@ -765,7 +765,7 @@ const HELP = [
     mr:'मंजुरी (Sanctioning)', en:'Sanctioning',
     bmr:'Feasibility नंतर संपूर्ण फाईल आम्ही चालवतो: BPAMS submission, scrutiny remark दुरुस्ती, objection उत्तर आणि मंजुरीपर्यंत पाठपुरावा.',
     ben:'After feasibility we run the whole file: BPAMS submission, scrutiny corrections, objection replies and follow-up until sanction.' },
-  { id:'tracing_help', icon:'pen-tool', dwg:false,
+  { id:'tracing_help', icon:'pen-tool', dwg:true,
     mr:'Tracing', en:'Tracing',
     bmr:'आर्किटेक्टचा नकाशा आम्ही PreDCR layers वर पुन्हा काढतो — closed polylines, नावे, margins — जेणेकरून AutoDCR तो थेट वाचू शकेल.',
     ben:'We redraw the architect\'s plan on PreDCR layers — closed polylines, names, margins — so AutoDCR can read it first time.' },
@@ -1227,13 +1227,14 @@ class Component extends DCLogic {
         dwgColor: s.dwgFile ? 'var(--ok)' : 'var(--grey-3)',
         onDwg: e=>{
           const f=e.target.files&&e.target.files[0]; if(!f) return;
-          if(hp.id!=='assistant'){ this.setState({dwgFile:f.name}); return; }
+          if(hp.id!=='assistant' && hp.id!=='tracing_help'){ this.setState({dwgFile:f.name}); return; }
+          const traceQ = hp.id==='tracing_help' ? '?trace=true' : '';
           // Assistant: send the drawing to the Sarthi CAD engine and open its report.
           // The tab opens now (inside the click) so popup blockers allow it.
-          const win=window.open('drawing-check.html','_blank');
+          const win=window.open('drawing-check.html'+(traceQ?'?trace=1':''),'_blank');
           this.setState({dwgFile:f.name+' · '+this.L({mr:'तपासणी सुरू…',en:'checking…'})});
           const fd=new FormData(); fd.append('file',f);
-          fetch((window.SARTHI_ENGINE_ENDPOINT||'').replace(/\/$/,'')+'/v1/jobs',{method:'POST',body:fd})
+          fetch((window.SARTHI_ENGINE_ENDPOINT||'').replace(/\/$/,'')+'/v1/jobs'+traceQ,{method:'POST',body:fd})
             .then(r=>r.ok?r.json():Promise.reject(new Error('HTTP '+r.status)))
             .then(j=>{
               const url='drawing-check.html?job='+j.job_id;

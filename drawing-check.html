@@ -57,6 +57,13 @@
   .btn-outline { background: var(--color-surface); color: var(--color-primary); border-color: var(--color-border-strong); }
   .btn-outline:hover { background: var(--color-surface-accent); }
   .samples { display: flex; flex-direction: column; gap: 8px; }
+  .opt { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); cursor: pointer; }
+  .opt:hover { background: var(--color-surface-accent); }
+  .opt input { width: 18px; height: 18px; margin-top: 2px; accent-color: var(--color-primary); flex: 0 0 auto; }
+  .opt b { display: block; font: 600 15px/1.35 var(--font-head); color: var(--color-text-primary); }
+  .opt small { display: block; margin-top: 2px; font-size: 13px; color: var(--color-text-secondary); }
+  .trace-list { margin: 0; padding: 0 16px 12px 34px; font-size: 14px; color: var(--color-text-body); }
+  .trace-list li { margin: 4px 0; }
   .samples h2 { margin: 0; font-size: 14px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chips button { min-height: 40px; padding: 8px 14px; border: 1px solid var(--color-border-strong); border-radius: 999px; background: var(--color-surface); color: var(--color-text-primary); font-size: 13px; cursor: pointer; text-align: left; }
@@ -67,7 +74,7 @@
   .progress .file { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .progress .file b { font: 600 16px/1.3 var(--font-head); color: var(--color-text-primary); overflow-wrap: anywhere; }
   .progress .file span { font-size: 13px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; }
-  .steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .steps { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 8px; list-style: none; margin: 0; padding: 0; }
   .steps li { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--color-text-secondary); }
   .steps li::before { content: ""; height: 4px; border-radius: 999px; background: var(--color-border); }
   .steps li.done::before { background: var(--color-primary); }
@@ -167,7 +174,7 @@
     .hdr { padding: 8px 16px; min-height: 56px; }
     .hdr nav a:not([aria-current]) { display: none; }
     main { padding: 24px 16px 64px; }
-    .steps { grid-template-columns: repeat(5, minmax(0, 1fr)); font-size: 11px; }
+    .steps { font-size: 11px; }
     .stat .v { font-size: 22px; }
   }
   @media (prefers-reduced-motion: reduce) { .steps li.active::before, .spin { animation: none; } }
@@ -209,6 +216,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <span data-i18n="note">This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.</span>
     </div>
+    <p class="fine" data-i18n="privacy">Uploaded drawings are used only for this check and deleted automatically after 30 days. Upload only drawings you are allowed to share.</p>
   </section>
 
   <div class="upload-wrap" id="uploadWrap">
@@ -220,6 +228,11 @@
         <span data-i18n="dropSub">DWG, DXF or a PDF exported from CAD · up to 100 MB</span>
         <span class="btn btn-primary" data-i18n="choose">Choose file</span>
         <input id="file" type="file" accept=".dwg,.dxf,.pdf" hidden>
+      </label>
+      <label class="opt" for="optTrace">
+        <input type="checkbox" id="optTrace">
+        <span><b data-i18n="optTraceT">Also trace it onto PreDCR layers</b>
+        <small data-i18n="optTraceS">Get a DWG redrawn on the official PreDCR layers, with your original drawing kept underneath for checking.</small></span>
       </label>
       <div class="samples" id="samples" hidden>
         <h2 data-i18n="samplesTitle">No drawing at hand? Try a sample</h2>
@@ -235,6 +248,7 @@
       <li data-step="reading" data-i18n="stRead">Read the drawing</li>
       <li data-step="measuring" data-i18n="stMeasure">Measure</li>
       <li data-step="checking" data-i18n="stCheck">Check PreDCR</li>
+      <li data-step="tracing" data-i18n="stTrace" hidden>Trace</li>
       <li data-step="reporting" data-i18n="stReport">Report</li>
     </ol>
   </section>
@@ -249,11 +263,13 @@
             <button role="tab" aria-selected="true" data-tab="findings"><span data-i18n="tabFindings">Findings</span><span class="n" id="nFind">0</span></button>
             <button role="tab" aria-selected="false" data-tab="plot" data-i18n="tabPlot">Plot &amp; building</button>
             <button role="tab" aria-selected="false" data-tab="floors" data-i18n="tabFloors">Floors</button>
+            <button role="tab" aria-selected="false" data-tab="trace" id="tabTraceBtn" data-i18n="tabTrace" hidden>Tracing</button>
             <button role="tab" aria-selected="false" data-tab="tech" data-i18n="tabTech">How it was read</button>
           </div>
           <div class="panel" data-panel="findings" id="pFindings"></div>
           <div class="panel" data-panel="plot" id="pPlot" hidden></div>
           <div class="panel" data-panel="floors" id="pFloors" hidden></div>
+          <div class="panel" data-panel="trace" id="pTrace" hidden></div>
           <div class="panel" data-panel="tech" id="pTech" hidden></div>
         </div>
         <section class="card viewer" aria-label="Drawing">
@@ -279,6 +295,8 @@
       </div>
       <div class="actions">
         <button type="button" class="btn btn-primary" id="again" data-i18n="checkAnother">Check another drawing</button>
+        <a class="btn btn-primary" id="dlDwg" download hidden data-i18n="dlDwg">Download traced DWG</a>
+        <a class="btn btn-outline" id="dlDxf" download hidden data-i18n="dlDxf">Traced DXF</a>
         <a class="btn btn-outline" id="dlJson" download data-i18n="download">Download report (JSON)</a>
         <button type="button" class="btn btn-outline" id="print" data-i18n="print">Print report</button>
         <a class="btn btn-outline" href="urban-sanction-desk.dc.html" data-i18n="getTraced">Get it traced by Sarthi</a>
@@ -336,6 +354,14 @@ const T = {
     scale:'Drawing scale', views:'views', mode:'Detection', protocol:'PreDCR layers', freeform:'not on PreDCR layers',
     took:s => `done in ${s}s`, failed:'The check failed', offline:'The drawing engine is not reachable. Start it, or open a case and the team will check your drawing.',
     uploading:'Uploading…',
+    privacy:'Uploaded drawings are used only for this check and deleted automatically after 30 days. Upload only drawings you are allowed to share.',
+    optTraceT:'Also trace it onto PreDCR layers', optTraceS:'Get a DWG redrawn on the official PreDCR layers, with your original drawing kept underneath for checking.',
+    stTrace:'Trace', tabTrace:'Tracing', dlDwg:'Download traced DWG', dlDxf:'Traced DXF',
+    vRawT:'Measured from a raw drawing', vRawS:'This drawing is not on PreDCR layers. Sarthi recognised the plot and building from the drawing itself, so check the outlines on the drawing before relying on the numbers.',
+    trWritten:n => `${n} items redrawn on PreDCR layers`, trFixed:'Fixed automatically', trHuman:'Needs a person to finish',
+    trNone:'Nothing left for a person to fix.', trSelf:'Re-check of the traced drawing', trErr:'Tracing failed',
+    trSelfOk:'The traced drawing passes the PreDCR checks for everything Sarthi could trace.',
+    trVerify:'Open the traced DWG in AutoCAD with PreDCR and run its verification before you submit.',
   },
   mr: {
     navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
@@ -370,6 +396,14 @@ const T = {
     scale:'नकाशाचे scale', views:'views', mode:'ओळख', protocol:'PreDCR layers', freeform:'PreDCR layers वर नाही',
     took:s => `${s} सेकंदात पूर्ण`, failed:'तपासणी अयशस्वी', offline:'नकाशा engine उपलब्ध नाही. ते सुरू करा, किंवा case उघडा आणि आमची टीम नकाशा तपासेल.',
     uploading:'अपलोड होत आहे…',
+    privacy:'अपलोड केलेले नकाशे फक्त या तपासणीसाठी वापरले जातात आणि 30 दिवसांनी आपोआप हटवले जातात. शेअर करण्याची परवानगी असलेलेच नकाशे अपलोड करा.',
+    optTraceT:'PreDCR layers वर tracing सुद्धा करा', optTraceS:'अधिकृत PreDCR layers वर पुन्हा काढलेली DWG मिळवा; तपासणीसाठी तुमचा मूळ नकाशा खाली ठेवला जातो.',
+    stTrace:'Tracing', tabTrace:'Tracing', dlDwg:'Traced DWG डाउनलोड करा', dlDxf:'Traced DXF',
+    vRawT:'साध्या नकाशावरून मोजमाप', vRawS:'हा नकाशा PreDCR layers वर नाही. Sarthi ने नकाशावरूनच plot आणि इमारत ओळखली आहे, म्हणून आकड्यांवर विसंबण्यापूर्वी नकाशावरील रेषा तपासा.',
+    trWritten:n => `${n} वस्तू PreDCR layers वर पुन्हा काढल्या`, trFixed:'आपोआप दुरुस्त केले', trHuman:'व्यक्तीने पूर्ण करणे आवश्यक',
+    trNone:'व्यक्तीने दुरुस्त करण्यासारखे काही राहिले नाही.', trSelf:'Trace केलेल्या नकाशाची पुन्हा तपासणी', trErr:'Tracing अयशस्वी',
+    trSelfOk:'Sarthi ने trace केलेल्या सर्व गोष्टी PreDCR तपासणीत योग्य आहेत.',
+    trVerify:'Submit करण्यापूर्वी traced DWG AutoCAD मध्ये PreDCR सोबत उघडून त्याची verification चालवा.',
   }
 };
 const RULES = {
@@ -446,11 +480,15 @@ drop.addEventListener('drop', e => { e.preventDefault(); drop.classList.remove('
 drop.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fileInput.click(); } });
 fileInput.addEventListener('change', () => { const f = fileInput.files[0]; if (f) startUpload(f); fileInput.value = ''; });
 
-const ORDER = ['upload', 'reading', 'measuring', 'checking', 'reporting'];
+const ORDER = ['upload', 'reading', 'measuring', 'checking', 'tracing', 'reporting'];
+const optTrace = $('#optTrace');
+if (new URLSearchParams(location.search).get('trace') === '1') optTrace.checked = true;
+const traceQ = () => optTrace.checked ? '?trace=true' : '';
 let t0 = 0, timer = null;
 function showProgress(name) {
   $('#uploadWrap').hidden = true; $('#results').hidden = true; $('#progress').hidden = false;
   $('#pName').textContent = name; t0 = Date.now();
+  document.querySelector('#steps li[data-step="tracing"]').hidden = !optTrace.checked;
   clearInterval(timer);
   timer = setInterval(() => { $('#pTime').textContent = ((Date.now() - t0) / 1000).toFixed(0) + 's'; }, 250);
   setStep('upload');
@@ -476,7 +514,7 @@ async function startUpload(f) {
   showProgress(f.name);
   const fd = new FormData(); fd.append('file', f);
   try {
-    const r = await fetch(api('/v1/jobs'), { method: 'POST', body: fd });
+    const r = await fetch(api('/v1/jobs' + traceQ()), { method: 'POST', body: fd });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const { job_id } = await r.json();
     await follow(job_id);
@@ -485,7 +523,7 @@ async function startUpload(f) {
 async function startSample(name) {
   showProgress(name);
   try {
-    const r = await fetch(api(`/v1/samples/${encodeURIComponent(name)}/jobs`), { method: 'POST' });
+    const r = await fetch(api(`/v1/samples/${encodeURIComponent(name)}/jobs` + traceQ()), { method: 'POST' });
     if (!r.ok) throw new Error('HTTP ' + r.status);
     await follow((await r.json()).job_id);
   } catch (e) { failView(t('failed') + ': ' + e.message); }
@@ -539,6 +577,7 @@ function render({ res, secs }) {
   if (res.status === 'rejected') { kind = 'err'; title = t('vRejT'); sub = t('vRejS'); }
   else if (res.status === 'review_required') { kind = 'warn'; title = t('vReviewT'); sub = t('vReviewS'); }
   else if (res.drawing_kind === 'autodcr_output') { kind = 'info'; title = t('vAutoT'); sub = t('vAutoS'); }
+  else if (res.drawing_kind === 'raw' && primaryPlot(res)) { kind = 'info'; title = t('vRawT'); sub = t('vRawS'); }
   else if (!checked) { kind = 'info'; title = t('vFreeT'); sub = t('vFreeS'); }
   else if (E) { kind = 'err'; title = t('vFixT')(E); sub = t('vFixS'); }
   else { kind = 'ok'; title = t('vReadyT'); sub = t('vReadyS'); }
@@ -568,6 +607,7 @@ function render({ res, secs }) {
   renderPlot(res);
   renderFloors(res);
   renderTech(res);
+  renderTrace(res, current && current.jobId);
 }
 function stat(k, v, unit, s, cls) {
   return `<div class="stat"><span class="k">${esc(k)}</span><span class="v">${esc(v)}${unit ? `<small>${esc(unit)}</small>` : ''}</span>${s ? `<span class="s ${cls || ''}">${esc(s)}</span>` : ''}</div>`;
@@ -660,6 +700,26 @@ function renderTech(res) {
   const warns = [...new Set([...(u.warnings || []), ...((res.pdf_scale?.views || []).flatMap(v => v.warnings || [])), ...(res.parse?.messages || []), ...((res.warnings || []).map(w => w.message))])];
   $('#pTech').innerHTML = `<section class="card facts"><div class="kv">${rows.map(([k, v]) => `<div>${esc(k)}</div><div>${esc(v)}</div>`).join('')}</div>
     ${warns.map(w => `<p class="warnline">${esc(w)}</p>`).join('')}</section>`;
+}
+
+function renderTrace(res, jobId) {
+  const tr = res.trace, box = $('#pTrace');
+  $('#tabTraceBtn').hidden = !tr; $('#dlDwg').hidden = true; $('#dlDxf').hidden = true;
+  if (!tr) { box.innerHTML = ''; return; }
+  if (tr.error) { box.innerHTML = `<div class="card"><div class="empty">${esc(t('trErr'))}: ${esc(tr.error)}</div></div>`; return; }
+  if (jobId && tr.dwg) { $('#dlDwg').hidden = false; $('#dlDwg').href = api(`/v1/jobs/${jobId}/traced.dwg`); }
+  if (jobId && tr.dxf) { $('#dlDxf').hidden = false; $('#dlDxf').href = api(`/v1/jobs/${jobId}/traced.dxf`); }
+  const item = x => esc(x.message || x.reason || x.kind || JSON.stringify(x));
+  const fixed = (tr.repairs || []).map(x => `<li>${item(x)}</li>`).join('');
+  const human = (tr.needs_human || []).map(x => `<li>${item(x)}</li>`).join('');
+  const sc = tr.self_check || {};
+  const errs = Object.entries(sc.errors_by_rule || {});
+  box.innerHTML = `<section class="card facts"><h3>${esc(t('trWritten')(tr.objects_written || 0))}</h3>
+      <h3>${esc(t('trFixed'))}</h3>${fixed ? `<ul class="trace-list">${fixed}</ul>` : '<div class="empty">—</div>'}
+      <h3>${esc(t('trHuman'))}</h3>${human ? `<ul class="trace-list">${human}</ul>` : `<div class="empty">${esc(t('trNone'))}</div>`}
+      <h3>${esc(t('trSelf'))}</h3>${errs.length ? `<ul class="trace-list">${errs.map(([k, v]) => `<li>${esc(k)} · ${esc((RULES[k] || {})[lang] || '')}: ${esc(v)}</li>`).join('')}</ul>` : `<div class="empty">${esc(t('trSelfOk'))}</div>`}
+      ${(tr.warnings || []).map(w => `<p class="warnline">${esc(w)}</p>`).join('')}
+      <p class="warnline">${esc(t('trVerify'))}</p></section>`;
 }
 
 /* ---------------- tabs ---------------- */
