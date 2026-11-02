@@ -8,7 +8,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
+<script src="config.js"></script>
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+<style>
+  /* Match the main site (site.css): palette, fonts and the dark header. */
+  :root{
+    --color-primary:#6D28D9; --color-primary-hover:#7C3AED; --color-focus:#7C3AED;
+    --color-background:#F8F7FC; --color-recessed:#F3F0FA;
+    --color-surface-accent:color-mix(in srgb,#BDA8FF 22%,#F8F7FC);
+    --color-border:#E6E1EF; --color-border-strong:#D3C8EA;
+    --color-text-primary:#252536; --color-text-body:#3A3A4D; --color-text-secondary:#555566;
+    --color-accent:#BDA8FF;
+    --font-head:"Manrope","Inter","Noto Sans Devanagari",system-ui,sans-serif;
+    --font-body:"Inter","Noto Sans Devanagari",system-ui,sans-serif;
+  }
+  body{background:var(--color-background)}
+  body .hdr{background:#171923;border-bottom:1px solid #2a2c3a;backdrop-filter:none;-webkit-backdrop-filter:none}
+  body .hdr .brand{color:#fff}
+  body .hdr .brand span{font:800 1.28rem/1 var(--font-head);letter-spacing:0}
+  body .hdr .brand img{filter:brightness(1.45) saturate(1.1)}
+  body .hdr nav a{color:#F8F7FC;font-weight:500}
+  body .hdr nav a:hover{background:transparent;color:#BDA8FF}
+  body .hdr nav a[aria-current="page"]{background:transparent;color:#BDA8FF;border-radius:0;box-shadow:inset 0 -2px 0 #BDA8FF}
+  body .hdr .lang{background:transparent;border-color:#3a3c4d}
+  body .hdr .lang button{color:#cfc8e6}
+  body .hdr .lang button[aria-pressed="true"]{background:#6D28D9;color:#fff}
+</style>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   [hidden] { display: none !important; }
@@ -193,6 +219,7 @@
   <a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a>
   <nav aria-label="Main">
     <a href="index.html" data-i18n="navHome">Home</a>
+    <a href="index.html#services" data-i18n="navServices">Services</a>
     <a href="index.html#urban-sanction-desk" data-i18n="navDesk">Urban Sanction Desk</a>
     <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Drawing Check</a>
     <a href="udcpr-assistant.html" data-i18n="navLearn">Learn</a>
@@ -322,7 +349,7 @@ const api = p => ENGINE_ENDPOINT.replace(/\/$/, '') + p;
 /* ---------------- copy ---------------- */
 const T = {
   en: {
-    navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
+    navHome:'Home', navServices:'Services', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
     eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
     title:'Drawing Check',
     lede:'Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.',
@@ -364,7 +391,7 @@ const T = {
     trVerify:'Open the traced DWG in AutoCAD with PreDCR and run its verification before you submit.',
   },
   mr: {
-    navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
+    navHome:'मुख्यपृष्ठ', navServices:'सेवा', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
     eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
     title:'नकाशा तपासणी',
     lede:'तुमचा बांधकाम परवानगीचा नकाशा अपलोड करा. Sarthi तो वाचतो, plot मोजतो आणि PreDCR नियमांनुसार तपासतो, जेणेकरून AutoDCR तो पहिल्याच वेळी वाचू शकेल.',
