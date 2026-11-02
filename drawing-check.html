@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Drawing Check</title>
+<title>Urban Sanction Desk – Sarthi Labs</title>
 <meta name="description" content="Upload a building-permission drawing (DWG, DXF or PDF). Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules before you submit to AutoDCR.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -273,7 +273,7 @@
     <a href="index.html#how" data-i18n="navHow">How We Work</a>
     <a href="index.html#about" data-i18n="navAbout">About</a>
     <a href="index.html#contact" data-i18n="navContact">Contact</a>
-    <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Drawing Check</a>
+    <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Urban Sanction Desk</a>
     <a class="nav-cta" href="index.html#contact" data-i18n="navCta">Discuss Your Requirement</a>
   </nav>
   <div class="lang" role="group" aria-label="Language">
@@ -285,10 +285,10 @@
 <main>
   <section class="intro" id="intro">
     <div class="eyebrow">
-      <span data-i18n="eyebrow">Urban Sanction Desk · Assistant</span>
+      <span data-i18n="eyebrow">Assistant · Drawing review</span>
       <span class="chip-status" id="engineChip" data-i18n="engineChecking">Checking engine…</span>
     </div>
-    <h1 data-i18n="title">Drawing Check</h1>
+    <h1 data-i18n="title">Urban Sanction Desk</h1>
     <div class="rule" aria-hidden="true"></div>
     <p class="lede" data-i18n="lede">Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.</p>
     <div class="note" role="note">
@@ -389,7 +389,7 @@
  <div class="cols">
   <div><a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
   <div><h3>Services</h3><ul><li><a href="financial-feasibility.html">Financial feasibility</a></li><li><a href="index.html#architecture">Architectural services</a></li><li><a href="legal-regulatory.html">Legal and regulatory</a></li><li><a href="industrial-engineering.html">Industrial engineering</a></li></ul></div>
-  <div><h3>Tools</h3><ul><li><a href="drawing-check.html">Drawing Check</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
+  <div><h3>Tools</h3><ul><li><a href="drawing-check.html">Urban Sanction Desk</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
   <div><h3>Company</h3><ul><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Contact</a></li><li>Privacy and Terms: coming soon</li></ul></div>
  </div>
  <div class="copy">© 2026 Sarthi Labs. Content describes services offered; final scope is confirmed per assignment.</div>
@@ -410,9 +410,9 @@ const api = p => ENGINE_ENDPOINT.replace(/\/$/, '') + p;
 /* ---------------- copy ---------------- */
 const T = {
   en: {
-    navAi:'AI for Your Business', navServices:'Services', navHow:'How We Work', navAbout:'About', navContact:'Contact', navCta:'Discuss Your Requirement', navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
-    eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
-    title:'Drawing Check',
+    navAi:'AI for Your Business', navServices:'Services', navHow:'How We Work', navAbout:'About', navContact:'Contact', navCta:'Discuss Your Requirement', navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Urban Sanction Desk', navLearn:'Learn',
+    eyebrow:'Assistant · Drawing review', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
+    title:'Urban Sanction Desk',
     lede:'Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.',
     note:'This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.',
     dropTitle:'Drop your drawing here', dropSub:'DWG, DXF or a PDF exported from CAD · up to 100 MB', choose:'Choose file',
@@ -452,9 +452,9 @@ const T = {
     trVerify:'Open the traced DWG in AutoCAD with PreDCR and run its verification before you submit.',
   },
   mr: {
-    navAi:'व्यवसायासाठी AI', navServices:'सेवा', navHow:'आमची कार्यपद्धती', navAbout:'आमच्याबद्दल', navContact:'संपर्क', navCta:'तुमची गरज सांगा', navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
-    eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
-    title:'नकाशा तपासणी',
+    navAi:'व्यवसायासाठी AI', navServices:'सेवा', navHow:'आमची कार्यपद्धती', navAbout:'आमच्याबद्दल', navContact:'संपर्क', navCta:'तुमची गरज सांगा', navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'Urban Sanction Desk', navLearn:'माहिती',
+    eyebrow:'Assistant · नकाशा तपासणी', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
+    title:'Urban Sanction Desk',
     lede:'तुमचा बांधकाम परवानगीचा नकाशा अपलोड करा. Sarthi तो वाचतो, plot मोजतो आणि PreDCR नियमांनुसार तपासतो, जेणेकरून AutoDCR तो पहिल्याच वेळी वाचू शकेल.',
     note:'हे नकाशा कसा काढला आहे ते तपासते (layers, बंद रेषा, नावे, units) आणि मोजमाप करते. UDCPR नियम लावत नाही किंवा मंजुरी ठरवत नाही. प्रत्येक प्रकरणाचा निर्णय नियोजन प्राधिकरण घेते.',
     dropTitle:'तुमचा नकाशा इथे टाका', dropSub:'DWG, DXF किंवा CAD मधून काढलेला PDF · 100 MB पर्यंत', choose:'फाईल निवडा',
