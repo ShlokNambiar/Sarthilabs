@@ -260,6 +260,26 @@ nav a[aria-current] {
   }
 }
 
+/* Header spans the full width (logo left, menu centred, button right),
+   like the Urban Sanction Desk page, instead of the 1120px content column. */
+header .wrap.nav {
+  max-width: none;
+  padding: 0 24px;
+}
+
+header nav[aria-label="Primary"] {
+  flex: 1;
+}
+
+header nav[aria-label="Primary"] ul {
+  gap: 26px;
+}
+
+header nav[aria-label="Primary"] ul > li:first-child,
+header nav[aria-label="Primary"] ul > li.cta {
+  margin-left: auto;
+}
+
 @media (max-width: 1200px) {
   .nav-tool {
     display: none;
