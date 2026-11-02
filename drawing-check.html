@@ -34,6 +34,9 @@
   body .hdr .lang{background:transparent;border-color:#3a3c4d}
   body .hdr .lang button{color:#cfc8e6}
   body .hdr .lang button[aria-pressed="true"]{background:#6D28D9;color:#fff}
+  body .hdr nav a.nav-cta{margin-left:8px;padding:10px 16px;border-radius:10px;background:#6D28D9;color:#fff;font-weight:600}
+  body .hdr nav a.nav-cta:hover{background:#7C3AED;color:#fff}
+  @media (max-width:1200px){body .hdr nav a[href$="#ai"],body .hdr nav a[href$="#how"],body .hdr nav a[href$="#about"]{display:none}}
 </style>
 <style>
   *, *::before, *::after { box-sizing: border-box; }
@@ -212,17 +215,66 @@
     .card { box-shadow: none; break-inside: avoid; }
   }
 </style>
+<style>
+  /* ---- Main-site look (site.css): dark hero band, 10px buttons, underline
+     tabs, dark footer. Loaded after the page styles so it wins. ---- */
+  body { overflow-x: clip; }
+  h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.02em; }
+  main { padding-top: 0; }
+  .intro { max-width: none; margin: 0 calc(50% - 50vw) 8px; padding: 64px max(24px, calc(50vw - 596px)) 56px;
+           background: #171923; color: #F8F7FC; border-bottom: 1px solid #2a2c3a; gap: 16px; }
+  .intro > * { max-width: 760px; }
+  .intro .eyebrow > span:first-child { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 99px;
+           font: 700 0.76rem/1.2 var(--font-head); letter-spacing: .08em; text-transform: uppercase;
+           color: #BDA8FF; background: color-mix(in srgb, #7C3AED 20%, #171923); border: 1px solid color-mix(in srgb, #BDA8FF 38%, #171923); }
+  .intro h1 { color: #fff; font-weight: 800; font-size: clamp(2.25rem, 5.5vw, 3.5rem); line-height: 1.1; }
+  .intro .rule { display: none; }
+  .intro .lede { color: #F8F7FC; font-size: 1.12rem; line-height: 1.6; }
+  .intro .note { background: color-mix(in srgb, #fff 6%, #171923); border-color: #34364a; color: #dcd6ee; }
+  .intro .note svg { color: #BDA8FF; }
+  .intro .fine { color: #b9b3cc; }
+  .intro .fine a { color: #BDA8FF; }
+  .chip-status { background: color-mix(in srgb, #F5B83D 18%, #171923); color: #F5CF7A; }
+  .chip-status.live { background: color-mix(in srgb, #2FBF8F 18%, #171923); color: #7BE0BC; }
+  .btn { border-radius: 10px; min-height: 46px; padding: 0 22px; font: 600 0.95rem/1.2 var(--font-body); border-width: 2px; }
+  .btn-outline { border-color: var(--color-primary); color: var(--color-primary); background: transparent; }
+  .btn-outline:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
+  .card { box-shadow: none; }
+  .drop { border-radius: 14px; }
+  .chips button { border-radius: 10px; }
+  .opt { border-radius: 14px; }
+  .tabs { padding: 0; gap: 4px; border: 0; border-bottom: 1px solid var(--color-border); border-radius: 0; background: transparent; }
+  .tabs button { flex: 0 0 auto; border-radius: 0; padding: 0 12px; min-height: 44px; font: 700 0.9rem/1 var(--font-head);
+                 color: var(--color-text-secondary); border-bottom: 3px solid transparent; margin-bottom: -1px; }
+  .tabs button:hover { color: var(--color-primary-hover); }
+  .tabs button[aria-selected="true"] { background: transparent; color: var(--color-primary); border-bottom-color: var(--color-primary-hover); }
+  .tabs button[aria-selected="true"] .n { background: var(--color-surface-accent); color: var(--color-primary); }
+  .site-foot { background: #171923; border-top: 1px solid #2a2c3a; padding: 52px 24px 36px; font-size: .93rem; color: #d9d3ea; }
+  .site-foot .cols { max-width: 1192px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+  .site-foot .brand { color: #fff; }
+  .site-foot .brand img { filter: brightness(1.45) saturate(1.1); }
+  .site-foot .brand span { font: 800 1.28rem/1 var(--font-head); }
+  .site-foot h3 { color: #fff; font-size: 1rem; margin: 0 0 10px; }
+  .site-foot ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+  .site-foot a:not(.brand) { color: #F8F7FC; text-decoration: none; }
+  .site-foot a:not(.brand):hover { color: #BDA8FF; }
+  .site-foot .copy { max-width: 1192px; margin: 28px auto 0; font-size: .85rem; }
+  @media (max-width: 700px) { .site-foot .cols { grid-template-columns: 1fr; } .intro { padding-top: 44px; padding-bottom: 40px; } }
+  @media print { .site-foot { display: none; } .intro { background: none; color: inherit; padding: 0; margin: 0; } .intro h1 { color: inherit; } }
+</style>
 </head>
 <body>
 
 <header class="hdr">
   <a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a>
   <nav aria-label="Main">
-    <a href="index.html" data-i18n="navHome">Home</a>
+    <a href="index.html#ai" data-i18n="navAi">AI for Your Business</a>
     <a href="index.html#services" data-i18n="navServices">Services</a>
-    <a href="index.html#urban-sanction-desk" data-i18n="navDesk">Urban Sanction Desk</a>
+    <a href="index.html#how" data-i18n="navHow">How We Work</a>
+    <a href="index.html#about" data-i18n="navAbout">About</a>
+    <a href="index.html#contact" data-i18n="navContact">Contact</a>
     <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Drawing Check</a>
-    <a href="udcpr-assistant.html" data-i18n="navLearn">Learn</a>
+    <a class="nav-cta" href="index.html#contact" data-i18n="navCta">Discuss Your Requirement</a>
   </nav>
   <div class="lang" role="group" aria-label="Language">
     <button type="button" data-lang="en" aria-pressed="true">EN</button>
@@ -333,6 +385,15 @@
     </div>
   </section>
 </main>
+<footer class="site-foot">
+ <div class="cols">
+  <div><a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
+  <div><h3>Services</h3><ul><li><a href="financial-feasibility.html">Financial feasibility</a></li><li><a href="index.html#architecture">Architectural services</a></li><li><a href="legal-regulatory.html">Legal and regulatory</a></li><li><a href="industrial-engineering.html">Industrial engineering</a></li></ul></div>
+  <div><h3>Tools</h3><ul><li><a href="drawing-check.html">Drawing Check</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
+  <div><h3>Company</h3><ul><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Contact</a></li><li>Privacy and Terms: coming soon</li></ul></div>
+ </div>
+ <div class="copy">© 2026 Sarthi Labs. Content describes services offered; final scope is confirmed per assignment.</div>
+</footer>
 
 <script>
 /* ---------------------------------------------------------------------------
@@ -349,7 +410,7 @@ const api = p => ENGINE_ENDPOINT.replace(/\/$/, '') + p;
 /* ---------------- copy ---------------- */
 const T = {
   en: {
-    navHome:'Home', navServices:'Services', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
+    navAi:'AI for Your Business', navServices:'Services', navHow:'How We Work', navAbout:'About', navContact:'Contact', navCta:'Discuss Your Requirement', navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Drawing Check', navLearn:'Learn',
     eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
     title:'Drawing Check',
     lede:'Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.',
@@ -391,7 +452,7 @@ const T = {
     trVerify:'Open the traced DWG in AutoCAD with PreDCR and run its verification before you submit.',
   },
   mr: {
-    navHome:'मुख्यपृष्ठ', navServices:'सेवा', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
+    navAi:'व्यवसायासाठी AI', navServices:'सेवा', navHow:'आमची कार्यपद्धती', navAbout:'आमच्याबद्दल', navContact:'संपर्क', navCta:'तुमची गरज सांगा', navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'नकाशा तपासणी', navLearn:'माहिती',
     eyebrow:'Urban Sanction Desk · Assistant', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
     title:'नकाशा तपासणी',
     lede:'तुमचा बांधकाम परवानगीचा नकाशा अपलोड करा. Sarthi तो वाचतो, plot मोजतो आणि PreDCR नियमांनुसार तपासतो, जेणेकरून AutoDCR तो पहिल्याच वेळी वाचू शकेल.',
