@@ -1,0 +1,247 @@
+/* Sarthi Labs site header: Logo | Solutions (dropdown) | How We Work | About |
+   Discuss Your Requirement. Shared by every page (works with or without
+   site.css). Behaviour in nav.js. */
+
+.site-header {
+  --sh-bg: #F5F0E5;
+  --sh-ink: #252536;
+  --sh-muted: #555566;
+  --sh-line: #DDD3BF;
+  --sh-primary: #6D28D9;
+  --sh-primary-hover: #5B21B6;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--sh-bg);
+  border-bottom: 1px solid var(--sh-line);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+.site-header .sh-in {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 72px;
+  padding: 0 24px;
+}
+
+.site-header .sh-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sh-ink);
+  text-decoration: none;
+  font: 800 1.25rem/1 "Manrope", "Inter", system-ui, sans-serif;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.site-header .sh-logo img {
+  width: 42px;
+  height: auto;
+  display: block;
+}
+
+.site-header nav {
+  margin-left: auto;
+}
+
+.site-header .sh-list {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-header .sh-list > li {
+  position: relative;
+}
+
+.site-header .sh-link,
+.site-header .sh-dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--sh-ink);
+  font: 600 0.98rem/1 "Inter", system-ui, sans-serif;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.site-header .sh-link:hover,
+.site-header .sh-dd-btn:hover,
+.site-header .sh-dd-btn[aria-expanded="true"] {
+  background: #EDE0C8;
+  color: var(--sh-ink);
+}
+
+.site-header .sh-dd-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.15s ease;
+}
+
+.site-header .sh-dd-btn[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.site-header .sh-dd-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 260px;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  background: #FFFFFF;
+  border: 1px solid var(--sh-line);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(37, 37, 54, 0.14);
+}
+
+.site-header .sh-dd-menu[hidden] {
+  display: none;
+}
+
+.site-header .sh-dd-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  color: var(--sh-ink);
+  font: 500 0.98rem/1.3 "Inter", system-ui, sans-serif;
+  text-decoration: none;
+}
+
+.site-header .sh-dd-menu a:hover,
+.site-header .sh-dd-menu a:focus-visible {
+  background: #F5F0E5;
+  color: var(--sh-primary);
+}
+
+.site-header .sh-dd-menu a[aria-current="page"] {
+  color: var(--sh-primary);
+  font-weight: 700;
+}
+
+/* The only filled purple button in the header. */
+.site-header .sh-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-left: 8px;
+  padding: 0 20px;
+  border-radius: 10px;
+  background: var(--sh-primary);
+  color: #FFFFFF;
+  font: 600 0.98rem/1.2 "Inter", system-ui, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-header .sh-cta:hover {
+  background: var(--sh-primary-hover);
+  color: #FFFFFF;
+}
+
+.site-header :focus-visible {
+  outline: 3px solid var(--sh-primary);
+  outline-offset: 2px;
+}
+
+.site-header .sh-menu-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  margin-left: auto;
+  padding: 0 14px;
+  border: 1px solid var(--sh-line);
+  border-radius: 10px;
+  background: #FFFFFF;
+  color: var(--sh-ink);
+  font: 600 0.98rem/1 "Inter", system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.site-header .sh-menu-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Page-specific extras (e.g. the language toggle) sit after the nav. */
+.site-header .sh-extra {
+  display: flex;
+  align-items: center;
+}
+
+/* Mobile: logo + menu button; the menu holds Solutions, How We Work, About
+   and the enquiry button. */
+@media (max-width: 900px) {
+  .site-header .sh-in {
+    flex-wrap: wrap;
+    gap: 12px;
+    min-height: 64px;
+    padding: 0 16px;
+  }
+
+  .site-header .sh-menu-btn {
+    display: inline-flex;
+  }
+
+  .site-header nav {
+    display: none;
+    flex-basis: 100%;
+    margin: 0 0 14px;
+  }
+
+  .site-header nav.is-open {
+    display: block;
+  }
+
+  .site-header .sh-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+  }
+
+  .site-header .sh-link,
+  .site-header .sh-dd-btn {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 12px;
+  }
+
+  .site-header .sh-dd-menu {
+    position: static;
+    min-width: 0;
+    margin: 2px 0 6px;
+    box-shadow: none;
+    border-radius: 10px;
+  }
+
+  .site-header .sh-cta {
+    width: 100%;
+    margin: 8px 0 0;
+  }
+
+  .site-header .sh-extra {
+    order: 3;
+  }
+}
+
+@media print {
+  .site-header {
+    display: none;
+  }
+}

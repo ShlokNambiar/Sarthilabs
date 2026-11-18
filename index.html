@@ -10,21 +10,32 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="nav.css">
+<script src="nav.js" defer></script>
+<script src="enquiry.js"></script>
 </head>
 <body id="top">
-<header>
- <div class="wrap nav">
-  <a class="logo" href="#top"><i aria-hidden="true"></i>Sarthi Labs</a>
-  <nav aria-label="Primary"><ul>
-   <li><a href="#ai">AI for Your Business</a></li>
-   <li><a href="#services">Services</a></li>
-   <li><a href="#how">How We Work</a></li>
-   <li><a href="#about">About</a></li>
-   <li><a href="#contact">Contact</a></li>
-   <li class="nav-tool"><a href="drawing-check.html">Urban Sanction Desk</a></li>
-   <li><a class="util" href="#client" title="Customer workspace coming soon">Client Login</a></li>
-   <li class="cta"><a class="btn sm" href="#contact">Discuss Your Requirement</a></li>
-  </ul></nav>
+<header class="site-header">
+ <div class="sh-in">
+  <a class="sh-logo" href="index.html"><img src="logo/sarthi-logo.png" width="42" height="40" alt="Sarthi Labs home"><span aria-hidden="true">Sarthi Labs</span></a>
+  <button type="button" class="sh-menu-btn" aria-expanded="false" aria-controls="sh-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="sh-menu-label">Menu</span></button>
+  <nav id="sh-nav" aria-label="Primary">
+   <ul class="sh-list">
+    <li class="sh-dd">
+     <button type="button" class="sh-dd-btn" aria-expanded="false" aria-controls="sh-solutions">Solutions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+     <ul class="sh-dd-menu" id="sh-solutions" hidden>
+      <li><a href="index.html#ai">AI Workflow Adoption</a></li>
+      <li><a href="financial-feasibility.html">Financial Feasibility</a></li>
+      <li><a href="index.html#architecture">Architectural Services</a></li>
+      <li><a href="legal-regulatory.html">Legal &amp; Regulatory</a></li>
+      <li><a href="industrial-engineering.html">Industrial Engineering</a></li>
+     </ul>
+    </li>
+    <li><a class="sh-link" href="index.html#how">How We Work</a></li>
+    <li><a class="sh-link" href="index.html#about">About</a></li>
+    <li><a class="sh-cta" href="index.html#contact">Discuss Your Requirement</a></li>
+   </ul>
+  </nav>
  </div>
 </header>
 
@@ -37,15 +48,16 @@
    <p class="lead" style="margin-top:20px">We help businesses improve existing workflows through practical AI solutions, expert collaboration, and end-to-end implementation.</p>
    <p class="lead" style="margin-top:12px;font-size:1.02rem;opacity:.82">From financial feasibility and building approvals to legal coordination and industrial engineering, we bring technology and domain expertise together to simplify complex work.</p>
    <div class="actions">
-    <a class="btn" href="#start">Discuss Your Project</a>
-    <a class="btn ghost" href="#services">Explore Project Services</a>
+    <a class="btn" href="#contact">Discuss Your Requirement</a>
+    <a class="btn ghost" href="#start">Explore our solutions</a>
    </div>
    <p class="hero-caps">AI Workflow Consulting · Professional Services Coordination · Project Implementation</p>
   </div>
   <div style="position:relative">
    <div class="flow" id="workflow-player" aria-label="Example of an assisted workflow">
     <div class="flow-head">
-     <h3>An example workflow, mapped</h3>
+     <div><h3>An example workflow, mapped</h3><span class="flow-tagline">Illustrative example, not client results</span></div>
+     <button type="button" class="flow-ctrl" id="flow-toggle"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path class="i-pause" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg><span class="flow-ctrl-label">Pause</span></button>
     </div>
     <div class="flow-domains" role="group" aria-label="Select workflow domain example">
      <button type="button" class="flow-pill" data-domain="general" aria-pressed="true">General</button>
@@ -60,7 +72,7 @@
      <div class="step" data-step="2" tabindex="0"><span class="step-num">3</span><b class="step-title">Check against your rules</b><span class="tag rev step-tag">Expert reviews</span><span class="step-bar"></span></div>
      <div class="step" data-step="3" tabindex="0"><span class="step-num">4</span><b class="step-title">Send to customer</b><span class="tag manual step-tag">Your team</span><span class="step-bar"></span></div>
     </div>
-    <div class="flow-live-box" aria-live="polite">
+    <div class="flow-live-box" id="flow-live">
      <div class="flow-live-top">
       <span id="flow-stage-label">Step 1 · Document Intake</span>
       <span class="flow-live-metric" id="flow-stage-metric">Multi-format files</span>
@@ -122,22 +134,30 @@
   <p class="hero-eyebrow" style="margin-bottom:10px">PATHWAY 2 · PROJECT SERVICES</p>
   <h2>Scope, coordinate, and deliver complex projects</h2>
   <p class="lead">Need a domain project executed directly? We scope the requirement, coordinate the right specialists, and manage delivery from start to finish—with a named lead and a responsible professional on every assignment.</p>
-  <div class="cards c4">
-   <div class="card">
+  <div class="cards svc-grid">
+   <div class="card svc-card">
     <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
-    <h3>Financial feasibility</h3><p>CA-led project feasibility, financial modelling, and business support, with assumptions stated and a named reviewer.</p><a class="more" href="financial-feasibility.html">Open Financial Feasibility</a>
+    <h3>Financial feasibility</h3><p class="outcome">Know whether a project stands up before you commit money, with the assumptions written down.</p>
+    <ul class="deliv"><li>Project feasibility report</li><li>Financial model with sensitivity</li><li>Project report for a lender or investor</li></ul>
+    <a class="more" href="financial-feasibility.html">Explore financial feasibility</a>
    </div>
-   <div class="card" id="usd">
+   <div class="card svc-card" id="usd">
     <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21V9l9-6 9 6v12M9 21v-7h6v7"/></svg></div>
-    <h3>Architectural services</h3><p>Planning, CAD tracing, submission preparation, rule review, sanction-process support, valuation and feasibility, delivered by our architect team.</p><a class="more" href="#architecture">Open Architectural Services</a>
+    <h3>Architectural services</h3><p class="outcome">Plans and sanction paperwork prepared and checked by our architect team.</p>
+    <ul class="deliv"><li>Architectural plans and CAD tracing</li><li>Building-rule review against your authority’s rules</li><li>Sanction-process and objection support</li></ul>
+    <a class="more" href="#architecture">Explore architectural services</a>
    </div>
-   <div class="card">
+   <div class="card svc-card">
     <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M5 7l-3 7h6zM19 7l-3 7h6z"/></svg></div>
-    <h3>Legal and regulatory</h3><p>Lawyer-led review of complex issues, agreements, title documents, and regulatory questions.</p><a class="more" href="legal-regulatory.html">Open Legal and Regulatory</a>
+    <h3>Legal and regulatory</h3><p class="outcome">A lawyer’s view on agreements, titles and regulatory questions before you act.</p>
+    <ul class="deliv"><li>Agreement review</li><li>Title document review</li><li>Opinion on regulatory questions</li></ul>
+    <a class="more" href="legal-regulatory.html">Explore legal and regulatory work</a>
    </div>
-   <div class="card">
+   <div class="card svc-card">
     <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></svg></div>
-    <h3>Industrial engineering</h3><p>Machinery installation and erection, maintenance coordination, and technical valuation with experienced engineering specialists.</p><a class="more" href="industrial-engineering.html">Open Industrial Engineering</a>
+    <h3>Industrial engineering</h3><p class="outcome">Machinery installed, maintained or valued with an experienced engineer accountable for the work.</p>
+    <ul class="deliv"><li>Installation and erection supervision</li><li>Maintenance coordination</li><li>Technical valuation of plant and machinery</li></ul>
+    <a class="more" href="industrial-engineering.html">Explore industrial engineering</a>
    </div>
   </div>
   <p class="note"><strong>Please note:</strong> an enquiry is not professional clearance. Opinions and formal sign-off come only from the authorised professional on your assignment.</p>
@@ -172,12 +192,6 @@
  </div>
 </section>
 
-<section style="background:var(--tint)">
- <div class="wrap">
-  <h2>Evidence, when it is real</h2>
-  <p class="lead">We will publish anonymised sample reports, working demos and documented case studies here, with consent. Nothing is shown until it can be verified.</p>
- </div>
-</section>
 
 <section id="about">
  <div class="wrap two">
@@ -196,7 +210,6 @@
     <span id="about-toggle-label">Read more</span>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
    </button>
-   <p class="note">Team profiles and credentials will be listed here once confirmed and published with consent.</p>
   </div>
   <div>
    <h3 style="margin-bottom:6px">Common questions</h3>
@@ -213,14 +226,20 @@
   <div>
    <h2>Discuss your requirement</h2>
    <p class="lead">Tell us briefly what you need. We will coordinate the relevant domain experts, outline how we manage the engagement, and explain what happens next. If you are unsure, choose “Not sure” and describe the situation.</p>
-   <p id="client" class="note">Client Login: the customer workspace for proposals, uploads and updates is not live yet.</p>
   </div>
   <div>
    <form id="f" novalidate>
-    <div class="row">
-     <label>Name<input name="name" autocomplete="name" required></label>
-     <label>Phone or email<input name="contact" autocomplete="email" required></label>
-    </div>
+    <label>Name<input name="name" autocomplete="name" required aria-describedby="err"></label>
+    <fieldset class="cm-choice">
+     <legend>How should we contact you?</legend>
+     <div class="cm-opts">
+      <label><input type="radio" name="cmethod" value="Email" checked>Email</label>
+      <label><input type="radio" name="cmethod" value="Phone">Phone</label>
+     </div>
+    </fieldset>
+    <label data-cm="Email">Email address<input type="email" name="email" autocomplete="email" inputmode="email" aria-describedby="err"></label>
+    <label data-cm="Phone" hidden>Phone number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" aria-describedby="err"></label>
+    <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <label>What do you need?
      <select name="need" id="need">
       <option>Not sure</option><option>AI workflow</option><option>Financial feasibility</option><option>Building project</option><option>Legal and regulatory</option><option>Industrial engineering</option>
@@ -230,11 +249,13 @@
     <label>Your requirement<textarea name="req" required placeholder="A few lines are enough. For example, the bottleneck, the project stage or the decision you need to make."></textarea></label>
     <div class="err" id="err" role="alert"></div>
     <button class="btn" type="submit">Send enquiry</button>
+    <p class="form-status" id="f-status" role="status" aria-live="polite"></p>
+    <p class="privacy-line">We use these details only to reply to your enquiry. See our <a href="privacy.html">privacy notice</a>.</p>
     <p class="hint">Uploads are optional and come later. We will say which formats we accept and why.</p>
    </form>
    <div id="done" class="card" role="status" tabindex="-1">
-    <h3>Enquiry captured</h3>
-    <p>Thank you, <span id="who"></span>. A coordinator will review your requirement and contact you using the details you gave. Nothing has been accepted or approved yet.</p>
+    <h3>Enquiry received</h3>
+    <p>Thank you, <span id="who"></span>. Your reference is <b id="f-ref"></b>. A coordinator will review your requirement and contact you using the details you gave. Nothing has been accepted or approved yet.</p>
    </div>
   </div>
  </div>
@@ -286,6 +307,35 @@
    <li>Missing information or unresolved interpretation</li>
   </ul>
  </div>
+</div></section><section class="usd-explain bandb" id="desk-explained"><div class="wrap">
+ <p class="hero-eyebrow">Within Architectural Services</p>
+ <h2>Urban Sanction Desk</h2>
+ <p class="lead">An AI-assisted architectural workflow developed with our architecture team to support feasibility, regulatory checks and approval documentation.</p>
+ <div class="cards c2">
+  <div class="card"><h3>Scope</h3><ul>
+   <li>Readiness review of a plan you already have</li>
+   <li>Status and next action for an application in progress</li>
+   <li>Scoping a feasibility study or valuation</li>
+   <li>Drawings, tracing and submission documents, scoped separately</li>
+  </ul></div>
+  <div class="card"><h3>What you provide</h3><ul>
+   <li>Plot location and the planning authority, if known</li>
+   <li>Existing drawings (PDF, DWG or DXF), survey or plot dimensions</li>
+   <li>For an application in progress: its reference and the latest letter from the authority</li>
+  </ul></div>
+  <div class="card"><h3>Expert review</h3><ul>
+   <li>An automated first check reads CAD drawings for PreDCR layer, outline and naming issues</li>
+   <li>Our architect team reviews every observation before it reaches you</li>
+   <li>Nothing is submitted on your behalf without your agreement</li>
+  </ul></div>
+  <div class="card"><h3>What you receive</h3><ul>
+   <li>Plan readiness: missing inputs, drawing observations, open questions and recommended next actions</li>
+   <li>Application in progress: current position, pending issues and an action plan</li>
+   <li>Feasibility or valuation: purpose, required inputs, the right expert and the proposed report contents</li>
+  </ul></div>
+ </div>
+ <p class="note"><strong>Who decides:</strong> our checks and documents prepare your application. Whether a plan is approved is decided only by the planning authority.</p>
+ <div class="actions"><a class="btn" href="#usd-enquiry">Tell us about your project</a><a class="btn ghost" href="drawing-check.html">Upload a drawing for a first check</a></div>
 </div></section><section><div class="wrap"><h2>Ready to start a project?</h2><p class="lead">Urban Sanction Desk is where you tell us where your project stands. We confirm scope, fees and deliverables before work begins.</p><div class="actions"><a class="btn" href="#urban-sanction-desk">Open Urban Sanction Desk</a></div></div></section></div>
 <div id="panel-usd" hidden><section style="padding-bottom:0"><div class="wrap"><h2>Urban Sanction Desk</h2><p class="lead">Building planning and sanction support, assisted by AI and delivered by our architect team. Tell us where your project stands; we will help identify and deliver the next work required.</p><div class="actions"><a class="btn" href="#usd-enquiry">Tell us about your project</a><a class="btn ghost" href="#usd-how">See how it works</a></div><p class="small">We confirm the scope, fees and deliverables before work begins. Approval decisions remain with the relevant authority.</p></div></section><section id="usd-enquiry" style="padding-bottom:40px">
 <div class="wrap">
@@ -374,21 +424,28 @@
      <label>Name<input type="text" name="name" autocomplete="name"></label>
      <label>Organisation <span class="hint">optional</span><input type="text" name="org" autocomplete="organization"></label>
     </div>
-    <div class="row">
-     <label>Preferred contact<select name="cmethod"><option>Phone</option><option>Email</option></select></label>
-     <label>Phone or email<input type="text" name="contact" autocomplete="email"></label>
-    </div>
+    <fieldset class="cm-choice">
+     <legend>How should we contact you?</legend>
+     <div class="cm-opts">
+      <label><input type="radio" name="cmethod" value="Phone" checked>Phone</label>
+      <label><input type="radio" name="cmethod" value="Email">Email</label>
+     </div>
+    </fieldset>
+    <label data-cm="Phone">Phone number<input type="tel" name="phone" autocomplete="tel" inputmode="tel" aria-describedby="usd-err"></label>
+    <label data-cm="Email" hidden>Email address<input type="email" name="email" autocomplete="email" inputmode="email" aria-describedby="usd-err"></label>
+    <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
     <label>Documents <span class="hint">optional. You can send them later.</span><input type="file" name="files" multiple accept=".pdf,.jpg,.jpeg,.png,.dwg,.dxf"></label>
     <p class="hint">Accepted: PDF, JPG, PNG, DWG, DXF, up to 20 MB each. We use files only to assess your requirement. Please do not upload portal passwords, OTPs or identity documents we have not asked for.</p>
     <div class="err" id="usd-err" role="alert"></div>
     <div><button class="btn" type="submit">Send enquiry</button></div>
+    <p class="form-status" id="usd-status" role="status" aria-live="polite"></p>
+    <p class="privacy-line">We use these details and any files only to assess your requirement. See our <a href="privacy.html">privacy notice</a>.</p>
    </fieldset>
   </div>
  </form>
 
  <div class="formcard" id="usd-done" role="status" tabindex="-1">
   <h2 style="max-width:none">Your project enquiry has been received.</h2>
-  <div class="note warn" id="preview">Preview only. This page is not yet connected to the Sarthi Labs team queue, so this enquiry has not been saved.</div>
   <p>Reference</p><div class="ref" id="ref"></div>
   <dl id="sum"></dl>
   <p id="missing" class="hint"></p>
@@ -408,7 +465,7 @@
 </div></section><section id="faq"><div class="wrap two">
  <div>
   <h2>Practical questions</h2>
-  <p class="lead">Team profiles and sample deliverables will appear here once verified and shared with consent.</p>
+  <p class="lead">The questions we are asked most about building plans, tracing and sanction support.</p>
  </div>
  <div>
   <details><summary>Can you work with my existing architect?</summary><p>Yes. We agree responsibilities and document revisions with you and your architect before work begins.</p></details>
@@ -425,10 +482,10 @@
 
 <footer>
  <div class="wrap cols">
-  <div><a class="logo" href="#top"><i aria-hidden="true"></i>Sarthi Labs</a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
-  <div><h3>Services</h3><ul><li><a href="financial-feasibility.html">Financial feasibility</a></li><li><a href="#architecture">Architectural services</a></li><li><a href="legal-regulatory.html">Legal and regulatory</a></li><li><a href="industrial-engineering.html">Industrial engineering</a></li></ul></div>
-  <div><h3>Tools</h3><ul><li><a href="drawing-check.html">Urban Sanction Desk</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
-  <div><h3>Company</h3><ul><li><a href="#about">About</a></li><li><a href="#contact">Contact</a></li><li>Privacy and Terms: coming soon</li></ul></div>
+  <div><a class="logo" href="index.html"><img src="logo/sarthi-logo.png" width="38" height="36" alt="" style="display:block">Sarthi Labs</a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
+  <div><h3>Solutions</h3><ul><li><a href="#ai">AI Workflow Adoption</a></li><li><a href="financial-feasibility.html">Financial Feasibility</a></li><li><a href="#architecture">Architectural Services</a></li><li><a href="legal-regulatory.html">Legal &amp; Regulatory</a></li><li><a href="industrial-engineering.html">Industrial Engineering</a></li></ul></div>
+  <div><h3>Architecture</h3><ul><li><a href="#urban-sanction-desk">Urban Sanction Desk</a></li><li><a href="drawing-check.html">Upload a drawing</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
+  <div><h3>Company</h3><ul><li><a href="#how">How We Work</a></li><li><a href="#about">About</a></li><li><a href="#contact">Discuss Your Requirement</a></li><li><a href="privacy.html">Privacy notice</a></li></ul></div>
  </div>
  <div class="wrap" style="margin-top:28px;font-size:.85rem">© 2026 Sarthi Labs. Content describes services offered; final scope is confirmed per assignment.</div>
 </footer>
@@ -450,35 +507,26 @@
   document.querySelectorAll('[data-need]').forEach(function(a){
     a.addEventListener('click',function(){need.value=a.getAttribute('data-need')});
   });
-  var f=document.getElementById('f'),err=document.getElementById('err');
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var d=new FormData(f),miss=[];
-    if(!d.get('name').trim())miss.push('your name');
-    if(!d.get('contact').trim())miss.push('a phone number or email');
-    if(!d.get('req').trim())miss.push('a short description of your requirement');
-    if(miss.length){err.textContent='Please add '+miss.join(', ')+'. Everything you entered is kept.';return}
-    err.textContent='';
-    function shown(){
-      document.getElementById('who').textContent=d.get('name').trim();
+  var f=document.getElementById('f');
+  SarthiEnquiry.wire({
+    form:f, errEl:document.getElementById('err'), statusEl:document.getElementById('f-status'),
+    required:[['name','your name'],['req','a short description of your requirement']],
+    build:function(c,meta){
+      return Object.assign({form:'contact',name:f.elements.name.value.trim(),contact_method:c.method,contact:c.value,
+        need:f.elements.need.value,org:f.elements.org.value.trim(),req:f.elements.req.value.trim()},meta);
+    },
+    onSaved:function(j){
+      document.getElementById('who').textContent=f.elements.name.value.trim();
+      document.getElementById('f-ref').textContent=j.reference;
       f.style.display='none';
       var done=document.getElementById('done');done.style.display='flex';done.focus();
     }
-    var api=window.SARTHI_ENGINE_ENDPOINT;
-    if(typeof api!=='string'){shown();return}
-    var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending…';
-    var body={form:'contact',name:d.get('name').trim(),contact:d.get('contact').trim(),need:d.get('need'),org:(d.get('org')||'').trim(),req:d.get('req').trim()};
-    fetch(api+'/v1/enquiries',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
-     .then(function(r){if(!r.ok)throw 0;shown()})
-     .catch(function(){btn.disabled=false;btn.textContent='Send enquiry';err.textContent='We could not send your enquiry. Everything you entered is kept. Please try again.'});
   });
 })();
 </script>
 <script>
 (function(){
-  /* Set to your enquiry API URL when ready. While empty, the page shows a preview confirmation and saves nothing. */
-  var ENDPOINT=typeof window.SARTHI_ENGINE_ENDPOINT==='string'?window.SARTHI_ENGINE_ENDPOINT+'/v1/enquiries':"";
-  var f=document.getElementById('usd-f'),detail=document.getElementById('detail'),err=document.getElementById('usd-err');
+  var f=document.getElementById('usd-f'),detail=document.getElementById('detail');
   var sets=detail.querySelectorAll('fieldset[data-for]');
   function sel(){var r=f.querySelector('input[name=svc]:checked');return r?r.value:""}
   f.addEventListener('change',function(e){
@@ -490,34 +538,33 @@
     if(window.matchMedia('(max-width:900px)').matches)detail.scrollIntoView({behavior:'smooth',block:'start'});
   });
   function val(n){var el=f.elements[n];return el&&el.value?el.value.trim():""}
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    if(!sel()){document.getElementById('e-svc').textContent='Please choose the option that fits your situation best.';return}
-    var miss=[];
-    if(!val('name'))miss.push('your name');
-    if(!val('contact'))miss.push('a phone number or email');
-    if(!val('req'))miss.push('a short description of your requirement');
-    if(miss.length){err.textContent='Please add '+miss.join(', ')+'. Everything you entered is kept.';return}
-    err.textContent='';
-    var data={service:sel(),role:val('role'),use:val('use'),place:[val('place'),val('taluka'),val('district')].filter(Boolean).join(', '),authority:val('auth'),requirement:val('req'),name:val('name'),org:val('org'),contactMethod:val('cmethod'),contact:val('contact')};
-    var btn=f.querySelector('button[type=submit]');btn.disabled=true;btn.textContent='Sending…';
-    function fail(){btn.disabled=false;btn.textContent='Send enquiry';err.textContent='We could not save your enquiry. Your information is still here. Please try again.'}
-    function ok(ref,saved){show(data,ref,saved)}
-    if(!ENDPOINT){ok('USD-PREVIEW',false);return}
-    var fd=new FormData();fd.append('data',JSON.stringify(Object.assign({form:'urban-sanction-desk'},data)));
-    Array.prototype.forEach.call(f.files.files,function(x){fd.append('files',x)});
-    fetch(ENDPOINT,{method:'POST',body:fd})
-     .then(function(r){if(!r.ok)throw 0;return r.json()})
-     .then(function(j){ok(j.reference,true)}).catch(fail);
+  var data=null;
+  SarthiEnquiry.wire({
+    form:f, errEl:document.getElementById('usd-err'), statusEl:document.getElementById('usd-status'),
+    precheck:function(){
+      if(sel())return true;
+      document.getElementById('e-svc').textContent='Please choose the option that fits your situation best.';
+      var first=f.querySelector('input[name=svc]');if(first)first.focus();
+      return false;
+    },
+    required:[['req','a short description of your requirement'],['name','your name']],
+    build:function(c,meta){
+      data=Object.assign({form:'urban-sanction-desk',service:sel(),role:val('role'),use:val('use'),
+        place:[val('place'),val('taluka'),val('district')].filter(Boolean).join(', '),authority:val('auth'),
+        requirement:val('req'),name:val('name'),org:val('org'),contact_method:c.method,contact:c.value},meta);
+      var fd=new FormData();fd.append('data',JSON.stringify(data));
+      Array.prototype.forEach.call(f.elements.files.files,function(x){fd.append('files',x)});
+      return fd;
+    },
+    onSaved:function(j){show(data,j.reference)}
   });
-  function show(d,ref,saved){
+  function show(d,ref){
     var done=document.getElementById('usd-done');
-    document.getElementById('preview').style.display=saved?'none':'block';
     document.getElementById('ref').textContent=ref;
-    var rows=[['Requested service',d.service],['Name',d.name],['Contact',d.contact+' ('+d.contactMethod+')'],['Location',d.place||'Not provided'],['Authority',d.authority],['Building use',d.use],['Requirement',d.requirement]];
+    var rows=[['Requested service',d.service],['Name',d.name],['Contact',d.contact+' ('+d.contact_method+')'],['Location',d.place||'Not provided'],['Authority',d.authority],['Building use',d.use],['Requirement',d.requirement]];
     var dl=document.getElementById('sum');dl.innerHTML='';
     rows.forEach(function(r){var a=document.createElement('dt'),b=document.createElement('dd');a.textContent=r[0];b.textContent=r[1];dl.append(a,b)});
-    var m=[];if(!d.place)m.push('your project location');if(!f.files.files.length)m.push('any plans or documents you have');
+    var m=[];if(!d.place)m.push('your project location');if(!f.elements.files.files.length)m.push('any plans or documents you have');
     document.getElementById('missing').textContent=m.length?'You can add these later: '+m.join(', ')+'.':'';
     f.style.display='none';done.style.display='grid';done.focus();done.scrollIntoView({block:'start'});
   }
@@ -582,7 +629,7 @@
     general: {
       steps: [
         {title: "Receive and read incoming documents", tag: "Manual today", cls: "manual", label: "Step 1 · Document Intake", metric: "Multi-format files", desc: "Incoming client files, emails, and project requirements are logged into a single tracked workspace."},
-        {title: "Summarise and flag missing items", tag: "AI drafts", cls: "ai", label: "Step 2 · AI Preparation", metric: "~70% faster triage", desc: "AI extracts key fields, summarises long annexures, and flags missing documents before human review."},
+        {title: "Summarise and flag missing items", tag: "AI drafts", cls: "ai", label: "Step 2 · AI Preparation", metric: "Gaps flagged for review", desc: "AI extracts key fields, summarises long annexures, and flags missing documents before human review."},
         {title: "Check against your rules", tag: "Expert reviews", cls: "rev", label: "Step 3 · Specialist Verification", metric: "Named reviewer", desc: "A qualified professional checks every substantive finding against applicable rules and signs off."},
         {title: "Send to customer", tag: "Your team", cls: "manual", label: "Step 4 · Approved Handover", metric: "Version-locked", desc: "Your team releases the verified report or submission package with clear audit traceability."}
       ]
@@ -592,7 +639,7 @@
         {title: "Receive survey, PDF plan or CAD files", tag: "Project intake", cls: "manual", label: "Step 1 · Drawing & Plot Intake", metric: "PDF / DWG / Survey", desc: "Plot dimensions, survey sheets, and existing drawings are collected for Urban Sanction Desk review."},
         {title: "Trace layers and check UDCPR / MIDC clauses", tag: "AI assists", cls: "ai", label: "Step 2 · AI Rule Pre-Check", metric: "Clause-mapped", desc: "AI assists with CAD layer organisation, locates relevant DCPR/UDCPR provisions, and flags missing FSI or setback inputs."},
         {title: "Architect verifies drawings and compliance", tag: "Architect signs", cls: "rev", label: "Step 3 · Registered Architect Review", metric: "Expert-approved", desc: "Our architect team verifies every drawing observation, rule interpretation, and sanction readiness item."},
-        {title: "Deliver submission-ready CAD and action plan", tag: "Your project", cls: "manual", label: "Step 4 · Sanction Submission Pack", metric: "Ready for authority", desc: "You receive checked drawings, objection responses, and next-step guidance for the planning authority."}
+        {title: "Deliver submission-ready CAD and action plan", tag: "Your project", cls: "manual", label: "Step 4 · Sanction Submission Pack", metric: "Prepared for submission", desc: "You receive checked drawings, objection responses, and next-step guidance for the planning authority."}
       ]
     },
     fin: {
@@ -606,7 +653,7 @@
     legal: {
       steps: [
         {title: "Receive contracts, notices and title records", tag: "Case intake", cls: "manual", label: "Step 1 · Legal Document Intake", metric: "Deeds & notices", desc: "Agreements, regulatory correspondence, and property or compliance records are indexed chronologically."},
-        {title: "Extract timeline, clauses and missing annexures", tag: "AI drafts", cls: "ai", label: "Step 2 · AI Chronology & Clause Scan", metric: "Rapid indexing", desc: "AI builds a dated event chronology, surfaces non-standard clauses, and lists missing supporting schedules."},
+        {title: "Extract timeline, clauses and missing annexures", tag: "AI drafts", cls: "ai", label: "Step 2 · AI Chronology & Clause Scan", metric: "Dated chronology", desc: "AI builds a dated event chronology, surfaces non-standard clauses, and lists missing supporting schedules."},
         {title: "Lawyer reviews legal position and regulatory risk", tag: "Lawyer leads", cls: "rev", label: "Step 3 · Counsel Verification", metric: "Authorised opinion", desc: "An experienced lawyer evaluates complex legal questions, verifies statutory references, and finalises advice."},
         {title: "Issue reviewed legal note or response draft", tag: "Your team", cls: "manual", label: "Step 4 · Verified Legal Deliverable", metric: "Version-controlled", desc: "You receive a clear, lawyer-approved legal review or regulatory response ready for execution."}
       ]
@@ -614,7 +661,7 @@
     ind: {
       steps: [
         {title: "Gather plant specs, layout and machinery list", tag: "Site intake", cls: "manual", label: "Step 1 · Engineering Spec Intake", metric: "Plant & BOM data", desc: "Equipment specifications, erection schedules, and maintenance or valuation records are compiled."},
-        {title: "Cross-check asset checklists and schedule dependencies", tag: "AI assists", cls: "ai", label: "Step 2 · AI Spec & Checklist Mapping", metric: "Zero missed items", desc: "AI structures asset registers, maps erection milestones, and flags missing calibration or vendor certificates."},
+        {title: "Cross-check asset checklists and schedule dependencies", tag: "AI assists", cls: "ai", label: "Step 2 · AI Spec & Checklist Mapping", metric: "Checklist mapped", desc: "AI structures asset registers, maps erection milestones, and flags missing calibration or vendor certificates."},
         {title: "Engineering specialist validates technical & valuation findings", tag: "Specialist leads", cls: "rev", label: "Step 3 · Specialist Technical Review", metric: "Field-verified", desc: "Mechanical and industrial engineering specialists verify erection plans, maintenance coordination, or asset valuation."},
         {title: "Deliver coordinated engineering & valuation package", tag: "Your operations", cls: "manual", label: "Step 4 · Operational Handover", metric: "Execution-ready", desc: "Your team receives signed technical documentation and practical execution checklists."}
       ]
@@ -682,6 +729,7 @@
       pillEls.forEach(function(p){ p.setAttribute('aria-pressed', p === btn ? 'true' : 'false'); });
       curStep = 0;
       prog = 0;
+      setPaused(true);
       renderScenario();
     });
   });
@@ -690,6 +738,7 @@
     el.addEventListener('click', function(){
       curStep = idx;
       prog = 0;
+      setPaused(true);
       renderActiveStep();
     });
     el.addEventListener('keydown', function(e){
@@ -697,10 +746,28 @@
         e.preventDefault();
         curStep = idx;
         prog = 0;
+        setPaused(true);
         renderActiveStep();
       }
     });
   });
+
+  // Pause/Play: starts paused for visitors who prefer reduced motion. While
+  // playing, the step text is not announced on every tick.
+  var toggleEl = document.getElementById('flow-toggle');
+  var liveEl = document.getElementById('flow-live');
+  var PAUSE_ICON = 'M7 5h4v14H7zM13 5h4v14h-4z', PLAY_ICON = 'M8 5v14l11-7z';
+  function setPaused(p){
+    paused = p;
+    if(toggleEl){
+      toggleEl.querySelector('.flow-ctrl-label').textContent = paused ? 'Play' : 'Pause';
+      toggleEl.setAttribute('aria-label', paused ? 'Play the workflow example' : 'Pause the workflow example');
+      toggleEl.querySelector('path').setAttribute('d', paused ? PLAY_ICON : PAUSE_ICON);
+    }
+    if(liveEl) liveEl.setAttribute('aria-live', paused ? 'polite' : 'off');
+  }
+  if(toggleEl) toggleEl.addEventListener('click', function(){ setPaused(!paused); });
+  setPaused(paused);
 
   var playerEl = document.getElementById('workflow-player');
   var hoverPaused = false;

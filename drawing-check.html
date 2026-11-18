@@ -10,12 +10,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap">
 <script src="config.js"></script>
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="nav.css">
+<script src="nav.js" defer></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
 <style>
   /* Match the main site (site.css): palette, fonts and the dark header. */
   :root{
-    --color-primary:#6D28D9; --color-primary-hover:#7C3AED; --color-focus:#7C3AED;
-    --color-background:#F8F7FC; --color-recessed:#F3F0FA;
+    --color-primary:#6D28D9; --color-primary-hover:#5B21B6; --color-focus:#6D28D9;
+    --color-background:#F5F0E5; --color-recessed:#FBF8F1;
     --color-surface-accent:color-mix(in srgb,#BDA8FF 22%,#F8F7FC);
     --color-border:#E6E1EF; --color-border-strong:#D3C8EA;
     --color-text-primary:#252536; --color-text-body:#3A3A4D; --color-text-secondary:#555566;
@@ -222,20 +224,23 @@
   h1, h2, h3 { font-family: var(--font-head); letter-spacing: -0.02em; }
   main { padding-top: 0; }
   .intro { max-width: none; margin: 0 calc(50% - 50vw) 8px; padding: 64px max(24px, calc(50vw - 596px)) 56px;
-           background: #171923; color: #F8F7FC; border-bottom: 1px solid #2a2c3a; gap: 16px; }
+           background: #F5F0E5; color: #252536; border-bottom: 1px solid #E2D7C2; gap: 16px; }
   .intro > * { max-width: 760px; }
   .intro .eyebrow > span:first-child { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 99px;
            font: 700 0.76rem/1.2 var(--font-head); letter-spacing: .08em; text-transform: uppercase;
-           color: #BDA8FF; background: color-mix(in srgb, #7C3AED 20%, #171923); border: 1px solid color-mix(in srgb, #BDA8FF 38%, #171923); }
-  .intro h1 { color: #fff; font-weight: 800; font-size: clamp(2.25rem, 5.5vw, 3.5rem); line-height: 1.1; }
+           color: #6D28D9; background: #FFFFFF; border: 1px solid #E2D7C2; }
+  .intro .eyebrow { flex-wrap: wrap; }
+  .intro .eyebrow .lang { margin-left: auto; }
+  .intro .crumb { margin: 0; font-size: .9rem; color: #555566; }
+  .intro .crumb a { color: #6D28D9; text-decoration: none; font-weight: 600; }
+  .intro .position { margin: 0; max-width: 64ch; color: #3A3A4D; font-size: 1rem; }
+  .intro h1 { color: #252536; font-weight: 800; font-size: clamp(2.25rem, 5.5vw, 3.5rem); line-height: 1.1; }
   .intro .rule { display: none; }
-  .intro .lede { color: #F8F7FC; font-size: 1.12rem; line-height: 1.6; }
-  .intro .note { background: color-mix(in srgb, #fff 6%, #171923); border-color: #34364a; color: #dcd6ee; }
-  .intro .note svg { color: #BDA8FF; }
-  .intro .fine { color: #b9b3cc; }
-  .intro .fine a { color: #BDA8FF; }
-  .chip-status { background: color-mix(in srgb, #F5B83D 18%, #171923); color: #F5CF7A; }
-  .chip-status.live { background: color-mix(in srgb, #2FBF8F 18%, #171923); color: #7BE0BC; }
+  .intro .lede { color: #3A3A4D; font-size: 1.12rem; line-height: 1.6; }
+  .intro .note { background: #FFFFFF; border-color: #E2D7C2; color: #3A3A4D; }
+  .intro .note svg { color: #6D28D9; }
+  .intro .fine { color: #555566; }
+  .intro .fine a { color: #6D28D9; }
   .btn { border-radius: 10px; min-height: 46px; padding: 0 22px; font: 600 0.95rem/1.2 var(--font-body); border-width: 2px; }
   .btn-outline { border-color: var(--color-primary); color: var(--color-primary); background: transparent; }
   .btn-outline:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
@@ -252,7 +257,7 @@
   .site-foot { background: #171923; border-top: 1px solid #2a2c3a; padding: 52px 24px 36px; font-size: .93rem; color: #d9d3ea; }
   .site-foot .cols { max-width: 1192px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
   .site-foot .brand { color: #fff; }
-  .site-foot .brand img { filter: brightness(1.45) saturate(1.1); }
+  .site-foot .brand img { width: 38px; height: auto; }
   .site-foot .brand span { font: 800 1.28rem/1 var(--font-head); }
   .site-foot h3 { color: #fff; font-size: 1rem; margin: 0 0 10px; }
   .site-foot ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
@@ -265,28 +270,40 @@
 </head>
 <body>
 
-<header class="hdr">
-  <a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a>
-  <nav aria-label="Main">
-    <a href="index.html#ai" data-i18n="navAi">AI for Your Business</a>
-    <a href="index.html#services" data-i18n="navServices">Services</a>
-    <a href="index.html#how" data-i18n="navHow">How We Work</a>
-    <a href="index.html#about" data-i18n="navAbout">About</a>
-    <a href="index.html#contact" data-i18n="navContact">Contact</a>
-    <a href="drawing-check.html" aria-current="page" data-i18n="navCheck">Urban Sanction Desk</a>
-    <a class="nav-cta" href="index.html#contact" data-i18n="navCta">Discuss Your Requirement</a>
+<header class="site-header">
+ <div class="sh-in">
+  <a class="sh-logo" href="index.html"><img src="logo/sarthi-logo.png" width="42" height="40" alt="Sarthi Labs home"><span aria-hidden="true">Sarthi Labs</span></a>
+  <button type="button" class="sh-menu-btn" aria-expanded="false" aria-controls="sh-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span class="sh-menu-label">Menu</span></button>
+  <nav id="sh-nav" aria-label="Primary">
+   <ul class="sh-list">
+    <li class="sh-dd">
+     <button type="button" class="sh-dd-btn" aria-expanded="false" aria-controls="sh-solutions">Solutions<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+     <ul class="sh-dd-menu" id="sh-solutions" hidden>
+      <li><a href="index.html#ai">AI Workflow Adoption</a></li>
+      <li><a href="financial-feasibility.html">Financial Feasibility</a></li>
+      <li><a href="index.html#architecture">Architectural Services</a></li>
+      <li><a href="legal-regulatory.html">Legal &amp; Regulatory</a></li>
+      <li><a href="industrial-engineering.html">Industrial Engineering</a></li>
+     </ul>
+    </li>
+    <li><a class="sh-link" href="index.html#how">How We Work</a></li>
+    <li><a class="sh-link" href="index.html#about">About</a></li>
+    <li><a class="sh-cta" href="index.html#contact">Discuss Your Requirement</a></li>
+   </ul>
   </nav>
-  <div class="lang" role="group" aria-label="Language">
-    <button type="button" data-lang="en" aria-pressed="true">EN</button>
-    <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
-  </div>
+ </div>
 </header>
 
 <main>
   <section class="intro" id="intro">
+    <p class="crumb"><a href="index.html#architecture" data-i18n="crumbArch">Architectural Services</a> / <span data-i18n="title">Urban Sanction Desk</span></p>
     <div class="eyebrow">
       <span data-i18n="eyebrow">Assistant · Drawing review</span>
       <span class="chip-status" id="engineChip" data-i18n="engineChecking">Checking engine…</span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="mr" aria-pressed="false">मराठी</button>
+      </div>
     </div>
     <h1 data-i18n="title">Urban Sanction Desk</h1>
     <div class="rule" aria-hidden="true"></div>
@@ -295,7 +312,8 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
       <span data-i18n="note">This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.</span>
     </div>
-    <p class="fine" data-i18n="privacy">Uploaded drawings are used only for this check and deleted automatically after 30 days. Upload only drawings you are allowed to share.</p>
+    <p class="position" data-i18n="position">This is the automated first step of our architecture team’s Urban Sanction Desk workflow. Our architects review the results before any drawing or document is prepared for you.</p>
+    <p class="fine"><span data-i18n="privacy">Uploaded drawings are used only for this check and deleted automatically after 30 days. Upload only drawings you are allowed to share.</span> <a href="privacy.html" data-i18n="privacyLink">Privacy notice</a></p>
   </section>
 
   <div class="upload-wrap" id="uploadWrap">
@@ -387,10 +405,10 @@
 </main>
 <footer class="site-foot">
  <div class="cols">
-  <div><a class="brand" href="index.html"><img src="logo/knot-plum.png" alt=""><span>Sarthi Labs</span></a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
-  <div><h3>Services</h3><ul><li><a href="financial-feasibility.html">Financial feasibility</a></li><li><a href="index.html#architecture">Architectural services</a></li><li><a href="legal-regulatory.html">Legal and regulatory</a></li><li><a href="industrial-engineering.html">Industrial engineering</a></li></ul></div>
-  <div><h3>Tools</h3><ul><li><a href="drawing-check.html">Urban Sanction Desk</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
-  <div><h3>Company</h3><ul><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Contact</a></li><li>Privacy and Terms: coming soon</li></ul></div>
+  <div><a class="brand" href="index.html"><img src="logo/sarthi-logo.png" width="38" height="36" alt="" style="display:block">Sarthi Labs</a><p style="margin-top:10px;max-width:42ch">Two complementary entry points: practical AI adoption for manual business workflows, and coordinated professional services for complex projects.</p></div>
+  <div><h3>Solutions</h3><ul><li><a href="index.html#ai">AI Workflow Adoption</a></li><li><a href="financial-feasibility.html">Financial Feasibility</a></li><li><a href="index.html#architecture">Architectural Services</a></li><li><a href="legal-regulatory.html">Legal &amp; Regulatory</a></li><li><a href="industrial-engineering.html">Industrial Engineering</a></li></ul></div>
+  <div><h3>Architecture</h3><ul><li><a href="index.html#urban-sanction-desk">Urban Sanction Desk</a></li><li><a href="drawing-check.html">Upload a drawing</a></li><li><a href="udcpr-assistant.html">UDCPR Assistant</a></li></ul></div>
+  <div><h3>Company</h3><ul><li><a href="index.html#how">How We Work</a></li><li><a href="index.html#about">About</a></li><li><a href="index.html#contact">Discuss Your Requirement</a></li><li><a href="privacy.html">Privacy notice</a></li></ul></div>
  </div>
  <div class="copy">© 2026 Sarthi Labs. Content describes services offered; final scope is confirmed per assignment.</div>
 </footer>
@@ -411,7 +429,8 @@ const api = p => ENGINE_ENDPOINT.replace(/\/$/, '') + p;
 const T = {
   en: {
     navAi:'AI for Your Business', navServices:'Services', navHow:'How We Work', navAbout:'About', navContact:'Contact', navCta:'Discuss Your Requirement', navHome:'Home', navDesk:'Urban Sanction Desk', navCheck:'Urban Sanction Desk', navLearn:'Learn',
-    eyebrow:'Assistant · Drawing review', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
+    eyebrow:'Architectural Services · first check', crumbArch:'Architectural Services', privacyLink:'Privacy notice',
+    position:'This is the automated first step of our architecture team’s Urban Sanction Desk workflow. Our architects review the results before any drawing or document is prepared for you.', engineChecking:'Checking engine…', engineLive:'Live', engineOff:'Engine offline',
     title:'Urban Sanction Desk',
     lede:'Upload your building-permission drawing. Sarthi reads it, measures the plot and checks it against the PreDCR drawing rules, so AutoDCR can read it the first time.',
     note:'This checks how the drawing is drawn (layers, closed outlines, names, units) and measures it. It does not apply UDCPR rules or decide approval. Your planning authority decides each case.',
@@ -453,7 +472,8 @@ const T = {
   },
   mr: {
     navAi:'व्यवसायासाठी AI', navServices:'सेवा', navHow:'आमची कार्यपद्धती', navAbout:'आमच्याबद्दल', navContact:'संपर्क', navCta:'तुमची गरज सांगा', navHome:'मुख्यपृष्ठ', navDesk:'Urban Sanction Desk', navCheck:'Urban Sanction Desk', navLearn:'माहिती',
-    eyebrow:'Assistant · नकाशा तपासणी', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
+    eyebrow:'Architectural Services · प्राथमिक तपासणी', crumbArch:'Architectural Services', privacyLink:'गोपनीयता सूचना',
+    position:'ही आमच्या architecture team च्या Urban Sanction Desk कार्यपद्धतीची पहिली, स्वयंचलित पायरी आहे. तुमच्यासाठी कोणताही नकाशा किंवा कागदपत्र तयार करण्यापूर्वी आमचे architects हे निकाल तपासतात.', engineChecking:'Engine तपासत आहे…', engineLive:'चालू', engineOff:'Engine बंद',
     title:'Urban Sanction Desk',
     lede:'तुमचा बांधकाम परवानगीचा नकाशा अपलोड करा. Sarthi तो वाचतो, plot मोजतो आणि PreDCR नियमांनुसार तपासतो, जेणेकरून AutoDCR तो पहिल्याच वेळी वाचू शकेल.',
     note:'हे नकाशा कसा काढला आहे ते तपासते (layers, बंद रेषा, नावे, units) आणि मोजमाप करते. UDCPR नियम लावत नाही किंवा मंजुरी ठरवत नाही. प्रत्येक प्रकरणाचा निर्णय नियोजन प्राधिकरण घेते.',
